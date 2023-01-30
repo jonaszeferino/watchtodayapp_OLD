@@ -25,6 +25,10 @@ export default function Home() {
       <Link href="/searchtvshows">
         <a>Busca de Séries</a>
       </Link>
+      <br />
+      <Link href="/searchfree">
+        <a>Busca Livre</a>
+      </Link>
     </div>
   );
 }

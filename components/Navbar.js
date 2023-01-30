@@ -30,6 +30,16 @@ export default function navbar() {
           <a>Busca de Séries</a>
         </Link>
       </li>
+      <li>
+        <Link href="/searchmoviesbycountry">
+          <a>Filmes Por Língua</a>
+        </Link>
+      </li>
+      <li>
+        <Link href="/searchfree">
+          <a>Busca Livre</a>
+        </Link>
+      </li>
     </ul>
   );
 }
