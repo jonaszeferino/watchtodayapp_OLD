@@ -145,6 +145,12 @@ export default function Discovery() {
                       ? "Roteiro"
                       : search.known_for_department === "Acting"
                       ? "Atuação"
+                      : search.known_for_department === "Editing"
+                      ? "Edição"
+                      : search.known_for_department === "Sound"
+                      ? "Som"
+                      : search.known_for_department === "Costume & Make-Up"
+                      ? "Maquiagem e Figurino"
                       : search.known_for_department === "Camera"
                       ? "Fotografia"
                       : search.known_for_department === "Art"
@@ -214,8 +220,8 @@ export default function Discovery() {
             Próxima
           </button>
           <br />
-          <span>Total Paginas: {totalPages}</span>{" "}
-          <span>Pagina Atual: {currentPage}</span>{" "}
+          <span>Total Páginas: {totalPages}</span>{" "}
+          <span>Página Atual: {currentPage}</span>{" "}
           <span>Total Resultados: {totalResults}</span>{" "}
         </span>
       </div>
