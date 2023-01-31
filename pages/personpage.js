@@ -9,10 +9,24 @@ export default function Personapi() {
   const [personArea, setPersonArea] = useState("");
   const [personImage, setPersonImage] = useState("");
   const [personReview, setPersonReview] = useState("");
+  const [personImdb, setPersonImdb] = useState("");
 
   const [isError, setError] = useState(false);
 
   let personImageLet = `https://image.tmdb.org/t/p/original${personImage}`;
+
+  const translations = {
+    Acting: "Atuação",
+    Directing: "Direção",
+    Writing: "Escrita",
+    Production: "Produção",
+    Writing: "Roteiro",
+    Camera: "Fotografia",
+    Art: "Arte",
+    Editing: "Edição",
+    Sound: "Música",
+    [`Costume & Make-Up`]: "Maquiagem e Figurino",
+  };
 
   const apiCall = () => {
     const url = `https://api.themoviedb.org/3/person/${personId}?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`;
@@ -30,6 +44,7 @@ export default function Personapi() {
         (result) => (
           setPersonName(result.name),
           setPersonId(result.id),
+          setPersonImdb(result.imdb_id),
           setPersonArea(result.known_for_department),
           setPersonImage(result.profile_path),
           setPersonReview(result.biography)
@@ -91,19 +106,21 @@ export default function Personapi() {
                 <td className={styles.td}>{personName}</td>
               </tr>
               <tr className={styles.tr}>
-                <td className={styles.td}>ID</td>
+                <td className={styles.td}>IMDb ID</td>
                 <td className={styles.td} />
-                <td className={styles.td}>{personId}</td>
-              </tr>
-              <tr className={styles.tr}>
-                <td className={styles.td}>Area</td>
-                <td className={styles.td} />
-                <td className={styles.td}>{personArea}</td>
+                <td className={styles.td}>{personImdb}</td>
               </tr>
               <tr className={styles.tr}>
                 <td className={styles.td}>Biografia</td>
                 <td className={styles.td} />
                 <td className={styles.td}>{personReview}</td>
+              </tr>
+              <tr className={styles.tr}>
+                <td className={styles.td}>Area</td>
+                <td className={styles.td} />
+                <td className={styles.td}>
+                  {translations[personArea] || personArea}
+                </td>
               </tr>
             </tbody>
           </table>
