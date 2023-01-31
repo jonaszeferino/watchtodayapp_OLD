@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Personapi() {
   const [personName, setPersonName] = useState("");
-  const [personId, setPersonId] = useState("");
+  const [personId, setPersonId] = useState(138);
   const [personArea, setPersonArea] = useState("");
   const [personImage, setPersonImage] = useState("");
   const [personReview, setPersonReview] = useState("");
@@ -16,25 +16,6 @@ export default function Personapi() {
 
   const apiCall = () => {
     const url = `https://api.themoviedb.org/3/person/${personId}?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`;
-
-    let personAreaValue;
-    if (personArea === "Directing") {
-      personAreaValue = "Direção";
-    } else if (personArea === "Production") {
-      personAreaValue = "Produção";
-    } else if (personArea === "Writing") {
-      personAreaValue = "Roteiro";
-    } else if (personArea === "Acting") {
-      personAreaValue = "Atuação";
-    } else if (personArea === "Camera") {
-      personAreaValue = "Fotografia";
-    } else if (personArea === "Art") {
-      personAreaValue = "Cenografia";
-    } else {
-      personAreaValue = "N/A";
-    }
-
-    setPersonArea(personAreaValue);
 
     fetch(url, {})
       .then((response) => {
