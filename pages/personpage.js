@@ -4,31 +4,35 @@ import ErrorPage from "./error-page";
 import Image from "next/image";
 
 export default function Personapi() {
-  const [personName, setPersonName] = useState("");
-  const [personId, setPersonId] = useState(138);
-  const [personArea, setPersonArea] = useState("");
-  const [personImage, setPersonImage] = useState("");
-  const [personReview, setPersonReview] = useState("");
-  const [personImdb, setPersonImdb] = useState("");
+  const [personName, setPersonName] = useState();
+  const [personId, setPersonId] = useState();
+  const [personArea, setPersonArea] = useState();
+  const [personImage, setPersonImage] = useState("/callbackImage.png");
+  const [personReview, setPersonReview] = useState();
+  const [personImdb, setPersonImdb] = useState();
 
   const [isError, setError] = useState(false);
 
-  let personImageLet = `https://image.tmdb.org/t/p/original${personImage}`;
+  const personImageLet = personImage
+    ? `https://image.tmdb.org/t/p/original${personImage}`
+    : "/callbackImage.png";
 
   const translations = {
     Acting: "Atuação",
     Directing: "Direção",
-    Writing: "Escrita",
-    Production: "Produção",
     Writing: "Roteiro",
+    Production: "Produção",
     Camera: "Fotografia",
     Art: "Arte",
     Editing: "Edição",
     Sound: "Música",
-    [`Costume & Make-Up`]: "Maquiagem e Figurino",
   };
 
   const apiCall = () => {
+    if (!personId) {
+      return;
+    }
+
     const url = `https://api.themoviedb.org/3/person/${personId}?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`;
 
     fetch(url, {})
@@ -37,6 +41,7 @@ export default function Personapi() {
           setError(false);
           return response.json();
         } else {
+          setError(true);
           throw console.log("Erro 1");
         }
       })
@@ -69,36 +74,24 @@ export default function Personapi() {
       <button onClick={apiCall}>Verificar</button>
 
       {isError === true ? (
-        <ErrorPage message={``} />
+        <ErrorPage message={"Erro ao carregar a página"} />
       ) : (
         <div>
-          <h3 className={styles.title}>{personName}</h3>
+          <h3 className={styles.title}>
+            {personName && (
+              <div>
+                <h3 className={styles.title}>{personName}</h3>
+                ...
+              </div>
+            )}
+          </h3>
+          <Image
+            src={personImageLet}
+            alt="poster"
+            width="240"
+            height="360"
+          />{" "}
           <table className={styles.table}>
-            <span>
-              {personImage != null ? (
-                <span>
-                  {" "}
-                  <Image
-                    src={personImageLet}
-                    alt="poster"
-                    width="240"
-                    height="360"
-                  />{" "}
-                </span>
-              ) : (
-                <span>
-                  {" "}
-                  <Image
-                    src="/callback.png"
-                    alt="poster"
-                    width="240"
-                    height="360"
-                  />{" "}
-                </span>
-              )}
-              <br />
-            </span>
-
             <tbody>
               <tr className={styles.tr}>
                 <td className={styles.td}>Nome</td>
