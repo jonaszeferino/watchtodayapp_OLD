@@ -135,7 +135,22 @@ export default function Discovery() {
                 </span>{" "}
                 <br />
                 {search.media_type === "person" ? (
-                  <span>Profissão: {search.known_for_department}</span>
+                  <span>
+                    Area:{" "}
+                    {search.known_for_department === "Directing"
+                      ? "Direção"
+                      : search.known_for_department === "Production"
+                      ? "Produção"
+                      : search.known_for_department === "Writing"
+                      ? "Roteiro"
+                      : search.known_for_department === "Acting"
+                      ? "Atuação"
+                      : search.known_for_department === "Camera"
+                      ? "Fotografia"
+                      : search.known_for_department === "Art"
+                      ? "Cenografia"
+                      : "N/A"}
+                  </span>
                 ) : (
                   <span>Nota: {search.vote_average}</span>
                 )}
