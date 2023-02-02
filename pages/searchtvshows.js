@@ -94,14 +94,14 @@ export default function Discovery() {
             <select
               name="select"
               type="text"
-              className={styles.card}
+              className={styles.button}
               value={searchRatingSort}
               onChange={(event) => setSearchRatingSort(event.target.value)}
             >
-              <option className={styles.card} value="vote_average.asc">
+              <option className={styles.button} value="vote_average.asc">
                 Da Pior Nota Para Melhor
               </option>
-              <option className={styles.card} value="vote_average.desc">
+              <option className={styles.button} value="vote_average.desc">
                 Da Melhor Nota Para Pior
               </option>
             </select>
@@ -112,30 +112,30 @@ export default function Discovery() {
             <select
               name="select"
               type="number"
-              className={styles.card}
+              className={styles.button}
               value={searchVoteCount}
               onChange={(event) => setSearchVoteCount(event.target.value)}
             >
               {" "}
-              <option className={styles.card} value="0">
+              <option className={styles.button} value="0">
                 Mais de 0 votos
               </option>
-              <option className={styles.card} value="50">
+              <option className={styles.button} value="50">
                 Mais de 50 votos
               </option>
-              <option className={styles.card} value="100">
+              <option className={styles.button} value="100">
                 Mais de 100 votos
               </option>
-              <option className={styles.card} value="200">
+              <option className={styles.button} value="200">
                 Mais de 200 votos
               </option>
-              <option className={styles.card} value="500">
+              <option className={styles.button} value="500">
                 Mais de 500 votos
               </option>
-              <option className={styles.card} value="1000">
+              <option className={styles.button} value="1000">
                 Mais de 1000 votos
               </option>
-              <option className={styles.card} value="5000">
+              <option className={styles.button} value="5000">
                 Mais de 5000 votos
               </option>
             </select>
@@ -145,33 +145,33 @@ export default function Discovery() {
             <select
               name="select"
               type="text"
-              className={styles.card}
+              className={styles.button}
               value={searchTvType}
               onChange={(event) => setSearchTvType(event.target.value)}
             >
               {" "}
-              <option className={styles.card} value="">
+              <option className={styles.button} value="">
                 Todos Tipos
               </option>
-              <option className={styles.card} value="0">
+              <option className={styles.button} value="0">
                 Documentário
               </option>
-              <option className={styles.card} value="1">
+              <option className={styles.button} value="1">
                 Notícias
               </option>
-              <option className={styles.card} value="2">
+              <option className={styles.button} value="2">
                 Mini Séries
               </option>
-              <option className={styles.card} value="3">
+              <option className={styles.button} value="3">
                 Realities
               </option>
-              <option className={styles.card} value="4">
+              <option className={styles.button} value="4">
                 Roteirizadas
               </option>
-              <option className={styles.card} value="5">
+              <option className={styles.button} value="5">
                 Talk Show
               </option>
-              <option className={styles.card} value="6">
+              <option className={styles.button} value="6">
                 Videos
               </option>
             </select>
@@ -180,7 +180,7 @@ export default function Discovery() {
           <label type="text">
             Ano Inicial:
             <input
-              className={styles.card}
+              className={styles.button}
               type="number"
               min={1800}
               max={2022}
@@ -193,7 +193,7 @@ export default function Discovery() {
           <label type="text">
             Ano Final:
             <input
-              className={styles.card}
+              className={styles.button}
               type="number"
               min={1800}
               max={2023}
@@ -204,24 +204,11 @@ export default function Discovery() {
             ></input>
           </label>
           <br />
-          <button className={styles.card} onClick={apiCall}>
+          <br />
+          <button className={styles.button} onClick={apiCall}>
             Verificar
           </button>
           <br />
-          <button
-            onClick={previousPage}
-            disabled={page <= 1}
-            className={styles.card}
-          >
-            Anterior
-          </button>
-          <button
-            onClick={nextPage}
-            disabled={page >= totalPages}
-            className={styles.card}
-          >
-            Próxima
-          </button>
           <span>{isLoading ? <div>Carregando...</div> : " "}</span>
         </h2>
 
@@ -231,18 +218,24 @@ export default function Discovery() {
           <div className={styles.grid}>
             {searchMovies.map((search) => (
               <div className={styles.card} key={search.id}>
-                <span>Título: {search.name}</span> <br />
-                <span>Título Original: {search.original_name}</span> <br />
-                <span>
+                <span className={styles.spantext}>Título: {search.name}</span>{" "}
+                <br />
+                <span className={styles.spantext}>
+                  Título Original: {search.original_name}
+                </span>{" "}
+                <br />
+                <span className={styles.spantext}>
                   Média: {search.vote_average} - Nº de Votos:{" "}
                   {search.vote_count}
                 </span>{" "}
+                <br />
                 <br />
                 <span>
                   {search.poster_path != null ? (
                     <span>
                       {" "}
                       <Image
+                        className={styles.card_image}
                         src={
                           "https://image.tmdb.org/t/p/original" +
                           search.poster_path
@@ -256,6 +249,7 @@ export default function Discovery() {
                     <span>
                       {" "}
                       <Image
+                        className={styles.card_image}
                         src="/callback.png"
                         alt="poster"
                         width="240"
@@ -265,8 +259,8 @@ export default function Discovery() {
                   )}
                   <br />
                 </span>
-                <span></span> <br />
-                <span>
+                <br />
+                <span className={styles.spantext}>
                   Data de Lançamento:
                   {search.first_air_date.length > 0
                     ? format(new Date(search.first_air_date), " dd/MM/yyyy")
@@ -274,7 +268,7 @@ export default function Discovery() {
                 </span>
                 <br />
                 <Link href="/moviepage">
-                  <a>Detalhes</a>
+                  <a className={styles.spantext}>Detalhes</a>
                 </Link>
               </div>
             ))}
@@ -285,20 +279,23 @@ export default function Discovery() {
           <button
             onClick={previousPage}
             disabled={page <= 1}
-            className={styles.card}
+            className={styles.button}
           >
             Anterior
           </button>
+          <span className={styles.button}>
+            {currentPage} / {totalPages}
+          </span>
           <button
             onClick={nextPage}
             disabled={page >= totalPages}
-            className={styles.card}
+            className={styles.button}
           >
             Próxima
           </button>
           <br />
-          <span>Total Paginas: {totalPages}</span>{" "}
-          <span>Pagina Atual: {currentPage}</span>{" "}
+          {/* <span>Total Paginas: {totalPages}</span>{" "}
+          <span>Pagina Atual: {currentPage}</span>{" "} */}
           <span>Total Resultados: {totalResults}</span>{" "}
         </span>
       </div>

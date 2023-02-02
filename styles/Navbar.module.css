@@ -1,17 +1,37 @@
 .navbar {
+  list-style-type: none;
+  font-family: "JetBrains Mono", monospace;
   display: flex;
   background-color: #311150;
   padding: 20px 10px;
   margin-top: 0%;
+  text-align: center;
 }
 
 .navbar a {
+  list-style-type: none;
   color: whitesmoke;
   margin-right: 1em;
   text-decoration: none;
   transition: 0.3s;
+  text-align: center;
 }
 
 .navbar a:hover {
-  color: rgb(111, 80, 179);
+  list-style-type: none;
+  color: rgb(147, 121, 205);
+  text-align: center;
+}
+
+.navbar li {
+  border-right: 1px solid white;
+  padding-right: 10px;
+  padding-left: 10px;
+  text-align: center;
+}
+
+.navbar li:last-child {
+  border-right: none;
+  border-left: none;
+  text-align: center;
 }

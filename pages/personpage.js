@@ -85,12 +85,31 @@ export default function Personapi() {
               </div>
             )}
           </h3>
-          <Image
-            src={personImageLet}
-            alt="poster"
-            width="240"
-            height="360"
-          />{" "}
+          <span>
+            {personImageLet != null ? (
+              <span>
+                {" "}
+                <Image
+                  src={"https://image.tmdb.org/t/p/original" + personImageLet}
+                  alt="poster"
+                  width="240"
+                  height="360"
+                />{" "}
+              </span>
+            ) : (
+              <span>
+                {" "}
+                <Image
+                  src="/callback.png"
+                  alt="poster"
+                  width="240"
+                  height="360"
+                />{" "}
+              </span>
+            )}
+            <br />
+          </span>
+
           <table className={styles.table}>
             <tbody>
               <tr className={styles.tr}>
