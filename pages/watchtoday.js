@@ -5,6 +5,7 @@ import ErrorPage from "./error-page";
 import Image from "next/image";
 import { format } from "date-fns";
 import Head from "next/head";
+import { resolve } from "styled-jsx/css";
 
 // gerar numero randomico
 
@@ -21,7 +22,7 @@ export default function Movieapi() {
   let [moviePopularity, setMoviePopularity] = useState("");
   let [movieCountry, setMovieCountry] = useState("");
   let [movieGender, setMovieGender] = useState([]);
-  let [movieLanguages, setMovieLanguages] = useState("");
+
   let [isError, setError] = useState(false);
   let [isLoading, setIsLoading] = useState(false);
 
@@ -90,6 +91,7 @@ export default function Movieapi() {
           </button>
           <span>{isLoading ? <div>Carregando...</div> : " "}</span>
         </h2>
+
         {isError === true ? (
           <ErrorPage message={``}></ErrorPage>
         ) : (
@@ -144,6 +146,7 @@ export default function Movieapi() {
                   )}
                 </span>
               </h1>
+
               <br />
             </div>
           </div>

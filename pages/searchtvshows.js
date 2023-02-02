@@ -274,30 +274,44 @@ export default function Discovery() {
             ))}
           </div>
         )}
-
-        <span>
-          <button
-            onClick={previousPage}
-            disabled={page <= 1}
-            className={styles.button}
-          >
-            Anterior
-          </button>
-          <span className={styles.button}>
-            {currentPage} / {totalPages}
-          </span>
-          <button
-            onClick={nextPage}
-            disabled={page >= totalPages}
-            className={styles.button}
-          >
-            Próxima
-          </button>
-          <br />
-          {/* <span>Total Paginas: {totalPages}</span>{" "}
+        {searchMovieTotalResults > 0 ? (
+          <span>
+            <button
+              onClick={previousPage}
+              disabled={page <= 1}
+              className={styles.button}
+            >
+              Anterior
+            </button>
+            <span className={styles.button}>
+              {currentPage} / {totalPages}
+            </span>
+            <button
+              onClick={nextPage}
+              disabled={page >= totalPages}
+              className={styles.button}
+            >
+              Próxima
+            </button>
+            <br />
+            {/* <span>Total Paginas: {totalPages}</span>{" "}
           <span>Pagina Atual: {currentPage}</span>{" "} */}
-          <span>Total Resultados: {totalResults}</span>{" "}
-        </span>
+            <br />
+            <span className={styles.spantext}>
+              Total Resultados: {totalResults}
+            </span>{" "}
+          </span>
+        ) : (
+          ""
+        )}
+        {!totalResults ? (
+          <span>
+            Escolha os filtros acima, e clique em Verificar para uma consulta de
+            acordo com o seu desejo!
+          </span>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );
