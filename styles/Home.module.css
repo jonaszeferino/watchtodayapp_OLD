@@ -46,7 +46,7 @@
   line-height: 1.15;
   /* font-size: 4rem; */
   text-align: center;
-  font-size: 24px;
+  font-size: 40px;
   font-weight: bold;
   margin-bottom: 20px;
 }
@@ -511,6 +511,7 @@
 
 .table {
   margin: auto;
+  word-wrap: break-word;
   align-items: center;
   appearance: none;
   background-color: #fcfcfd;
@@ -521,7 +522,7 @@
   font-family: "JetBrains Mono", monospace;
   height: 48px;
   /* width: 60px; */
-  max-width: 500px;
+  max-width: 600px;
   white-space: normal;
   line-height: 1;
   list-style: none;
@@ -535,7 +536,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  white-space: nowrap;
+
   will-change: box-shadow, transform;
   font-size: 18px;
 }
@@ -549,6 +550,7 @@
   box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
     rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
   transform: translateY(-2px);
+  word-wrap: break-word;
 }
 
 .table:active {

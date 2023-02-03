@@ -2,23 +2,22 @@
 import { useState } from "react";
 import styles from "../styles/Home.module.css";
 import ErrorPage from "./error-page";
+import Image from "next/image";
 import { format } from "date-fns";
 import Head from "next/head";
 
-// gerar numero randomico
-
 export default function Movieapi() {
-  const [movie, setMovie] = useState({});
   const [movieData, setMovieData] = useState({});
-  const [movieId, setMovieId] = useState();
+  const [movieId, setMovieId] = useState(null);
 
   let [isError, setError] = useState(false);
   let [isLoading, setIsLoading] = useState(false);
 
   const apiCall = (event) => {
     setIsLoading(true);
-
     setMovieId(Math.floor(Math.random() * 560000));
+    // setMovieId(550);
+
     console.log("Id do Filme: " + movieId);
 
     const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`;
@@ -53,8 +52,9 @@ export default function Movieapi() {
           country: result.production_countries[0].name,
           ratingCount: result.vote_count,
           popularity: result.popularity,
-          gender: result.genres.name,
+          gender: result.genres.map((genre) => genre.name),
           languages: result.spoken_languages[0].name,
+          adult: result.adult,
         });
 
         setIsLoading(false);
@@ -80,7 +80,10 @@ export default function Movieapi() {
   //     .then((result) => setData(result.status));
   // }
 
-  let poster = "https://image.tmdb.org/t/p/original" + movieData.image;
+  let poster = "/callback.png";
+  if (movieData.image) {
+    poster = "https://image.tmdb.org/t/p/original" + movieData.image;
+  }
 
   return (
     <>
@@ -101,14 +104,16 @@ export default function Movieapi() {
           <span>{isLoading ? <div>Carregando...</div> : " "}</span>
         </h2>
 
-        {isError === true ? (
+        {isError === true || movieData.adult === true ? (
           <ErrorPage message={``}></ErrorPage>
         ) : (
           <div>
             <div>
               <h1>
                 <br />
-                <span>{`${movieData.originalTitle}`}</span>
+                <span
+                  className={styles.title}
+                >{`${movieData.originalTitle}`}</span>
                 <br />
                 ...
                 <br />
@@ -125,13 +130,15 @@ export default function Movieapi() {
                   </tr>
                   <tr>
                     <td className={styles.table}>Overview</td>
-                    <td className={styles.table}>{`${movieData.overview}`}</td>
+                    <td className={styles.table}>
+                      {!movieData.overview ? "Sem infos" : movieData.overview}
+                    </td>
                   </tr>
                   <tr>
                     <td className={styles.table}>Popularidade</td>
-                    <td
-                      className={styles.button}
-                    >{`${movieData.popularity}`}</td>
+                    <td className={styles.button}>
+                      {`${movieData.popularity}`}
+                    </td>
                   </tr>
                   <tr>
                     <td className={styles.table}>Nota Média</td>
@@ -139,15 +146,7 @@ export default function Movieapi() {
                       className={styles.table}
                     >{`${movieData.average}- Nº de Votos: ${movieData.ratingCount}`}</td>
                   </tr>
-                  <tr>
-                    <td className={styles.table}>Data de lançamento</td>
-                    <td className={styles.table}>
-                      {" "}
-                      {!movieData
-                        ? format(new Date(movieData.releaseDate), " dd/MM/yyyy")
-                        : ""}
-                    </td>
-                  </tr>
+
                   <tr>
                     <td className={styles.table}>País de Origem</td>
                     <td className={styles.table}> {movieData.country}</td>
@@ -155,12 +154,11 @@ export default function Movieapi() {
                   <tr>
                     <td className={styles.table}>Generos</td>
                     <td className={styles.table}>
-                      {" "}
                       {movieData.gender &&
-                        movieData.gender.map((genders, index) => (
-                          // eslint-disable-next-line react/jsx-key
-                          <span>
-                            {movieData.genders.name}
+                        movieData.gender.length > 0 &&
+                        movieData.gender.map((gender, index) => (
+                          <span key={gender}>
+                            {gender}
                             {index !== movieData.gender.length - 1 ? ", " : ""}
                           </span>
                         ))}
@@ -181,7 +179,7 @@ export default function Movieapi() {
                       height="720"
                     />
                   ) : (
-                    <img
+                    <Image
                       className={styles.card_image_big}
                       src="/callback.png"
                       alt="poster"
@@ -214,6 +212,10 @@ export default function Movieapi() {
               </button>
 
               <br />
+              <br />
+              <button onClick={apiCall} className={styles.button}>
+                Verificar Novo
+              </button>
             </div>
           </div>
         )}
