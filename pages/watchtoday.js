@@ -9,6 +9,7 @@ import Head from "next/head";
 export default function Movieapi() {
   const [movieData, setMovieData] = useState({});
   const [movieId, setMovieId] = useState(null);
+  const [statusCode, setStatusCode] = useState(null);
 
   let [isError, setError] = useState(false);
   let [isLoading, setIsLoading] = useState(false);
@@ -30,6 +31,7 @@ export default function Movieapi() {
       .then((response) => {
         if (response.status === 200) {
           setError(false);
+
           return response.json();
         } else {
           setError(true);
@@ -58,6 +60,11 @@ export default function Movieapi() {
         });
 
         setIsLoading(false);
+        setStatusCode(result.status_code);
+
+        if (response.status === 404 || result.status_code === 34) {
+          apiCall();
+        }
       })
       .catch((error) => setError(true), setIsLoading(false));
   };
