@@ -46,7 +46,8 @@ export default function Discovery() {
           setIsLoading(false)
         )
       )
-      .catch((error) => setError(true));
+      .catch((error) => setError(true)),
+      setIsLoading(false);
   };
 
   const nextPage = (event) => {
@@ -194,7 +195,6 @@ export default function Discovery() {
                   )}
                   <br />
                 </span>
-                <span></span> <br />
                 <br />
                 <Link href="/moviepage">
                   <a>Detalhes</a>

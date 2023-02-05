@@ -197,7 +197,7 @@
 /* CSS */
 .button {
   display: inline-block;
-  margin: 0 10px;
+  margin: auto;
   align-items: center;
   appearance: none;
   background-color: #fcfcfd;
@@ -211,12 +211,13 @@
   display: inline-flex;
   font-family: "JetBrains Mono", monospace;
   height: 48px;
-  justify-content: center;
-  line-height: 1;
+  line-height: 10;
   list-style: none;
   overflow: hidden;
   padding-left: 16px;
   padding-right: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
   position: relative;
   text-align: left;
   text-decoration: none;

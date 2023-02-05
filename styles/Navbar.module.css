@@ -1,6 +1,7 @@
 .navbar {
   list-style-type: none;
   font-family: "JetBrains Mono", monospace;
+  font-size: large;
   display: flex;
   background-color: #311150;
   padding: 20px 10px;
