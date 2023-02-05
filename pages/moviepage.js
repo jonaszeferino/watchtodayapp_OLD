@@ -44,11 +44,21 @@ const MoviePage = () => {
 
           imdb: dataMovies.imdb_id,
 
-          providers: dataProviders.results
+          providersBR: dataProviders.results
             ? dataProviders.results.BR
               ? dataProviders.results.BR.flatrate
                 ? dataProviders.results.BR.flatrate
-                    .map((provider) => provider.provider_name)
+                    .map((providerBR) => providerBR.provider_name)
+                    .join(", ")
+                : ""
+              : ""
+            : "",
+
+          providersUS: dataProviders.results
+            ? dataProviders.results.US
+              ? dataProviders.results.US.flatrate
+                ? dataProviders.results.US.flatrate
+                    .map((providerUS) => providerUS.provider_name)
                     .join(", ")
                 : ""
               : ""
@@ -120,9 +130,15 @@ const MoviePage = () => {
         <span>Generos: {data.gender}</span>
         <br />
         <span>
-          {data.providers === null
+          {data.providersBR === null
             ? null
-            : `Streamings Brasil: ${data.providers}`}
+            : `Streamings Brasil: ${data.providersBR}`}
+        </span>
+        <br />
+        <span>
+          {data.providersUS === null
+            ? null
+            : `Streamings EUA: ${data.providersUS}`}
         </span>
         <br />
       </div>
