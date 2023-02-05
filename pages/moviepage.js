@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
-import ErrorPage from "./error-page";
 import Image from "next/image";
 import { format } from "date-fns";
-
 import { useRouter } from "next/router";
 
 const MoviePage = () => {
@@ -27,7 +25,35 @@ const MoviePage = () => {
         Promise.all([resMovie.json(), resProviders.json()])
       )
       .then(([dataMovies, dataProviders]) => {
-        setData({ dataMovies, dataProviders });
+        setData({
+          budget: dataMovies.budget,
+          originalTitle: dataMovies.original_title,
+          portugueseTitle: dataMovies.title,
+          poster_path: dataMovies.poster_path,
+          overview: dataMovies.overview,
+          average: dataMovies.vote_average,
+          releaseDate: dataMovies.release_date,
+          image: dataMovies.poster_path,
+          ratingCount: dataMovies.vote_count,
+          popularity: dataMovies.popularity,
+          gender: dataMovies.genres
+            ? dataMovies.genres.map((genre) => genre.name).join(", ")
+            : "",
+
+          adult: dataMovies.adult,
+
+          imdb: dataMovies.imdb_id,
+
+          providers: dataProviders.results
+            ? dataProviders.results.BR
+              ? dataProviders.results.BR.flatrate
+                ? dataProviders.results.BR.flatrate
+                    .map((provider) => provider.provider_name)
+                    .join(", ")
+                : ""
+              : ""
+            : "",
+        });
         setIsLoading(false);
       });
   }, [movieId, movieIdRequest]);
@@ -36,20 +62,16 @@ const MoviePage = () => {
     return <p>Carregando dados...</p>;
   }
 
-  const transformedData = [
-    { label: "Imdb Cod", value: data.dataMovies.imdb_id },
-    { label: "Nome Original", value: data.dataMovies.original_title },
-  ];
-
   let poster = "/callback.png";
-  if (data.dataMovies.poster_path) {
-    poster =
-      "https://image.tmdb.org/t/p/original" + data.dataMovies.poster_path;
+
+  if (data.poster_path) {
+    poster = "https://image.tmdb.org/t/p/original" + data.poster_path;
   }
 
   return (
     <>
       {" "}
+      <span>Título Original: {data.originalTitle}</span>
       <div>
         <span>
           {poster != null ? (
@@ -73,15 +95,36 @@ const MoviePage = () => {
         </span>
       </div>
       <div>
-        {transformedData.map(({ label, value }) => (
-          <div key={label}>
-            <span>
-              {label}: {value}
-            </span>
+        <span>
+          {data.budget === 0 || data.budget === null
+            ? null
+            : `Orçamento: ${data.budget}`}
+        </span>
 
-            <br />
-          </div>
-        ))}
+        <br />
+
+        <span>Título em Português: {data.portugueseTitle}</span>
+        <br />
+        <span>Overviews: {data.overview}</span>
+        <br />
+        <span>Número de Votos: {data.ratingCount}</span>
+        <br />
+        <span>IMDB: {data.imdb}</span>
+        <br />
+        <span>Nota Média: {data.average}</span>
+        <br />
+        <span>Data de Lançamento: {data.releaseDate}</span>
+        <br />
+        <span>Populariadade: {data.popularity}</span>
+        <br />
+        <span>Generos: {data.gender}</span>
+        <br />
+        <span>
+          {data.providers === null
+            ? null
+            : `Streamings Brasil: ${data.providers}`}
+        </span>
+        <br />
       </div>
     </>
   );
