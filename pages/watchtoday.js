@@ -18,8 +18,8 @@ export default function Movieapi() {
 
   const apiCall = (event) => {
     setIsLoading(true);
-    //setMovieId(Math.floor(Math.random() * 560000));
-    setMovieId(550);
+    setMovieId(Math.floor(Math.random() * 560000));
+    //setMovieId(550);
 
     console.log("Id do Filme: " + movieId);
 

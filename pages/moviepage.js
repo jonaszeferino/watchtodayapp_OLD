@@ -23,9 +23,11 @@ const MoviePage = () => {
         `https://api.themoviedb.org/3/movie/${movieIdRequest}/watch/providers?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c`
       ),
     ])
-      .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
-      .then(([data1, data2]) => {
-        setData({ data1, data2 });
+      .then(([resMovie, resProviders]) =>
+        Promise.all([resMovie.json(), resProviders.json()])
+      )
+      .then(([dataMovies, dataProviders]) => {
+        setData({ dataMovies, dataProviders });
         setIsLoading(false);
       });
   }, [movieId, movieIdRequest]);
@@ -35,28 +37,19 @@ const MoviePage = () => {
   }
 
   const transformedData = [
-    { label: "Adulto", value: data.data1.adult },
-    { label: "Imdb Cod", value: data.data1.imdb_id },
-    { label: "Nome Original", value: data.data1.original_title },
+    { label: "Imdb Cod", value: data.dataMovies.imdb_id },
+    { label: "Nome Original", value: data.dataMovies.original_title },
   ];
 
   let poster = "/callback.png";
-  if (data.data1.poster_path) {
-    poster = "https://image.tmdb.org/t/p/original" + data.data1.poster_path;
+  if (data.dataMovies.poster_path) {
+    poster =
+      "https://image.tmdb.org/t/p/original" + data.dataMovies.poster_path;
   }
 
   return (
-    <div>
-      {transformedData.map(({ label, value }) => (
-        <div key={label}>
-          <span>
-            {label}: {value}
-          </span>
-
-          <br />
-        </div>
-      ))}
-
+    <>
+      {" "}
       <div>
         <span>
           {poster != null ? (
@@ -79,7 +72,19 @@ const MoviePage = () => {
           )}
         </span>
       </div>
-    </div>
+      <div>
+        {transformedData.map(({ label, value }) => (
+          <div key={label}>
+            <span>
+              {label}: {value}
+            </span>
+
+            <br />
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
+
 export default MoviePage;

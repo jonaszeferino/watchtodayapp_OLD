@@ -7,6 +7,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 export default function Discovery() {
+  let [movieId, setMovieId] = useState();
   let [searchMovies, setSearchMovies] = useState([]);
   let [searchRatingSort, setSearchRatingSort] = useState("vote_average.desc");
   let [searchVoteCount, setSearchVoteCount] = useState(5000);
@@ -36,6 +37,8 @@ export default function Discovery() {
     setIsLoading(true);
 
     console.log(url + " o que chamou");
+    console.log(movieId + "Id dos filmes");
+
     fetch(url, {
       headers: new Headers({
         "Content-Type": "application/json",
@@ -226,7 +229,7 @@ export default function Discovery() {
                   )}
                   <br />
                 </span>
-                <span></span> <br />
+                <span>Movie Id: {search.id}</span> <br />
                 <span>
                   Data de Lançamento:
                   {search.release_date.length > 0
@@ -234,8 +237,13 @@ export default function Discovery() {
                     : ""}
                 </span>
                 <br />
-                <Link href="/moviepage">
-                  <a>Detalhes</a>
+                <Link
+                  href={{
+                    pathname: "/moviepage",
+                    query: { movieId: search.id },
+                  }}
+                >
+                  <a className={styles.button}>Detalhes</a>
                 </Link>
               </div>
             ))}
