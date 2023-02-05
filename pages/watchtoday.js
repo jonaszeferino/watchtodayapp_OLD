@@ -6,6 +6,7 @@ import Image from "next/image";
 import { format } from "date-fns";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Movieapi() {
   const [movieData, setMovieData] = useState({});
@@ -17,8 +18,8 @@ export default function Movieapi() {
 
   const apiCall = (event) => {
     setIsLoading(true);
-    setMovieId(Math.floor(Math.random() * 560000));
-    //setMovieId(550);
+    //setMovieId(Math.floor(Math.random() * 560000));
+    setMovieId(550);
 
     console.log("Id do Filme: " + movieId);
 
@@ -219,7 +220,7 @@ export default function Movieapi() {
               )}
 
               {movieData.portugueseTitle && (
-                <Link href="/moviepage">
+                <Link href={{ pathname: "/moviepage", query: { movieId } }}>
                   <a className={styles.button}>Detalhes</a>
                 </Link>
               )}
