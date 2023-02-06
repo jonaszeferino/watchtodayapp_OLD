@@ -79,8 +79,10 @@ export default function Movieapi() {
         <button onClick={apiCall} className={styles.button}>
           Verificar
         </button>
-        <span>{isLoading ? <div>Carregando...</div> : " "}</span>
+        <br />
 
+        <span>{isLoading ? <div>Carregando...</div> : " "}</span>
+        <br />
         {isError === true || movieData.adult === true ? (
           <ErrorPage message={`- Filme Deletado`}></ErrorPage>
         ) : (
@@ -168,6 +170,7 @@ export default function Movieapi() {
                 <h1>
                   <span>
                     {poster != null ? (
+                      // eslint-disable-next-line @next/next/no-img-element
                       <img
                         className={styles.card_image_big}
                         src={poster}
