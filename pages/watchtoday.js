@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import ErrorPage from "./error-page";
 import Image from "next/image";
@@ -11,6 +11,12 @@ export default function Movieapi() {
   const [randomMovieId, setRandomMovieId] = useState(null);
   const [isError, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (isError) {
+      apiCall();
+    }
+  });
 
   const apiCall = () => {
     setRandomMovieId(Math.floor(Math.random() * 560000));
