@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 import styles from "../styles/Home.module.css";
 import ErrorPage from "./error-page";
@@ -6,34 +5,25 @@ import Image from "next/image";
 import { format } from "date-fns";
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 export default function Movieapi() {
   const [movieData, setMovieData] = useState({});
-  const [movieId, setMovieId] = useState(null);
-  const [statusCode, setStatusCode] = useState(null);
-
+  const [randomMovieId, setRandomMovieId] = useState(null);
   const [isError, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const apiCall = (event) => {
+  const apiCall = () => {
+    setRandomMovieId(Math.floor(Math.random() * 560000));
     setIsLoading(true);
-    setMovieId(Math.floor(Math.random() * 560000));
-    //setMovieId(550);
+    setError(false);
 
-    console.log("Id do Filme: " + movieId);
+    console.log("Movie ID: " + randomMovieId);
 
-    const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`;
+    const url = `https://api.themoviedb.org/3/movie/${randomMovieId}?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`;
 
-    fetch(url, {
-      headers: new Headers({
-        "Content-Type": "application/json",
-      }),
-    })
+    fetch(url)
       .then((response) => {
-        if (response.status === 200) {
-          setError(false);
-
+        if (response.ok) {
           return response.json();
         } else {
           setError(true);
@@ -41,10 +31,6 @@ export default function Movieapi() {
         }
       })
       .then((result) => {
-        if (result.error) {
-          throw new Error(result.error);
-        }
-
         setMovieData({
           budget: result.budget,
           originalTitle: result.original_title,
@@ -59,47 +45,30 @@ export default function Movieapi() {
           gender: result.genres.map((genre) => genre.name),
           languages: result.spoken_languages[0].name,
           adult: result.adult,
+          movieId: result.id,
         });
-
         setIsLoading(false);
-        setStatusCode(result.status_code);
-
-        // if (response.status === 404 || result.status_code === 34) {
-        //   apiCall();
-        // }
+        setError(false);
       })
       .catch((error) => setError(true), setIsLoading(false));
   };
-
-  //  function LikeMovie(event, likeType) {
-  //    event.preventDefault();
-  //    const movieObject = {
-  //      name: movieOriginalTitle,
-  //      id: movieId,
-  //      like: likeType,
-  //    };
-
-  //   // Positive = 0, Negative = 1, so-so = 2
-  //   const url = "http://localhost:3000/api/saveMovieLikes";
-  //   fetch(url, {
-  //     method: "POST",
-  //     body: JSON.stringify(movieObject),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((result) => setData(result.status));
-  // }
 
   let poster = "/callback.png";
   if (movieData.image) {
     poster = "https://image.tmdb.org/t/p/original" + movieData.image;
   }
 
+  let destino = `/moviepage?movieId=${movieData.movieId}`;
+
   return (
     <>
       <Head>
-        <title>O que Assitir Hoje?</title>
+        <title>What to Watch Today?</title>
         <meta name="keywords" content="movies,watch,review"></meta>
-        <meta name="description" content="encontre tudo de nba aqui"></meta>
+        <meta
+          name="description"
+          content="Find everything about movies here"
+        ></meta>
       </Head>
 
       <div>
@@ -218,9 +187,8 @@ export default function Movieapi() {
                   </span>
                 </h1>
               )}
-
               {movieData.portugueseTitle && (
-                <Link href={{ pathname: "/moviepage", query: { movieId } }}>
+                <Link href={destino}>
                   <a className={styles.button}>Detalhes</a>
                 </Link>
               )}
