@@ -137,10 +137,15 @@ const MoviePage = () => {
               </td>
             </tr>
           )}
+
           <tr>
             <td className={styles.table}>Overview:</td>
-            <td className={styles.table}>{data.overview}</td>
+            <td className={styles.table}>
+              {" "}
+              {data.overview ? data.overview : "Sem infos"}
+            </td>
           </tr>
+
           <tr>
             <td className={styles.table}>Nº de votos:</td>
             <td className={styles.table}>{data.ratingCount}</td>
