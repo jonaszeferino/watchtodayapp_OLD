@@ -192,8 +192,6 @@
   border-radius: 50%;
 }
 
-/* teste button*/
-
 /* CSS */
 .button {
   display: inline-block;
@@ -216,8 +214,7 @@
   overflow: hidden;
   padding-left: 16px;
   padding-right: 16px;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding-right: 16px;
   position: relative;
   text-align: left;
   text-decoration: none;
@@ -557,4 +554,26 @@
 .table:active {
   box-shadow: #d6d6e7 0 3px 7px inset;
   transform: translateY(2px);
+}
+
+.tableMain {
+  margin: auto;
+  word-wrap: break-word;
+  align-items: center;
+  appearance: none;
+  background-color: #fcfcfd;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+  will-change: box-shadow, transform;
+  font-size: 18px;
 }

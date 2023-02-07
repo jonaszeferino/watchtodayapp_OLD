@@ -116,7 +116,7 @@ const MoviePage = () => {
         <br />
         {/* Tabela aqui para baixo */}
 
-        <table className={styles.table}>
+        <table className={styles.tableMain}>
           <tr>
             <td className={styles.table}>Título em Português:</td>
             <td className={styles.table}>{data.portugueseTitle}</td>
@@ -126,7 +126,7 @@ const MoviePage = () => {
             <tr>
               <td className={styles.table}>
                 {data.budget === 0 || data.budget === null
-                  ? null
+                  ? nullc
                   : `Orçamento:`}
               </td>
               <td className={styles.table}>
@@ -182,14 +182,8 @@ const MoviePage = () => {
             </td>
           </tr>
           <tr>
-            <td className={styles.table}>
-              {" "}
-              {data.providersUS === null ? null : `Streamings EUA:`}
-            </td>
-            <td className={styles.table}>
-              {" "}
-              {data.providersUS === null ? null : `${data.providersUS}`}
-            </td>
+            <td className={styles.table}>Streamings EUA:</td>
+            <td className={styles.table}>{data.providersUS}</td>
           </tr>
         </table>
       </div>

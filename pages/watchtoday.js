@@ -118,58 +118,6 @@ export default function Movieapi() {
                 <br />
                 ...
                 <br />
-                {movieData.portugueseTitle && (
-                  <table className={styles.table}>
-                    <tr>
-                      <th></th>
-                      <th></th>
-                    </tr>
-                    <tr>
-                      <td className={styles.table}>Título em Português</td>
-                      <td
-                        className={styles.button}
-                      >{`${movieData.portugueseTitle}`}</td>
-                    </tr>
-                    <tr>
-                      <td className={styles.table}>Overview</td>
-                      <td className={styles.table}>
-                        {!movieData.overview ? "Sem infos" : movieData.overview}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className={styles.table}>Popularidade</td>
-                      <td className={styles.button}>
-                        {`${movieData.popularity}`}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className={styles.table}>Nota Média</td>
-                      <td
-                        className={styles.table}
-                      >{`${movieData.average}- Nº de Votos: ${movieData.ratingCount}`}</td>
-                    </tr>
-                    <tr>
-                      <td className={styles.table}>País de Origem</td>
-                      <td className={styles.table}> {movieData.country}</td>
-                    </tr>
-                    <tr>
-                      <td className={styles.table}>Generos</td>
-                      <td className={styles.table}>
-                        {movieData.gender &&
-                          movieData.gender.length > 0 &&
-                          movieData.gender.map((gender, index) => (
-                            <span key={gender}>
-                              {gender}
-                              {index !== movieData.gender.length - 1
-                                ? ", "
-                                : ""}
-                            </span>
-                          ))}
-                      </td>
-                    </tr>
-                  </table>
-                )}
-                <br />
                 <br />
               </h1>
               {movieData.portugueseTitle && (
@@ -196,6 +144,56 @@ export default function Movieapi() {
                   </span>
                 </h1>
               )}
+              {movieData.portugueseTitle && (
+                <table className={styles.tableMain}>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  <tr>
+                    <td className={styles.table}>Título em Português</td>
+                    <td
+                      className={styles.table}
+                    >{`${movieData.portugueseTitle}`}</td>
+                  </tr>
+                  <tr>
+                    <td className={styles.table}>Overview</td>
+                    <td className={styles.table}>
+                      {!movieData.overview ? "Sem infos" : movieData.overview}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className={styles.table}>Popularidade</td>
+                    <td className={styles.table}>
+                      {`${movieData.popularity}`}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className={styles.table}>Nota Média</td>
+                    <td
+                      className={styles.table}
+                    >{`${movieData.average}- Nº de Votos: ${movieData.ratingCount}`}</td>
+                  </tr>
+                  <tr>
+                    <td className={styles.table}>País de Origem</td>
+                    <td className={styles.table}> {movieData.country}</td>
+                  </tr>
+                  <tr>
+                    <td className={styles.table}>Generos</td>
+                    <td className={styles.table}>
+                      {movieData.gender &&
+                        movieData.gender.length > 0 &&
+                        movieData.gender.map((gender, index) => (
+                          <span key={gender}>
+                            {gender}
+                            {index !== movieData.gender.length - 1 ? ", " : ""}
+                          </span>
+                        ))}
+                    </td>
+                  </tr>
+                </table>
+              )}
+              <br />
               {movieData.portugueseTitle && (
                 <Link href={destino}>
                   <a className={styles.button}>Detalhes</a>
