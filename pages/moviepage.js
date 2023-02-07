@@ -81,66 +81,112 @@ const MoviePage = () => {
   return (
     <>
       {" "}
-      <span>Título Original: {data.originalTitle}</span>
+      <span className={styles.title}>{data.originalTitle}</span>
+      <br />
+      <br />
       <div>
-        <span>
-          {poster != null ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              className={styles.card_image_big}
-              src={poster}
-              alt="poster"
-              width="480"
-              height="720"
-            />
-          ) : (
-            <Image
-              className={styles.card_image_big}
-              src="/callback.png"
-              alt="poster"
-              width="480"
-              height="720"
-            />
-          )}
-        </span>
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          <span>
+            <span>
+              {poster != null ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  className={styles.card_image_big}
+                  src={poster}
+                  alt="poster"
+                  width="480"
+                  height="720"
+                />
+              ) : (
+                <Image
+                  className={styles.card_image_big}
+                  src="/callback.png"
+                  alt="poster"
+                  width="480"
+                  height="720"
+                />
+              )}
+            </span>
+          </span>
+        )}
       </div>
       <div>
-        <span>
-          {data.budget === 0 || data.budget === null
-            ? null
-            : `Orçamento: ${data.budget}`}
-        </span>
+        <br />
+        {/* Tabela aqui para baixo */}
 
-        <br />
+        <table className={styles.table}>
+          <tr>
+            <td className={styles.table}>Título em Português:</td>
+            <td className={styles.table}>{data.portugueseTitle}</td>
+          </tr>
 
-        <span>Título em Português: {data.portugueseTitle}</span>
-        <br />
-        <span>Overviews: {data.overview}</span>
-        <br />
-        <span>Número de Votos: {data.ratingCount}</span>
-        <br />
-        <span>IMDB: {data.imdb}</span>
-        <br />
-        <span>Nota Média: {data.average}</span>
-        <br />
-        <span>Data de Lançamento: {data.releaseDate}</span>
-        <br />
-        <span>Populariadade: {data.popularity}</span>
-        <br />
-        <span>Generos: {data.gender}</span>
-        <br />
-        <span>
-          {data.providersBR === null
-            ? null
-            : `Streamings Brasil: ${data.providersBR}`}
-        </span>
-        <br />
-        <span>
-          {data.providersUS === null
-            ? null
-            : `Streamings EUA: ${data.providersUS}`}
-        </span>
-        <br />
+          {data.budget === 0 || data.budget === null ? null : (
+            <tr>
+              <td className={styles.table}>
+                {data.budget === 0 || data.budget === null
+                  ? null
+                  : `Orçamento:`}
+              </td>
+              <td className={styles.table}>
+                {" "}
+                {data.budget === 0 || data.budget === null
+                  ? null
+                  : `${data.budget}`}
+              </td>
+            </tr>
+          )}
+          <tr>
+            <td className={styles.table}>Overview:</td>
+            <td className={styles.table}>{data.overview}</td>
+          </tr>
+          <tr>
+            <td className={styles.table}>Nº de votos:</td>
+            <td className={styles.table}>{data.ratingCount}</td>
+          </tr>
+          <tr>
+            <td className={styles.table}>Nota:</td>
+            <td className={styles.table}>{data.average}</td>
+          </tr>
+          <tr>
+            <td className={styles.table}>Imdb:</td>
+            <td className={styles.table}>{data.imdb}</td>
+          </tr>
+
+          <tr>
+            <td className={styles.table}>Data de Lançamento:</td>
+            <td className={styles.table}>{data.releaseDate}</td>
+          </tr>
+          <tr>
+            <td className={styles.table}>Popularidade:</td>
+            <td className={styles.table}>{data.popularity}</td>
+          </tr>
+          <tr>
+            <td className={styles.table}>Generos:</td>
+            <td className={styles.table}>{data.gender}</td>
+          </tr>
+          <tr>
+            <td className={styles.table}>
+              {" "}
+              {data.providersBR === null ? null : `Streamings Brasil:`}
+            </td>
+            <td className={styles.table}>
+              {" "}
+              {data.providersBR === null ? null : `${data.providersBR}`}
+            </td>
+          </tr>
+          <tr>
+            <td className={styles.table}>
+              {" "}
+              {data.providersUS === null ? null : `Streamings EUA:`}
+            </td>
+            <td className={styles.table}>
+              {" "}
+              {data.providersUS === null ? null : `${data.providersUS}`}
+            </td>
+          </tr>
+        </table>
       </div>
     </>
   );
