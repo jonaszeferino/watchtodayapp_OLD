@@ -161,7 +161,11 @@ const MoviePage = () => {
 
           <tr>
             <td className={styles.table}>Data de Lançamento:</td>
-            <td className={styles.table}>{data.releaseDate}</td>
+            <td className={styles.table}>
+              {data.releaseDate
+                ? format(new Date(data.releaseDate), " dd/MM/yyyy")
+                : ""}
+            </td>
           </tr>
           <tr>
             <td className={styles.table}>Popularidade:</td>
