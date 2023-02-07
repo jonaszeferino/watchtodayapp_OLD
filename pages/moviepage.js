@@ -126,14 +126,17 @@ const MoviePage = () => {
             <tr>
               <td className={styles.table}>
                 {data.budget === 0 || data.budget === null
-                  ? nullc
+                  ? null
                   : `Orçamento:`}
               </td>
               <td className={styles.table}>
                 {" "}
                 {data.budget === 0 || data.budget === null
                   ? null
-                  : `${data.budget}`}
+                  : `${new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(data.budget)}`}
               </td>
             </tr>
           )}
