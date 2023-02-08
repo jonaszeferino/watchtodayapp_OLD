@@ -1369,6 +1369,11 @@ delayed-stream@~1.0.0:
   resolved "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz"
   integrity sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==
 
+diacritics@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.npmjs.org/diacritics/-/diacritics-1.3.0.tgz"
+  integrity sha512-wlwEkqcsaxvPJML+rDh/2iS824jbREk6DUMUKkEaSlxdYHeS43cClJtsWglvw2RfeXGm6ohKDqsXteJ5sP5enA==
+
 dir-glob@^3.0.1:
   version "3.0.1"
   resolved "https://registry.npmjs.org/dir-glob/-/dir-glob-3.0.1.tgz"
@@ -1902,6 +1907,13 @@ hyphenate-style-name@^1.0.3:
   resolved "https://registry.npmjs.org/hyphenate-style-name/-/hyphenate-style-name-1.0.4.tgz"
   integrity sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ==
 
+i18n-iso-countries@*:
+  version "7.5.0"
+  resolved "https://registry.npmjs.org/i18n-iso-countries/-/i18n-iso-countries-7.5.0.tgz"
+  integrity sha512-PtfKJNWLVhhU0KBX/8asmywjAcuyQk07mmmMwxFJcddTNBJJ1yvpY2qxVmyxbtVF+9+6eg9phgpv83XPUKU5CA==
+  dependencies:
+    diacritics "1.3.0"
+
 ieee754@^1.1.13:
   version "1.2.1"
   resolved "https://registry.npmjs.org/ieee754/-/ieee754-1.2.1.tgz"
@@ -2298,7 +2310,7 @@ mongodb-connection-string-url@^2.5.4:
     "@types/whatwg-url" "^8.2.1"
     whatwg-url "^11.0.0"
 
-mongodb@*:
+mongodb@^4.13.0:
   version "4.13.0"
   resolved "https://registry.npmjs.org/mongodb/-/mongodb-4.13.0.tgz"
   integrity sha512-+taZ/bV8d1pYuHL4U+gSwkhmDrwkWbH1l4aah4YpmpscMwgFBkufIKxgP/G7m87/NUuQzc2Z75ZTI7ZOyqZLbw==

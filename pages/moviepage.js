@@ -63,6 +63,8 @@ const MoviePage = () => {
                 : ""
               : ""
             : "",
+
+          originalLanguage: dataMovies.original_language,
         });
         setIsLoading(false);
       });
@@ -140,6 +142,7 @@ const MoviePage = () => {
               </td>
             </tr>
           )}
+          <tr></tr>
 
           <tr>
             <td className={styles.table}>Overview:</td>

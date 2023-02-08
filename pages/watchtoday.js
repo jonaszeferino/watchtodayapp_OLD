@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import ErrorPage from "./error-page";
 import Image from "next/image";
-import { format } from "date-fns";
 import Head from "next/head";
 import Link from "next/link";
+import TranslationComponent from "../components/translateComponent";
 
 export default function Movieapi() {
   const [movieData, setMovieData] = useState({});
@@ -52,6 +52,8 @@ export default function Movieapi() {
           languages: result.spoken_languages[0].name,
           adult: result.adult,
           movieId: result.id,
+          originalLanguage: result.original_language,
+          statusMovie: result.status,
         });
         setIsLoading(false);
         setError(false);
@@ -162,22 +164,34 @@ export default function Movieapi() {
                       {!movieData.overview ? "Sem infos" : movieData.overview}
                     </td>
                   </tr>
-                  <tr>
+                  {/* <tr>
                     <td className={styles.table}>Popularidade</td>
                     <td className={styles.table}>
                       {`${movieData.popularity}`}
                     </td>
-                  </tr>
+                  </tr> */}
                   <tr>
                     <td className={styles.table}>Nota Média</td>
                     <td
                       className={styles.table}
-                    >{`${movieData.average}- Nº de Votos: ${movieData.ratingCount}`}</td>
+                    >{`${movieData.average} / ${movieData.ratingCount} votos`}</td>
                   </tr>
                   <tr>
                     <td className={styles.table}>País de Origem</td>
                     <td className={styles.table}> {movieData.country}</td>
                   </tr>
+
+                  <tr>
+                    <td className={styles.table}>Idioma do Filme</td>
+                    <td className={styles.table}>
+                      {" "}
+                      <TranslationComponent
+                        text={movieData.originalLanguage}
+                        language="pt"
+                      />
+                    </td>
+                  </tr>
+
                   <tr>
                     <td className={styles.table}>Generos</td>
                     <td className={styles.table}>
