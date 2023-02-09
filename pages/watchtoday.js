@@ -5,6 +5,7 @@ import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 import TranslationComponent from "../components/translateComponent";
+import TranslationComponentCountryName from "../components/translateComponentCountryName";
 
 export default function Movieapi() {
   const [movieData, setMovieData] = useState({});
@@ -104,16 +105,17 @@ export default function Movieapi() {
                       className={styles.title}
                     >{`${movieData.originalTitle}`}</span>
                   ) : (
-                    <span className={styles.title}>
-                      O Algoritmo funciona de forma Bem Simples!
+                    <span className={styles.button_green_card}>
+                      O algoritmo funciona selecionando um ID de filme
                       <br />
-                      É gerado de forma randômica um Id, referente a um filme.
+                      aleatoriamente a partir de uma base de mais de 560 mil
+                      filmes.
                       <br />
-                      Existem em nossa base mais de 560 mil filmes.
+                      Caso o filme correspondente ao ID selecionado tenha sido
+                      deletado, <br />
+                      basta clicar novamente para gerar um novo ID.
                       <br />
-                      Contudo, pode ser sorteado o id de um filme já deletado.{" "}
-                      <br />
-                      Basta portando, clicar novamente!
+                      Have Fun!
                     </span>
                   )}
                 </span>
@@ -158,12 +160,12 @@ export default function Movieapi() {
                       className={styles.table}
                     >{`${movieData.portugueseTitle}`}</td>
                   </tr>
-                  <tr>
+                  {/* <tr>
                     <td className={styles.table}>Overview</td>
                     <td className={styles.table}>
                       {!movieData.overview ? "Sem infos" : movieData.overview}
                     </td>
-                  </tr>
+                  </tr> */}
                   {/* <tr>
                     <td className={styles.table}>Popularidade</td>
                     <td className={styles.table}>
@@ -178,7 +180,13 @@ export default function Movieapi() {
                   </tr>
                   <tr>
                     <td className={styles.table}>País de Origem</td>
-                    <td className={styles.table}> {movieData.country}</td>
+                    <td className={styles.table}>
+                      {" "}
+                      <TranslationComponentCountryName
+                        text={movieData.country}
+                        language="pt"
+                      />
+                    </td>
                   </tr>
 
                   <tr>
@@ -224,19 +232,19 @@ export default function Movieapi() {
                 <span>
                   <button
                     onClick={() => LikeMovie(event, "0")}
-                    className={`${styles.button_green}`}
+                    className={styles.button_green}
                   >
                     Gostei
                   </button>
                   <button
                     onClick={() => LikeMovie(event, "1")}
-                    className={`${styles.button_red}`}
+                    className={styles.button_red}
                   >
                     Não Gostei
                   </button>
                   <button
                     onClick={() => LikeMovie(event, "2")}
-                    className={`${styles.button_yellow}`}
+                    className={styles.button_yellow}
                   >
                     mais ou Menos
                   </button>

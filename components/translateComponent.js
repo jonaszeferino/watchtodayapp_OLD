@@ -1,5 +1,7 @@
 import React from "react";
 
+// iso_639_1
+
 const TranslationComponent = ({ text, language }) => {
   const translate = (text) => {
     switch (text) {
@@ -7,8 +9,15 @@ const TranslationComponent = ({ text, language }) => {
         return language === "pt" ? "Abkhaziano" : text;
       case "ar":
         return language === "pt" ? "Árabe" : text;
+      case "as":
+        return language === "pt" ? "Assamês" : text;
+
+      case "bg":
+        return language === "pt" ? "Bulgária" : text;
       case "cn":
         return language === "pt" ? "Chinês Tradicional" : text;
+      case "hr":
+        return language === "pt" ? "Croata" : text;
       case "cs":
         return language === "pt" ? "Tcheco" : text;
       case "da":
@@ -19,8 +28,16 @@ const TranslationComponent = ({ text, language }) => {
         return language === "pt" ? "Grego Moderno" : text;
       case "en":
         return language === "pt" ? "Inglês" : text;
+      case "sl":
+        return language === "pt" ? "Esloveno" : text;
+      case "sk":
+        return language === "pt" ? "Eslovaco" : text;
       case "et":
         return language === "pt" ? "Estoniano" : text;
+      case "es":
+        return language === "pt" ? "Espanhol" : text;
+      case "nb":
+        return language === "pt" ? "Dano-norueguês" : text;
       case "fa":
         return language === "pt" ? "Persa" : text;
       case "fi":
@@ -33,6 +50,8 @@ const TranslationComponent = ({ text, language }) => {
         return language === "pt" ? "Húngaro" : text;
       case "id":
         return language === "pt" ? "Indonésio" : text;
+      case "is":
+        return language === "pt" ? "Islandes" : text;
       case "it":
         return language === "pt" ? "Italiano" : text;
       case "ja":
@@ -47,6 +66,8 @@ const TranslationComponent = ({ text, language }) => {
         return language === "pt" ? "Malaiala" : text;
       case "mk":
         return language === "pt" ? "Macedônio" : text;
+      case "ms":
+        return language === "pt" ? "Malaio" : text;
       case "ne":
         return language === "pt" ? "Nepalês" : text;
       case "nl":
@@ -67,6 +88,8 @@ const TranslationComponent = ({ text, language }) => {
         return language === "pt" ? "Somali" : text;
       case "sv":
         return language === "pt" ? "Suéco" : text;
+      case "sr":
+        return language === "pt" ? "Sérvio" : text;
       case "ta":
         return language === "pt" ? "Tâmil" : text;
       case "th":
@@ -79,11 +102,10 @@ const TranslationComponent = ({ text, language }) => {
         return language === "pt" ? "Turco" : text;
       case "vi":
         return language === "pt" ? "Vietnamita" : text;
+      case "yi":
+        return language === "pt" ? "Iídiche" : text;
       case "zh":
         return language === "pt" ? "Chinês" : text;
-
-      case "":
-        return language === "pt" ? "" : text;
 
       default:
         return text;
