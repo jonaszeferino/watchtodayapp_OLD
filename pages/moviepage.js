@@ -3,6 +3,8 @@ import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
+import TranslationComponent from "../components/translateComponent";
+import TranslationComponentCountryName from "../components/translateComponentCountryName";
 
 const MoviePage = () => {
   const router = useRouter();
@@ -36,6 +38,7 @@ const MoviePage = () => {
           image: dataMovies.poster_path,
           ratingCount: dataMovies.vote_count,
           popularity: dataMovies.popularity,
+          // country: dataMovies.production_countries[0].name,
           gender: dataMovies.genres
             ? dataMovies.genres.map((genre) => genre.name).join(", ")
             : "",
@@ -63,6 +66,12 @@ const MoviePage = () => {
                 : ""
               : ""
             : "",
+
+          country:
+            dataMovies.production_countries &&
+            dataMovies.production_countries[0]
+              ? dataMovies.production_countries[0].name
+              : "",
 
           originalLanguage: dataMovies.original_language,
         });
@@ -163,6 +172,26 @@ const MoviePage = () => {
           <tr>
             <td className={styles.table}>Imdb:</td>
             <td className={styles.table}>{data.imdb}</td>
+          </tr>
+
+          <tr>
+            <td className={styles.table}>Páis de Origem:</td>
+            <td className={styles.table}>
+              <TranslationComponentCountryName
+                text={data.country}
+                language="pt"
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td className={styles.table}>Idioma do Filme:</td>
+            <td className={styles.table}>
+              <TranslationComponent
+                text={data.originalLanguage}
+                language="pt"
+              />
+            </td>
           </tr>
 
           <tr>

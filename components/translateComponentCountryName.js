@@ -343,6 +343,10 @@ const TranslationComponentCountryName = ({ text, language }) => {
         return language === "pt" ? "Suíça" : text;
       case "Syria":
         return language === "pt" ? "Síria" : text;
+
+      case "Soviet Union":
+        return language === "pt" ? "União Soviética" : text;
+
       case "Taiwan":
         return language === "pt" ? "Taiwan" : text;
       case "Tajikistan":
