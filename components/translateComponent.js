@@ -11,6 +11,8 @@ const TranslationComponent = ({ text, language }) => {
         return language === "pt" ? "Árabe" : text;
       case "as":
         return language === "pt" ? "Assamês" : text;
+      case "az":
+        return language === "pt" ? "Azerbaijano" : text;
 
       case "bg":
         return language === "pt" ? "Bulgária" : text;
@@ -90,6 +92,8 @@ const TranslationComponent = ({ text, language }) => {
         return language === "pt" ? "Suéco" : text;
       case "sr":
         return language === "pt" ? "Sérvio" : text;
+      case "ur":
+        return language === "pt" ? "Urdo" : text;
       case "ta":
         return language === "pt" ? "Tâmil" : text;
       case "th":

@@ -38,7 +38,6 @@ const MoviePage = () => {
           image: dataMovies.poster_path,
           ratingCount: dataMovies.vote_count,
           popularity: dataMovies.popularity,
-          // country: dataMovies.production_countries[0].name,
           gender: dataMovies.genres
             ? dataMovies.genres.map((genre) => genre.name).join(", ")
             : "",

@@ -85,93 +85,93 @@ export default function Discovery() {
         <meta name="description" content="encontre tudo de nba aqui"></meta>
       </Head>
       <div>
-        <h3 className={styles.title}>Séries - Programas de TV</h3>
-        <h2 className={styles.label}>
+        <h3 className={styles.title}> Séries - Programas de TV</h3>
+        <h2>
           {" "}
           <br />
-          <label className={styles.label} type="text">
-            Posição:
+          <label type="text">
+            Ordem:
             <select
               name="select"
               type="text"
-              className={styles.button}
+              className={styles.card}
               value={searchRatingSort}
               onChange={(event) => setSearchRatingSort(event.target.value)}
             >
-              <option className={styles.button} value="vote_average.asc">
-                Da Pior Nota Para Melhor
+              <option className={styles.card} value="vote_average.asc">
+                Da Pior Para Melhor Nota
               </option>
-              <option className={styles.button} value="vote_average.desc">
-                Da Melhor Nota Para Pior
+              <option className={styles.card} value="vote_average.desc">
+                Da Melhor Para Pior Nota
               </option>
             </select>
           </label>
           <br />
-          <label className={styles.label} type="text">
+          <label type="text">
             Nº de Votos:
             <select
               name="select"
               type="number"
-              className={styles.button}
+              className={styles.card}
               value={searchVoteCount}
               onChange={(event) => setSearchVoteCount(event.target.value)}
             >
               {" "}
-              <option className={styles.button} value="0">
+              <option className={styles.card} value="0">
                 Mais de 0 votos
               </option>
-              <option className={styles.button} value="50">
+              <option className={styles.card} value="50">
                 Mais de 50 votos
               </option>
-              <option className={styles.button} value="100">
+              <option className={styles.card} value="100">
                 Mais de 100 votos
               </option>
-              <option className={styles.button} value="200">
+              <option className={styles.card} value="200">
                 Mais de 200 votos
               </option>
-              <option className={styles.button} value="500">
+              <option className={styles.card} value="500">
                 Mais de 500 votos
               </option>
-              <option className={styles.button} value="1000">
+              <option className={styles.card} value="1000">
                 Mais de 1000 votos
               </option>
-              <option className={styles.button} value="5000">
+              <option className={styles.card} value="5000">
                 Mais de 5000 votos
               </option>
             </select>
           </label>
-          <label className={styles.label} type="text">
+          <label type="text">
             Tipo de Série:
             <select
               name="select"
               type="text"
-              className={styles.button}
+              className={styles.card}
               value={searchTvType}
               onChange={(event) => setSearchTvType(event.target.value)}
             >
               {" "}
-              <option className={styles.button} value="">
+              <option className={styles.card} value="">
                 Todos Tipos
               </option>
-              <option className={styles.button} value="0">
+              <option className={styles.card} value="0">
                 Documentário
               </option>
-              <option className={styles.button} value="1">
+              <option className={styles.card} value="1">
                 Notícias
               </option>
-              <option className={styles.button} value="2">
+              <option className={styles.card} value="2">
                 Mini Séries
               </option>
-              <option className={styles.button} value="3">
+              <option className={styles.card} value="3">
                 Realities
               </option>
-              <option className={styles.button} value="4">
+              <option className={styles.card} value="4">
                 Roteirizadas
               </option>
-              <option className={styles.button} value="5">
+              <option className={styles.card} value="5">
                 Talk Show
               </option>
-              <option className={styles.button} value="6">
+              <option className={styles.card} value="6">
                 Videos
               </option>
             </select>
@@ -180,7 +180,7 @@ export default function Discovery() {
           <label type="text">
             Ano Inicial:
             <input
-              className={styles.button}
+              className={styles.card}
               type="number"
               min={1800}
               max={2022}
@@ -193,7 +193,7 @@ export default function Discovery() {
           <label type="text">
             Ano Final:
             <input
-              className={styles.button}
+              className={styles.card}
               type="number"
               min={1800}
               max={2023}
@@ -205,7 +205,7 @@ export default function Discovery() {
           </label>
           <br />
           <br />
-          <button className={styles.button} onClick={apiCall}>
+          <button className={styles.card} onClick={apiCall}>
             Verificar
           </button>
           <br />
