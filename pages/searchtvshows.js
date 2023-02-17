@@ -85,7 +85,9 @@ export default function Discovery() {
         <meta name="description" content="encontre tudo de nba aqui"></meta>
       </Head>
       <div>
-        <h3 className={styles.title}> Séries - Programas de TV</h3>
+        <div className={styles.top}>
+          <h3 className={styles.title}> Séries - Programas de TV</h3>
+        </div>
         <h2>
           {" "}
           <br />

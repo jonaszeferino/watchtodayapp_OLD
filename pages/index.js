@@ -34,12 +34,12 @@ export default function Home() {
         <br />
 
         <div>
-          <h2> O que Assitir Hoje?</h2>
+          <h2> Filmes Por Língua</h2>
           <div className={styles.card_image_home}>
-            <Link href="/watchtoday">
+            <Link href="/searchmoviesbycountry">
               <a>
                 <Image
-                  src="/OqueAssistirHojeFix.png"
+                  src="/CinemaCountries.png"
                   alt="poster"
                   width="360"
                   height="600"
@@ -51,12 +51,12 @@ export default function Home() {
         <br />
 
         <div>
-          <h2> Filmes Por Língua</h2>
+          <h2> O que Assistir Hoje?</h2>
           <div className={styles.card_image_home}>
-            <Link href="/searchmoviesbycountry">
+            <Link href="/watchtoday">
               <a>
                 <Image
-                  src="/CinemaCountries.png"
+                  src="/OqueAssistirHojeFix.png"
                   alt="poster"
                   width="360"
                   height="600"

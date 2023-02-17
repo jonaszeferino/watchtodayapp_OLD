@@ -684,3 +684,16 @@
   grid-gap: 2px;
   padding-bottom: 10px;
 }
+
+.top {
+  margin: auto;
+  padding: 1rem;
+  text-align: center;
+  align-items: center;
+  color: inherit;
+  background-color: #a3a8d6;
+  text-decoration: none;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  max-width: 900px;
+}
