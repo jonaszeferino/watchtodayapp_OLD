@@ -94,20 +94,22 @@ export default function Discovery() {
           </button>
           <br />
           <br />
-          <button
-            onClick={previousPage}
-            disabled={page <= 1}
-            className={styles.card}
-          >
-            Anterior
-          </button>
-          <button
-            onClick={nextPage}
-            disabled={page >= totalPages}
-            className={styles.card}
-          >
-            Próxima
-          </button>
+          <div>
+            <button
+              onClick={previousPage}
+              disabled={page <= 1}
+              className={styles.card}
+            >
+              Anterior
+            </button>
+            <button
+              onClick={nextPage}
+              disabled={page >= totalPages}
+              className={styles.card}
+            >
+              Próxima
+            </button>
+          </div>
           <span>{isLoading ? <div>Carregando...</div> : " "}</span>
         </h2>
 

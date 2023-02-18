@@ -94,20 +94,26 @@ export default function Discovery() {
           </button>
           <br />
           <br />
-          <button
-            onClick={previousPage}
-            disabled={page <= 1}
-            className={styles.card}
-          >
-            Anterior
-          </button>
-          <button
-            onClick={nextPage}
-            disabled={page >= totalPages}
-            className={styles.card}
-          >
-            Próxima
-          </button>
+          {!searchMovies ? (
+            <div>
+              <button
+                onClick={previousPage}
+                disabled={page <= 1}
+                className={styles.card}
+              >
+                Anterior
+              </button>
+              <button
+                onClick={nextPage}
+                disabled={page >= totalPages}
+                className={styles.card}
+              >
+                Próxima
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
           <span>{isLoading ? <div>Carregando...</div> : " "}</span>
         </h2>
 
@@ -209,24 +215,37 @@ export default function Discovery() {
         )}
 
         <span>
-          <button
-            onClick={previousPage}
-            disabled={page <= 1}
-            className={styles.card}
-          >
-            Anterior
-          </button>
-          <button
-            onClick={nextPage}
-            disabled={page >= totalPages}
-            className={styles.card}
-          >
-            Próxima
-          </button>
+          {!searchMovies ? (
+            <div>
+              <button
+                onClick={previousPage}
+                disabled={page <= 1}
+                className={styles.card}
+              >
+                Anterior
+              </button>
+              <button
+                onClick={nextPage}
+                disabled={page >= totalPages}
+                className={styles.card}
+              >
+                Próxima
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
           <br />
-          <span>Total Páginas: {totalPages}</span>{" "}
-          <span>Página Atual: {currentPage}</span>{" "}
-          <span>Total Resultados: {totalResults}</span>{" "}
+
+          {!searchMovies ? (
+            <div>
+              <span>Total Páginas: {totalPages}</span>{" "}
+              <span>Página Atual: {currentPage}</span>{" "}
+              <span>Total Resultados: {totalResults}</span>{" "}
+            </div>
+          ) : (
+            ""
+          )}
         </span>
       </div>
     </>

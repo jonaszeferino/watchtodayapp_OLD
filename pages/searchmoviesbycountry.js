@@ -729,11 +729,113 @@ export default function Discovery() {
           </button>
           <br />
           <br />
-          <span>
-            Pág: {searchMovieRealPage} de: {searchMovieTotalPages} Total de
-            Resultados: {searchMovieTotalResults}
-          </span>
+          {!searchMovies ? (
+            <div>
+              <span className={styles.spantext}>
+                Pág: {searchMovieRealPage} de: {searchMovieTotalPages} Total de
+                Resultados: {searchMovieTotalResults}
+              </span>
+            </div>
+          ) : (
+            ""
+          )}
           <br />
+          {!searchMovies ? (
+            <div>
+              <button
+                onClick={previousPage}
+                disabled={page <= 1}
+                className={styles.card}
+              >
+                Anterior
+              </button>
+              <button
+                onClick={nextPage}
+                disabled={page >= totalPages}
+                className={styles.card}
+              >
+                Próxima
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
+        </h2>
+
+        <span className={styles.spantext}>
+          {isLoading ? <div>Carregando...</div> : " "}
+        </span>
+        {isError === true ? (
+          <ErrorPage message={`Verifique as Credenciais`}></ErrorPage>
+        ) : (
+          <div className={styles.grid}>
+            {searchMovies.map((search) => (
+              <div className={styles.card} key={search.id}>
+                {console.log(
+                  "https://image.tmdb.org/t/p/original" +
+                    search.poster_path +
+                    " ver o path da imagem"
+                )}
+                <span className={styles.spantext}>Título: {search.title}</span>{" "}
+                <br />
+                <span className={styles.spantext}>
+                  Título Original: {search.original_title}
+                </span>{" "}
+                <br />
+                <span className={styles.spantext}>
+                  Média: {search.vote_average} - Nº de Votos:{" "}
+                  {search.vote_count}
+                </span>{" "}
+                <br />
+                <span className={styles.spantext}>
+                  {search.poster_path != null ? (
+                    <span className={styles.spantext}>
+                      {" "}
+                      <Image
+                        className={styles.card_image}
+                        src={
+                          "https://image.tmdb.org/t/p/original" +
+                          search.poster_path
+                        }
+                        alt="poster"
+                        width="240"
+                        height="360"
+                      />{" "}
+                    </span>
+                  ) : (
+                    <span className={styles.spantext}>
+                      {" "}
+                      <Image
+                        className={styles.card_image}
+                        src="/callback.png"
+                        alt="poster"
+                        width="240"
+                        height="360"
+                      />{" "}
+                    </span>
+                  )}
+                  <br />
+                </span>
+                <span className={styles.spantext}></span> <br />
+                <span className={styles.spantext}>
+                  Data de Lançamento:
+                  {search.release_date.length > 0
+                    ? format(new Date(search.release_date), " dd/MM/yyyy")
+                    : ""}
+                </span>
+                <br />
+                <span className={styles.spantext}>MovieID: {search.id}</span>
+                <br />
+                <Link href="/moviepage">
+                  <a>Detalhes</a>
+                </Link>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      {!searchMovies ? (
+        <div>
           <button
             onClick={previousPage}
             disabled={page <= 1}
@@ -748,90 +850,34 @@ export default function Discovery() {
           >
             Próxima
           </button>
-        </h2>
-
-        <span>{isLoading ? <div>Carregando...</div> : " "}</span>
-        {isError === true ? (
-          <ErrorPage message={`Verifique as Credenciais`}></ErrorPage>
-        ) : (
-          <div className={styles.grid}>
-            {searchMovies.map((search) => (
-              <div className={styles.card} key={search.id}>
-                {console.log(
-                  "https://image.tmdb.org/t/p/original" +
-                    search.poster_path +
-                    " ver o path da imagem"
-                )}
-                <span>Título: {search.title}</span> <br />
-                <span>Título Original: {search.original_title}</span> <br />
-                <span>
-                  Média: {search.vote_average} - Nº de Votos:{" "}
-                  {search.vote_count}
-                </span>{" "}
-                <br />
-                <span>
-                  {search.poster_path != null ? (
-                    <span>
-                      {" "}
-                      <Image
-                        src={
-                          "https://image.tmdb.org/t/p/original" +
-                          search.poster_path
-                        }
-                        alt="poster"
-                        width="240"
-                        height="360"
-                      />{" "}
-                    </span>
-                  ) : (
-                    <span>
-                      {" "}
-                      <Image
-                        src="/callback.png"
-                        alt="poster"
-                        width="240"
-                        height="360"
-                      />{" "}
-                    </span>
-                  )}
-                  <br />
-                </span>
-                <span></span> <br />
-                <span>
-                  Data de Lançamento:
-                  {search.release_date.length > 0
-                    ? format(new Date(search.release_date), " dd/MM/yyyy")
-                    : ""}
-                </span>
-                <br />
-                <span>MovieID: {search.id}</span>
-                <br />
-                <Link href="/moviepage">
-                  <a>Detalhes</a>
-                </Link>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-      <button
-        onClick={previousPage}
-        disabled={page <= 1}
-        className={styles.card}
-      >
-        Anterior
-      </button>
-      <button
-        onClick={nextPage}
-        disabled={page >= totalPages}
-        className={styles.card}
-      >
-        Próxima
-      </button>
+        </div>
+      ) : (
+        ""
+      )}
       <br />
-      <span>Total Paginas: {totalPages}</span>{" "}
-      <span>Pagina Atual: {currentPage}</span>{" "}
-      <span>Total Resultados: {totalResults}</span>{" "}
+      {!searchMovies ? (
+        <div>
+          <span className={styles.spantext}>Total Paginas: {totalPages}</span>{" "}
+          <span className={styles.spantext}>Pagina Atual: {currentPage}</span>{" "}
+          <span className={styles.spantext}>
+            Total Resultados: {totalResults}
+          </span>{" "}
+        </div>
+      ) : (
+        ""
+      )}
+      {!totalResults ? (
+        <span className={styles.spantext}>
+          Escolha os filtros acima, e clique em Verificar para uma consulta de
+          acordo com o seu desejo! Escolha as Opções:
+          <ul>Ordem das Notas</ul>
+          <ul>Número de Avaliações</ul>
+          <ul>Língua do Filme</ul>
+          <ul>Ano de lançamento</ul>
+        </span>
+      ) : (
+        ""
+      )}
     </>
   );
 }
