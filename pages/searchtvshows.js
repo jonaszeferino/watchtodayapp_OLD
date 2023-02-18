@@ -207,7 +207,7 @@ export default function Discovery() {
           </label>
           <br />
           <br />
-          <button className={styles.card} onClick={apiCall}>
+          <button className={styles.button} onClick={apiCall}>
             Verificar
           </button>
           <br />
@@ -296,8 +296,6 @@ export default function Discovery() {
               Próxima
             </button>
             <br />
-            {/* <span>Total Paginas: {totalPages}</span>{" "}
-          <span>Pagina Atual: {currentPage}</span>{" "} */}
             <br />
             <span className={styles.spantext}>
               Total Resultados: {totalResults}
@@ -306,6 +304,7 @@ export default function Discovery() {
         ) : (
           ""
         )}
+
         {!totalResults ? (
           <span>
             Escolha os filtros acima, e clique em Verificar para uma consulta de

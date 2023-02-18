@@ -81,7 +81,10 @@ export default function Movieapi() {
       </Head>
 
       <div>
-        <h3 className={styles.title}>Que filme Ver Hoje?</h3>
+        <div className={styles.top}>
+          <h3 className={styles.title}>Que filme Assistir Hoje?</h3>
+        </div>
+
         <br />
 
         <br />

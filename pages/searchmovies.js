@@ -85,7 +85,10 @@ export default function Discovery() {
         <meta name="description" content="encontre tudo de nba aqui"></meta>
       </Head>
       <div>
-        <h3 className={styles.title}>Filmes</h3>
+        <div className={styles.top}>
+          <h3 className={styles.title}>Filmes</h3>
+        </div>
+
         <h2 className={styles.label}>
           {" "}
           <br />
@@ -168,25 +171,33 @@ export default function Discovery() {
             ></input>
           </label>
           <br />
-          <button className={styles.card} onClick={apiCall}>
+          <button className={styles.button} onClick={apiCall}>
             Verificar
           </button>
           <br />
-          <button
-            onClick={previousPage}
-            disabled={page <= 1}
-            className={styles.card}
-          >
-            Anterior
-          </button>
-          <button
-            onClick={nextPage}
-            disabled={page >= totalPages}
-            className={styles.card}
-          >
-            Próxima
-          </button>
-          <span>{isLoading ? <div>Carregando...</div> : " "}</span>
+          {!searchMovies ? (
+            <div>
+              <button
+                onClick={previousPage}
+                disabled={page <= 1}
+                className={styles.card}
+              >
+                Anterior
+              </button>
+              <button
+                onClick={nextPage}
+                disabled={page >= totalPages}
+                className={styles.card}
+              >
+                Próxima
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
+          <span className={styles.spantext}>
+            {isLoading ? <div>Carregando...</div> : " "}
+          </span>
         </h2>
 
         {isError === true ? (
@@ -195,18 +206,23 @@ export default function Discovery() {
           <div className={styles.grid}>
             {searchMovies.map((search) => (
               <div className={styles.card} key={search.id}>
-                <span>Título: {search.title}</span> <br />
-                <span>Título Original: {search.original_title}</span> <br />
-                <span>
+                <span className={styles.spantext}>Título: {search.title}</span>{" "}
+                <br />
+                <span className={styles.spantext}>
+                  Título Original: {search.original_title}
+                </span>{" "}
+                <br />
+                <span className={styles.spantext}>
                   Média: {search.vote_average} - Nº de Votos:{" "}
                   {search.vote_count}
                 </span>{" "}
                 <br />
-                <span>
+                <span className={styles.spantext}>
                   {search.poster_path != null ? (
-                    <span>
+                    <span className={styles.spantext}>
                       {" "}
                       <Image
+                        className={styles.card_image}
                         src={
                           "https://image.tmdb.org/t/p/original" +
                           search.poster_path
@@ -217,9 +233,10 @@ export default function Discovery() {
                       />{" "}
                     </span>
                   ) : (
-                    <span>
+                    <span className={styles.spantext}>
                       {" "}
                       <Image
+                        className={styles.card_image}
                         src="/callback.png"
                         alt="poster"
                         width="240"
@@ -229,8 +246,9 @@ export default function Discovery() {
                   )}
                   <br />
                 </span>
-                <span>Movie Id: {search.id}</span> <br />
-                <span>
+                {/* <span className={styles.spantext}>Movie Id: {search.id}</span>{" "} */}
+                <br />
+                <span className={styles.spantext}>
                   Data de Lançamento:
                   {search.release_date.length > 0
                     ? format(new Date(search.release_date), " dd/MM/yyyy")
@@ -250,26 +268,85 @@ export default function Discovery() {
           </div>
         )}
 
-        <span>
-          <button
-            onClick={previousPage}
-            disabled={page <= 1}
-            className={styles.card}
-          >
-            Anterior
-          </button>
-          <button
-            onClick={nextPage}
-            disabled={page >= totalPages}
-            className={styles.card}
-          >
-            Próxima
-          </button>
+        <span className={styles.spantext}>
+          {!searchMovies ? (
+            <div>
+              <button
+                onClick={previousPage}
+                disabled={page <= 1}
+                className={styles.card}
+              >
+                Anterior
+              </button>
+              <button
+                onClick={nextPage}
+                disabled={page >= totalPages}
+                className={styles.card}
+              >
+                Próxima
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
           <br />
-          <span>Total Paginas: {totalPages}</span>{" "}
-          <span>Pagina Atual: {currentPage}</span>{" "}
-          <span>Total Resultados: {totalResults}</span>{" "}
+          {!searchMovies ? (
+            <div>
+              <span className={styles.spantext}>
+                Total Paginas: {totalPages}{" "}
+              </span>{" "}
+              <span className={styles.spantext}>
+                Pagina Atual: {currentPage}
+              </span>{" "}
+              <span className={styles.spantext}>
+                Total Resultados: {totalResults}
+              </span>{" "}
+            </div>
+          ) : (
+            ""
+          )}
         </span>
+
+        {searchMovieTotalResults > 0 ? (
+          <span>
+            <button
+              onClick={previousPage}
+              disabled={page <= 1}
+              className={styles.button}
+            >
+              Anterior
+            </button>
+            <span className={styles.button}>
+              {currentPage} / {totalPages}
+            </span>
+            <button
+              onClick={nextPage}
+              disabled={page >= totalPages}
+              className={styles.button}
+            >
+              Próxima
+            </button>
+            <br />
+            <br />
+            <span className={styles.spantext}>
+              Total Resultados: {totalResults}
+            </span>{" "}
+          </span>
+        ) : (
+          ""
+        )}
+
+        {!totalResults ? (
+          <span className={styles.spantext}>
+            Escolha os filtros acima, e clique em Verificar para uma consulta de
+            acordo com o seu desejo! Escolha as Opções:
+            <ul>Ordem das Notas</ul>
+            <ul>Número de Avaliações</ul>
+            <ul>Ano de lançamento</ul>
+          </span>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

@@ -85,7 +85,10 @@ export default function Discovery() {
         <meta name="description" content="encontre tudo de nba aqui"></meta>
       </Head>
       <div>
-        <h3 className={styles.title}>Filmes Por Língua</h3>
+        <div className={styles.top}>
+          <h3 className={styles.title}>Filmes por Língua</h3>
+        </div>
+
         <h2 className={styles.label}>
           {" "}
           <br />
@@ -721,7 +724,7 @@ export default function Discovery() {
             ></input>
           </label>
           <br />
-          <button className={styles.card} onClick={apiCall}>
+          <button className={styles.button} onClick={apiCall}>
             Verificar
           </button>
           <br />

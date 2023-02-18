@@ -36,6 +36,12 @@ export default function navbar() {
           <a>Busca Livre</a>
         </Link>
       </li>
+
+      <li>
+        <Link href="/searchStandardFilters">
+          <a>Buscas Fixas</a>
+        </Link>
+      </li>
     </ul>
   );
 }
