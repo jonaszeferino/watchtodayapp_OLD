@@ -211,8 +211,6 @@ export default function Home() {
                   <span className={styles.spantext}>{search.title}</span> <br />
                   <span className={styles.spantext}>
                     {search.vote_average}
-                    {/* - Nº de Votos:{" "}
-                    {search.vote_count} */}
                   </span>{" "}
                   <br />
                   <span className={styles.spantext}>
@@ -268,8 +266,49 @@ export default function Home() {
             <span>...</span>
           </h3>
         </div>
-        <span>Series Destaques da Semana aqui pra baixo</span>
-        <div></div>
+        <div className={styles.grid}>
+          {searchTv.map((searchtv) => (
+            <div key={searchTv.id}>
+              <br />
+              <span className={styles.spantext}>
+                {searchtv.original_name}
+              </span>{" "}
+              <br />
+              <span className={styles.spantext}>{searchtv.vote_average}</span>
+              <br />
+              <span className={styles.spantext}></span>
+              <br />
+              <span>
+                {searchtv.poster_path != null ? (
+                  <span className={styles.spantext}>
+                    {" "}
+                    <Image
+                      className={styles.card_image}
+                      src={
+                        "https://image.tmdb.org/t/p/original" +
+                        searchtv.poster_path
+                      }
+                      alt="poster"
+                      width="240"
+                      height="360"
+                    />{" "}
+                  </span>
+                ) : (
+                  <span className={styles.spantext}>
+                    {" "}
+                    <Image
+                      className={styles.card_image}
+                      src="/callback.png"
+                      alt="poster"
+                      width="240"
+                      height="360"
+                    />{" "}
+                  </span>
+                )}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
