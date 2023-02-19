@@ -92,13 +92,7 @@ export default function Home() {
           <div className={styles.card_image_home}>
             <Link href="/searchmovies">
               <a>
-                {" "}
-                <Image
-                  src="/DescubraFilmes.png"
-                  alt="poster"
-                  width="360"
-                  height="600"
-                />
+                <Image src="/seven.png" alt="poster" width="360" height="600" />
               </a>
             </Link>
           </div>
@@ -111,12 +105,7 @@ export default function Home() {
           <div className={styles.card_image_home}>
             <Link href="/searchmoviesbycountry">
               <a>
-                <Image
-                  src="/CinemaCountries.png"
-                  alt="poster"
-                  width="360"
-                  height="600"
-                />
+                <Image src="/six.png" alt="poster" width="360" height="600" />
               </a>
             </Link>
           </div>
@@ -128,12 +117,7 @@ export default function Home() {
           <div className={styles.card_image_home}>
             <Link href="/watchtoday">
               <a>
-                <Image
-                  src="/OqueAssistirHojeFix.png"
-                  alt="poster"
-                  width="360"
-                  height="600"
-                />
+                <Image src="/five.png" alt="poster" width="360" height="600" />
               </a>
             </Link>
           </div>
@@ -146,12 +130,7 @@ export default function Home() {
             <Link href="/searchtvshows">
               <a>
                 {" "}
-                <Image
-                  src="/tvShows.png"
-                  alt="poster"
-                  width="360"
-                  height="600"
-                />
+                <Image src="/four.png" alt="poster" width="360" height="600" />
               </a>
             </Link>
           </div>
@@ -164,12 +143,7 @@ export default function Home() {
             <Link href="/searchfree">
               <a>
                 {" "}
-                <Image
-                  src="/freeSearch.png"
-                  alt="poster"
-                  width="360"
-                  height="600"
-                />
+                <Image src="/three.png" alt="poster" width="360" height="600" />
               </a>
             </Link>
           </div>
@@ -275,8 +249,6 @@ export default function Home() {
               </span>{" "}
               <br />
               <span className={styles.spantext}>{searchtv.vote_average}</span>
-              <br />
-              <span className={styles.spantext}></span>
               <br />
               <span>
                 {searchtv.poster_path != null ? (
