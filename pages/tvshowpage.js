@@ -14,7 +14,7 @@ const MoviePage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    let showId = 1300;
+    let showId = 1668;
     setMovieIdRequest(tvShowId);
     Promise.all([
       fetch(
@@ -25,7 +25,9 @@ const MoviePage = () => {
       .then(([dataMovies]) => {
         setData({
           firstAirDate: dataMovies.first_air_date,
-          lastEpisodeToAir: dataMovies.last_episode_to_air,
+          firstEpisodeToAir: dataMovies.first_air_date,
+          lasEpisodeToAir: dataMovies.last_episode_to_air.air_date,
+          lastSeasonToAir: dataMovies.last_episode_to_air.season_number,
           tvShowName: dataMovies.name,
           poster_path: dataMovies.poster_path,
           overview: dataMovies.overview,
@@ -34,8 +36,8 @@ const MoviePage = () => {
           image: dataMovies.poster_path,
           ratingCount: dataMovies.vote_count,
           popularity: dataMovies.popularity,
-          originalTitle: dataMovies.original_name, // add originalTitle to the data object
-          portugueseTitle: dataMovies.name, // add portugueseTitle to the data object
+          originalTitle: dataMovies.original_name,
+          portugueseTitle: dataMovies.name,
           adult: dataMovies.adult,
         });
         setIsLoading(false);
@@ -95,9 +97,7 @@ const MoviePage = () => {
             <td className={styles.table}>Título em Português:</td>
             <td className={styles.table}>{data.portugueseTitle}</td>
           </tr>
-
           <tr></tr>
-
           <tr>
             <td className={styles.table}>Overview:</td>
             <td className={styles.table}>
@@ -105,7 +105,6 @@ const MoviePage = () => {
               {data.overview ? data.overview : "Sem infos"}
             </td>
           </tr>
-
           <tr>
             <td className={styles.table}>Nº de votos:</td>
             <td className={styles.table}>{data.ratingCount}</td>
@@ -114,10 +113,21 @@ const MoviePage = () => {
             <td className={styles.table}>Nota:</td>
             <td className={styles.table}>{data.average}</td>
           </tr>
-
           <tr>
             <td className={styles.table}>Popularidade:</td>
             <td className={styles.table}>{data.popularity}</td>
+          </tr>
+          <tr>
+            <td className={styles.table}>Primeiro Episódio no Ar:</td>
+            <td className={styles.table}>{data.firstEpisodeToAir}</td>
+          </tr>
+          <tr>
+            <td className={styles.table}>Último Episódio no Ar:</td>
+            <td className={styles.table}>{data.lasEpisodeToAir}</td>
+          </tr>
+          <tr>
+            <td className={styles.table}>Última Temporada No Ar:</td>
+            <td className={styles.table}>{data.lastSeasonToAir}</td>
           </tr>
         </table>
       </div>
