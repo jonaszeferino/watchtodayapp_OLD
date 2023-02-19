@@ -254,7 +254,10 @@
 }
 
 .spantext {
-  font-family: "JetBrains Mono", monospace;
+  /* font-family: "JetBrains Mono", monospace; */
+
+  max-width: 20px;
+  word-wrap: break-word;
 }
 
 .card_image {
@@ -643,7 +646,7 @@
   cursor: pointer;
   display: inline-flex;
   font-family: "JetBrains Mono", monospace;
-  height: 580px;
+  height: 340px;
   width: 340px;
   justify-content: center;
   line-height: 1;
@@ -691,9 +694,8 @@
   text-align: center;
   align-items: center;
   color: inherit;
-  background-color: #a3a8d6;
+  background-color: #b0b4ff;
   text-decoration: none;
   border: 1px solid #eaeaea;
   border-radius: 10px;
-  max-width: 900px;
 }
