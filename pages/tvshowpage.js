@@ -3,8 +3,6 @@ import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
-import TranslationComponent from "../components/translateComponent";
-import TranslationComponentCountryName from "../components/translateComponentCountryName";
 
 const MoviePage = () => {
   const router = useRouter();
@@ -14,20 +12,29 @@ const MoviePage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    let showId = 1668;
+    let showId;
     setMovieIdRequest(tvShowId);
     Promise.all([
       fetch(
-        `https://api.themoviedb.org/3/tv/${showId}?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`
+        `https://api.themoviedb.org/3/tv/${tvShowId}?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`
+      ),
+      fetch(
+        `https://api.themoviedb.org/3/tv/${tvShowId}/watch/providers?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c`
       ),
     ])
-      .then(([resMovie]) => Promise.all([resMovie.json()]))
-      .then(([dataMovies]) => {
+      .then(([resMovie, resProviders]) =>
+        Promise.all([resMovie.json(), resProviders.json()])
+      )
+      .then(([dataMovies, dataProviders]) => {
         setData({
-          firstAirDate: dataMovies.first_air_date,
           firstEpisodeToAir: dataMovies.first_air_date,
-          lasEpisodeToAir: dataMovies.last_episode_to_air.air_date,
-          lastSeasonToAir: dataMovies.last_episode_to_air.season_number,
+
+          lastEpisodeToAir:
+            dataMovies.last_episode_to_air?.air_date ?? "Ainda no Ar",
+
+          lastSeasonToAir:
+            dataMovies.last_episode_to_air?.season_number ?? "Ainda no Ar",
+
           tvShowName: dataMovies.name,
           poster_path: dataMovies.poster_path,
           overview: dataMovies.overview,
@@ -38,7 +45,27 @@ const MoviePage = () => {
           popularity: dataMovies.popularity,
           originalTitle: dataMovies.original_name,
           portugueseTitle: dataMovies.name,
-          adult: dataMovies.adult,
+          gender: dataMovies.genres
+            ? dataMovies.genres.map((genre) => genre.name).join(", ")
+            : "",
+          providersBR: dataProviders.results
+            ? dataProviders.results.BR
+              ? dataProviders.results.BR.flatrate
+                ? dataProviders.results.BR.flatrate
+                    .map((providerBR) => providerBR.provider_name)
+                    .join(", ")
+                : ""
+              : ""
+            : "",
+          providersUS: dataProviders.results
+            ? dataProviders.results.US
+              ? dataProviders.results.US.flatrate
+                ? dataProviders.results.US.flatrate
+                    .map((providerUS) => providerUS.provider_name)
+                    .join(", ")
+                : ""
+              : ""
+            : "",
         });
         setIsLoading(false);
       });
@@ -105,6 +132,12 @@ const MoviePage = () => {
               {data.overview ? data.overview : "Sem infos"}
             </td>
           </tr>
+
+          <tr>
+            <td className={styles.table}>Generos:</td>
+            <td className={styles.table}>{data.gender}</td>
+          </tr>
+
           <tr>
             <td className={styles.table}>Nº de votos:</td>
             <td className={styles.table}>{data.ratingCount}</td>
@@ -119,15 +152,34 @@ const MoviePage = () => {
           </tr>
           <tr>
             <td className={styles.table}>Primeiro Episódio no Ar:</td>
-            <td className={styles.table}>{data.firstEpisodeToAir}</td>
+            <td className={styles.table}>
+              {data.firstEpisodeToAir
+                ? format(new Date(data.firstEpisodeToAir), " dd/MM/yyyy")
+                : ""}
+            </td>
           </tr>
           <tr>
             <td className={styles.table}>Último Episódio no Ar:</td>
-            <td className={styles.table}>{data.lasEpisodeToAir}</td>
+            <td className={styles.table}>
+              {data.lastEpisodeToAir !== undefined &&
+              data.lastEpisodeToAir !== null
+                ? typeof data.lastEpisodeToAir === "string"
+                  ? data.lastEpisodeToAir
+                  : format(new Date(data.lastEpisodeToAir), "dd/MM/yyyy")
+                : "Ainda No Ar"}
+            </td>
           </tr>
           <tr>
             <td className={styles.table}>Última Temporada No Ar:</td>
-            <td className={styles.table}>{data.lastSeasonToAir}</td>
+            <td className={styles.table}>{data.lastSeasonToAir}º</td>
+          </tr>
+          <tr>
+            <td className={styles.table}>Streamings Brasil:</td>
+            <td className={styles.table}>{data.providersBR}</td>
+          </tr>
+          <tr>
+            <td className={styles.table}>Streamings EUA:</td>
+            <td className={styles.table}>{data.providersUS}</td>
           </tr>
         </table>
       </div>

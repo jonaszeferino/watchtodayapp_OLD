@@ -88,11 +88,13 @@ export default function Home() {
 
       <div className={styles.container}>
         <div>
-          <h2> Descubra Filmes</h2>
-          <div className={styles.card_image_home}>
+          <div
+            className={`${styles.card_image_home} bg-color`}
+            style={{ "--my-color": "#B4E1FF" }}
+          >
             <Link href="/searchmovies">
               <a>
-                <Image src="/seven.png" alt="poster" width="360" height="600" />
+                <h2> Descubra Filmes</h2>
               </a>
             </Link>
           </div>
@@ -101,11 +103,13 @@ export default function Home() {
         <br />
 
         <div>
-          <h2> Filmes Por Língua</h2>
-          <div className={styles.card_image_home}>
+          <div
+            className={`${styles.card_image_home} bg-color`}
+            style={{ "--my-color": "#b0b4ff" }}
+          >
             <Link href="/searchmoviesbycountry">
               <a>
-                <Image src="/six.png" alt="poster" width="360" height="600" />
+                <h2> Filmes Por Língua</h2>
               </a>
             </Link>
           </div>
@@ -113,11 +117,13 @@ export default function Home() {
         <br />
 
         <div>
-          <h2> O que Assistir Hoje?</h2>
-          <div className={styles.card_image_home}>
+          <div
+            className={`${styles.card_image_home} bg-color`}
+            style={{ "--my-color": "#ab87ff" }}
+          >
             <Link href="/watchtoday">
               <a>
-                <Image src="/five.png" alt="poster" width="360" height="600" />
+                <h2> O que Assistir Hoje?</h2>
               </a>
             </Link>
           </div>
@@ -125,12 +131,13 @@ export default function Home() {
         <br />
 
         <div>
-          <h2> Descubra Séries</h2>
-          <div className={styles.card_image_home}>
+          <div
+            className={`${styles.card_image_home} bg-color`}
+            style={{ "--my-color": "#b0b4ff" }}
+          >
             <Link href="/searchtvshows">
               <a>
-                {" "}
-                <Image src="/four.png" alt="poster" width="360" height="600" />
+                <h2> Descubra Séries</h2>
               </a>
             </Link>
           </div>
@@ -138,12 +145,13 @@ export default function Home() {
         <br />
 
         <div>
-          <h2>Busca Livre</h2>
-          <div className={styles.card_image_home}>
+          <div
+            className={`${styles.card_image_home} bg-color`}
+            style={{ "--my-color": "#f0c1d2" }}
+          >
             <Link href="/searchfree">
               <a>
-                {" "}
-                <Image src="/three.png" alt="poster" width="360" height="600" />
+                <h2>Busca Livre</h2>
               </a>
             </Link>
           </div>
@@ -214,7 +222,6 @@ export default function Home() {
                         />{" "}
                       </span>
                     )}
-                    <br />
                   </span>
                   <br />
                   <Link
@@ -277,6 +284,15 @@ export default function Home() {
                     />{" "}
                   </span>
                 )}
+                <br />
+                <Link
+                  href={{
+                    pathname: "/tvshowpage",
+                    query: { tvShowId: searchtv.id },
+                  }}
+                >
+                  <a className={styles.button}>Detalhes</a>
+                </Link>
               </span>
             </div>
           ))}
