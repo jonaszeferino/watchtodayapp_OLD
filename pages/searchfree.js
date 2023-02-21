@@ -70,8 +70,10 @@ export default function Discovery() {
       </Head>
       <div>
         <div className={styles.top}>
-          <h3 className={styles.title}> Descubra Filmes</h3>
+          <h3 className={styles.title}> Busca Livre</h3>
+          <span>Procure, Pessoas, Séries, Filmes</span>
         </div>
+
         <h2 className={styles.label}>
           <br />
           <h2>Procure Por Texto</h2>
