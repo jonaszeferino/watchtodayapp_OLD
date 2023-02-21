@@ -100,7 +100,16 @@ export default function Discovery() {
           <div className={styles.grid}>
             {searchMovies.map((search) => (
               <div className={styles.card} key={search.id}>
-                <span className={styles.spantext}>Título: {search.title}</span>
+                <span className={styles.spantext}>
+                  Nome/Titulo:{" "}
+                  {search.media_type === "person"
+                    ? search.name
+                    : search.media_type === "movie"
+                    ? search.title
+                    : search.media_type === "tv"
+                    ? search.name
+                    : "N/A"}
+                </span>
                 <br />
                 <span className={styles.spantext}>
                   {search.poster_path != null ? (
