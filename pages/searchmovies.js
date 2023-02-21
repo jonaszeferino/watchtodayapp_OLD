@@ -11,14 +11,15 @@ export default function Discovery() {
   let [searchMovies, setSearchMovies] = useState([]);
   let [searchRatingSort, setSearchRatingSort] = useState("vote_average.desc");
   let [searchVoteCount, setSearchVoteCount] = useState(5000);
-  let [searchMovieTotalPages, setSearchMovieTotalPages] = useState("");
-  let [searchMovieRealPage, setSearchMovieRealPage] = useState("");
-  let [searchMovieTotalResults, setSearchMovieTotalResults] = useState("");
   let [searchMovieReleaseDateFrom, setSearchMovieReleaseDateFrom] =
     useState(1800);
   let [searchMovieReleaseDateTo, setSearchMovieReleaseDateTo] = useState(2023);
-
+  //paginação
   let [page, setPage] = useState(1);
+  let [searchMovieTotalPages, setSearchMovieTotalPages] = useState("");
+  let [searchMovieRealPage, setSearchMovieRealPage] = useState("");
+  let [searchMovieTotalResults, setSearchMovieTotalResults] = useState("");
+  // erro e loading
   let [isError, setError] = useState(false);
   let [isLoading, setIsLoading] = useState(false);
 
@@ -70,7 +71,7 @@ export default function Discovery() {
   };
 
   const previousPage = (event) => {
-    setPage(page - 1), apiCall();
+    setPage(page - 1), apiCall(page - 1);
   };
 
   let totalPages = searchMovieTotalPages;
@@ -86,7 +87,7 @@ export default function Discovery() {
       </Head>
       <div>
         <div className={styles.top}>
-          <h3 className={styles.title}>Filmes</h3>
+          <h3 className={styles.title}> Descubra Filmes</h3>
         </div>
 
         <h2 className={styles.label}>
@@ -171,7 +172,7 @@ export default function Discovery() {
             ></input>
           </label>
           <br />
-          <button className={styles.button} onClick={apiCall}>
+          <button className={styles.card} onClick={apiCall}>
             Verificar
           </button>
           <br />

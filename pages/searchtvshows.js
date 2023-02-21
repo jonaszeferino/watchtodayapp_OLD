@@ -10,14 +10,16 @@ export default function Discovery() {
   let [searchMovies, setSearchMovies] = useState([]);
   let [searchRatingSort, setSearchRatingSort] = useState("vote_average.desc");
   let [searchVoteCount, setSearchVoteCount] = useState(100);
-  let [searchMovieTotalPages, setSearchMovieTotalPages] = useState("");
-  let [searchMovieRealPage, setSearchMovieRealPage] = useState("");
+
   let [searchMovieTotalResults, setSearchMovieTotalResults] = useState("");
   let [searchMovieReleaseDateFrom, setSearchMovieReleaseDateFrom] =
     useState(1800);
   let [searchMovieReleaseDateTo, setSearchMovieReleaseDateTo] = useState(2023);
 
+  let [searchMovieTotalPages, setSearchMovieTotalPages] = useState("");
+  let [searchMovieRealPage, setSearchMovieRealPage] = useState("");
   let [page, setPage] = useState(1);
+
   let [isError, setError] = useState(false);
   let [isLoading, setIsLoading] = useState(false);
   let [searchTvType, setSearchTvType] = useState(null);

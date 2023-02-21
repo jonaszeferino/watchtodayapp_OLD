@@ -3,26 +3,25 @@ import styles from "../styles/Home.module.css";
 import ErrorPage from "./error-page";
 import Image from "next/image";
 import Head from "next/head";
-import Link from "next/link";
 
 export default function Discovery() {
+  let [movieId, setMovieId] = useState();
   let [searchMovies, setSearchMovies] = useState([]);
-  let [searchMovieTotalPages, setSearchMovieTotalPages] = useState("");
-  let [searchMovieRealPage, setSearchMovieRealPage] = useState("");
-  let [searchMovieTotalResults, setSearchMovieTotalResults] = useState("");
   let [searchText, setSearchText] = useState("");
-  // error and pages
+  //paginação
   let [page, setPage] = useState(1);
+  let [searchMovieTotalPages, setSearchMovieTotalPages] = useState("");
+  let [searchMovieRealPage, setSearchMovieRealPage] = useState(1);
+  let [searchMovieTotalResults, setSearchMovieTotalResults] = useState("");
+  // erro e loading
   let [isError, setError] = useState(false);
   let [isLoading, setIsLoading] = useState(false);
 
-  let urlString = `https://api.themoviedb.org/3/search/multi?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR&query=${searchText}&page=1&include_adult=false`;
-
   const apiCall = (currentPage) => {
-    const url = urlString + "&page=" + currentPage;
     setIsLoading(true);
+    setError(false);
 
-    console.log(url + " o que chamou");
+    const url = `https://api.themoviedb.org/3/search/multi?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR&query=${searchText}&include_adult=false&page=1`;
     fetch(url, {
       headers: new Headers({
         "Content-Type": "application/json",
@@ -46,8 +45,8 @@ export default function Discovery() {
           setIsLoading(false)
         )
       )
-      .catch((error) => setError(true)),
-      setIsLoading(false);
+      .catch((error) => setError(true));
+    setIsLoading(false);
   };
 
   const nextPage = (event) => {
@@ -55,7 +54,7 @@ export default function Discovery() {
   };
 
   const previousPage = (event) => {
-    setPage(page - 1), apiCall();
+    setPage(page - 1), apiCall(page - 1);
   };
 
   let totalPages = searchMovieTotalPages;
@@ -71,131 +70,56 @@ export default function Discovery() {
       </Head>
       <div>
         <div className={styles.top}>
-          <h3 className={styles.title}>Busca Livre</h3>
+          <h3 className={styles.title}> Descubra Filmes</h3>
         </div>
         <h2 className={styles.label}>
-          {" "}
           <br />
-          <label type="text">
-            <span>Procure Por Texto</span>
-            <br />
-            <input
-              className={styles.button}
-              required={true}
-              type="text"
-              value={searchText}
-              onChange={(event) => setSearchText(event.target.value)}
-            ></input>
-            <br />
-          </label>
+          <h2>Procure Por Texto</h2>
+          <input
+            className={styles.top}
+            required={true}
+            type="search"
+            value={searchText}
+            onChange={(event) => setSearchText(event.target.value)}
+          ></input>
+          <br />
           <br />
           <button className={styles.button} onClick={apiCall}>
             Verificar
           </button>
           <br />
-          <br />
-          {!searchMovies ? (
-            <div>
-              <button
-                onClick={previousPage}
-                disabled={page <= 1}
-                className={styles.card}
-              >
-                Anterior
-              </button>
-              <button
-                onClick={nextPage}
-                disabled={page >= totalPages}
-                className={styles.card}
-              >
-                Próxima
-              </button>
-            </div>
-          ) : (
-            ""
-          )}
-          <span>{isLoading ? <div>Carregando...</div> : " "}</span>
+
+          <span className={styles.spantext}>
+            {isLoading ? <div>Carregando...</div> : " "}
+          </span>
         </h2>
 
         {isError === true ? (
-          <ErrorPage message={`- Coloque algum texto`}></ErrorPage>
+          <ErrorPage message={`Verifique as Credenciais`}></ErrorPage>
         ) : (
           <div className={styles.grid}>
             {searchMovies.map((search) => (
               <div className={styles.card} key={search.id}>
-                <span>
-                  Nome/Título:{" "}
-                  {search.media_type === "person"
-                    ? search.name
-                    : search.media_type === "movie"
-                    ? search.title
-                    : search.media_type === "tv"
-                    ? search.name
-                    : "N/A"}
-                </span>
+                <span className={styles.spantext}>Título: {search.title}</span>
                 <br />
-                <span>
-                  Tipo:{" "}
-                  {search.media_type === "person"
-                    ? "Pessoa"
-                    : search.media_type === "movie"
-                    ? "Filme"
-                    : search.media_type === "tv"
-                    ? "TV"
-                    : "N/A"}
-                </span>{" "}
-                <br />
-                {search.media_type === "person" ? (
-                  <span>
-                    Area:{" "}
-                    {search.known_for_department === "Directing"
-                      ? "Direção"
-                      : search.known_for_department === "Production"
-                      ? "Produção"
-                      : search.known_for_department === "Writing"
-                      ? "Roteiro"
-                      : search.known_for_department === "Acting"
-                      ? "Atuação"
-                      : search.known_for_department === "Editing"
-                      ? "Edição"
-                      : search.known_for_department === "Sound"
-                      ? "Som"
-                      : search.known_for_department === "Costume & Make-Up"
-                      ? "Maquiagem e Figurino"
-                      : search.known_for_department === "Camera"
-                      ? "Fotografia"
-                      : search.known_for_department === "Art"
-                      ? "Cenografia"
-                      : "N/A"}
-                  </span>
-                ) : (
-                  <span>Nota: {search.vote_average}</span>
-                )}
-                <br />
-                <span>
-                  {search.poster_path != null || search.profile_path != null ? (
-                    <span>
+                <span className={styles.spantext}>
+                  {search.poster_path != null ? (
+                    <span className={styles.spantext}>
                       <Image
+                        className={styles.card_image}
                         src={
-                          search.media_type === "movie"
-                            ? "https://image.tmdb.org/t/p/original" +
-                              search.poster_path
-                            : search.media_type === "person"
-                            ? "https://image.tmdb.org/t/p/original/" +
-                              search.profile_path
-                            : search.media_type === "tv"
-                            ? "https://image.tmdb.org/t/p/original" +
-                              search.poster_path
-                            : "/callback.png"
+                          "https://image.tmdb.org/t/p/original" +
+                          search.poster_path
                         }
                         alt="poster"
                         width="240"
                         height="360"
-                      />
+                      />{" "}
                     </span>
                   ) : (
-                    <span>
+                    <span className={styles.spantext}>
                       <Image
+                        className={styles.card_image}
                         src="/callback.png"
                         alt="poster"
                         width="240"
@@ -206,46 +130,38 @@ export default function Discovery() {
                   <br />
                 </span>
                 <br />
-                <Link href="/moviepage">
-                  <a>Detalhes</a>
-                </Link>
               </div>
             ))}
           </div>
         )}
 
-        <span>
-          {!searchMovies ? (
-            <div>
-              <button
-                onClick={previousPage}
-                disabled={page <= 1}
-                className={styles.card}
-              >
-                Anterior
-              </button>
-              <button
-                onClick={nextPage}
-                disabled={page >= totalPages}
-                className={styles.card}
-              >
-                Próxima
-              </button>
-            </div>
-          ) : (
-            ""
-          )}
+        <span className={styles.spantext}>
           <br />
+        </span>
 
-          {!searchMovies ? (
-            <div>
-              <span>Total Páginas: {totalPages}</span>{" "}
-              <span>Página Atual: {currentPage}</span>{" "}
-              <span>Total Resultados: {totalResults}</span>{" "}
-            </div>
-          ) : (
-            ""
-          )}
+        <span>
+          <button
+            onClick={previousPage}
+            disabled={page <= 1}
+            className={styles.button}
+          >
+            Anterior
+          </button>
+          <span className={styles.button}>
+            {currentPage} / {totalPages}
+          </span>
+          <button
+            onClick={nextPage}
+            disabled={page >= totalPages}
+            className={styles.button}
+          >
+            Próxima
+          </button>
+          <br />
+          <br />
+          <span className={styles.spantext}>
+            Total Resultados: {totalResults}
+          </span>{" "}
         </span>
       </div>
     </>

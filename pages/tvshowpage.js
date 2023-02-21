@@ -81,6 +81,18 @@ const MoviePage = () => {
     poster = "https://image.tmdb.org/t/p/original" + data.poster_path;
   }
 
+  const nextPage = (event) => {
+    setPage(page + 1), apiCall(page + 1);
+  };
+
+  const previousPage = (event) => {
+    setPage(page - 1), apiCall();
+  };
+
+  let totalPages = searchMovieTotalPages;
+  let currentPage = searchMovieRealPage;
+  let totalResults = searchMovieTotalResults;
+
   return (
     <>
       {" "}
