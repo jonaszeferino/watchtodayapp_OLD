@@ -206,18 +206,10 @@ export default function Discovery() {
         ) : (
           <div className={styles.grid}>
             {searchMovies.map((search) => (
-              <div className={styles.card} key={search.id}>
-                <span className={styles.spantext}>Título: {search.title}</span>{" "}
+              <div key={search.id}>
+                <span className={styles.spantext}>{search.original_title}</span>{" "}
                 <br />
-                <span className={styles.spantext}>
-                  Título Original: {search.original_title}
-                </span>{" "}
-                <br />
-                <span className={styles.spantext}>
-                  Média: {search.vote_average} - Nº de Votos:{" "}
-                  {search.vote_count}
-                </span>{" "}
-                <br />
+                <span className={styles.spantext}>{search.title}</span> <br />
                 <span className={styles.spantext}>
                   {search.poster_path != null ? (
                     <span className={styles.spantext}>
@@ -248,6 +240,10 @@ export default function Discovery() {
                   <br />
                 </span>
                 {/* <span className={styles.spantext}>Movie Id: {search.id}</span>{" "} */}
+                <span className={styles.spantext}>
+                  Média: {search.vote_average} - Nº de Votos:{" "}
+                  {search.vote_count}
+                </span>{" "}
                 <br />
                 <span className={styles.spantext}>
                   Data de Lançamento:
@@ -264,6 +260,8 @@ export default function Discovery() {
                 >
                   <a className={styles.button}>Detalhes</a>
                 </Link>
+                <br />
+                <br />
               </div>
             ))}
           </div>

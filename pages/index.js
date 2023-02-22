@@ -4,7 +4,6 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 import ErrorPage from "./error-page";
-import { format } from "date-fns";
 
 export default function Home() {
   let [movieId, setMovieId] = useState();
@@ -80,12 +79,10 @@ export default function Home() {
     <div>
       <Head>
         <title>Home</title>
-        <meta name="keywords" content="nba,franchise,teams"></meta>
-        <meta name="description" content="encontre tudo de nba aqui"></meta>
+        <meta name="keywords" content="movies,tvshows,"></meta>
+        <meta name="description" content="movies,tvshows"></meta>
       </Head>
-
       <br />
-
       <div className={styles.container}>
         <div>
           <div
@@ -99,9 +96,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
-
         <br />
-
         <div>
           <div
             className={`${styles.card_image_home} bg-color`}
@@ -115,7 +110,6 @@ export default function Home() {
           </div>
         </div>
         <br />
-
         <div>
           <div
             className={`${styles.card_image_home} bg-color`}
@@ -129,7 +123,6 @@ export default function Home() {
           </div>
         </div>
         <br />
-
         <div>
           <div
             className={`${styles.card_image_home} bg-color`}
@@ -143,7 +136,6 @@ export default function Home() {
           </div>
         </div>
         <br />
-
         <div>
           <div
             className={`${styles.card_image_home} bg-color`}
@@ -158,13 +150,11 @@ export default function Home() {
         </div>
         <br />
         <br />
-
         <br />
       </div>
       <div>
         <br />
         <br />
-
         <div>
           <div className={styles.top}>
             <h3 className={styles.title}>
@@ -173,7 +163,6 @@ export default function Home() {
               <span>...</span>
             </h3>
           </div>
-
           <h2 className={styles.label}>
             {/* <button className={styles.button} onClick={apiCall}>
               Verificar
