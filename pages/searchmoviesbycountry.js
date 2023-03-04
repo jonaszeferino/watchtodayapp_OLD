@@ -770,23 +770,15 @@ export default function Discovery() {
         ) : (
           <div className={styles.grid}>
             {searchMovies.map((search) => (
-              <div className={styles.card} key={search.id}>
+              <div key={search.id}>
                 {console.log(
                   "https://image.tmdb.org/t/p/original" +
                     search.poster_path +
                     " ver o path da imagem"
                 )}
-                <span className={styles.spantext}>Título: {search.title}</span>{" "}
+                <span className={styles.spantext}>{search.original_title}</span>{" "}
                 <br />
-                <span className={styles.spantext}>
-                  Título Original: {search.original_title}
-                </span>{" "}
-                <br />
-                <span className={styles.spantext}>
-                  Média: {search.vote_average} - Nº de Votos:{" "}
-                  {search.vote_count}
-                </span>{" "}
-                <br />
+                <span className={styles.spantext}>{search.title}</span> <br />
                 <span className={styles.spantext}>
                   {search.poster_path != null ? (
                     <span className={styles.spantext}>
@@ -815,6 +807,10 @@ export default function Discovery() {
                     </span>
                   )}
                   <br />
+                  <span className={styles.spantext}>
+                    Média: {search.vote_average} - Nº de Votos:{" "}
+                    {search.vote_count}
+                  </span>{" "}
                 </span>
                 <span className={styles.spantext}></span> <br />
                 <span className={styles.spantext}>
@@ -824,11 +820,12 @@ export default function Discovery() {
                     : ""}
                 </span>
                 <br />
-                <span className={styles.spantext}>MovieID: {search.id}</span>
-                <br />
+                {/* <span className={styles.spantext}>MovieID: {search.id}</span> */}
                 <Link href="/moviepage">
-                  <a>Detalhes</a>
+                  <a className={styles.button}>Detalhes</a>
                 </Link>
+                <br />
+                <br />
               </div>
             ))}
           </div>

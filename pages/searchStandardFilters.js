@@ -18,14 +18,14 @@ export default function Discovery() {
     if (searchTvType) {
       switch (searchType) {
         case "person":
-          url = `https://api.themoviedb.org/3/search/person?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR&query=${searchText}&include_adult=false&page=${page}`;
+          url = `https://api.themoviedb.org/3/search/person?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR&query=${searchText}&include_adult=false&page=1`;
           break;
         case "series":
-          url = `https://api.themoviedb.org/3/search/tv?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR&query=${searchText}&include_adult=false&page=${page}`;
+          url = `https://api.themoviedb.org/3/search/tv?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR&query=${searchText}&include_adult=false&page=1`;
           break;
         case "movie":
         default:
-          url = `https://api.themoviedb.org/3/search/movie?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR&query=${searchText}&include_adult=false&page=${page}`;
+          url = `https://api.themoviedb.org/3/search/movie?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR&query=${searchText}&include_adult=false&page=1`;
           break;
       }
 
