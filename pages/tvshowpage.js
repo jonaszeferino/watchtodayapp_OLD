@@ -3,6 +3,7 @@ import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
+import { ChakraProvider, Progress } from "@chakra-ui/react";
 
 const MoviePage = () => {
   const router = useRouter();
@@ -81,11 +82,36 @@ const MoviePage = () => {
     poster = "https://image.tmdb.org/t/p/original" + data.poster_path;
   }
 
+  function getProgressColor(progressValue) {
+    if (progressValue >= 0.1 && progressValue <= 3.999) {
+      return "red";
+    } else if (progressValue >= 4.0 && progressValue <= 5.999) {
+      return "yellow";
+    } else if (progressValue >= 6 && progressValue <= 7.999) {
+      return "green";
+    } else if (progressValue >= 8 && progressValue <= 10) {
+      return "blue";
+    } else {
+      return "gray";
+    }
+  }
+
   return (
     <>
       {" "}
       <span className={styles.title}>{data.originalTitle}</span>
       <br />
+      <br />
+      <div style={{ maxWidth: "480px", margin: "0 auto" }}>
+        <ChakraProvider>
+          <Progress
+            hasStripe
+            value={data.average}
+            max={10}
+            colorScheme={getProgressColor(data.average)}
+          />
+        </ChakraProvider>
+      </div>
       <br />
       <div>
         {isLoading ? (
@@ -117,6 +143,7 @@ const MoviePage = () => {
       </div>
       <div>
         <br />
+
         {/* Tabela aqui para baixo */}
 
         <table className={styles.tableMain}>

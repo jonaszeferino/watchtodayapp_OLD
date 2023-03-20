@@ -4,6 +4,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 import ErrorPage from "./error-page";
+import { ChakraProvider, Progress } from "@chakra-ui/react";
 
 export default function Home() {
   let [movieId, setMovieId] = useState();
@@ -74,6 +75,20 @@ export default function Home() {
   useEffect(() => {
     apiCallTv(page);
   }, [page]);
+
+  function getProgressColor(progressValue) {
+    if (progressValue >= 0.1 && progressValue <= 3.999) {
+      return "red";
+    } else if (progressValue >= 4.0 && progressValue <= 5.999) {
+      return "yellow";
+    } else if (progressValue >= 6 && progressValue <= 7.999) {
+      return "green";
+    } else if (progressValue >= 8 && progressValue <= 10) {
+      return "blue";
+    } else {
+      return "gray";
+    }
+  }
 
   return (
     <div>
@@ -182,6 +197,16 @@ export default function Home() {
                   <span className={styles.spantext}>{search.title}</span> <br />
                   <span className={styles.spantext}>
                     {search.vote_average}
+                    <div style={{ maxWidth: "240px", margin: "0 auto" }}>
+                      <ChakraProvider>
+                        <Progress
+                          hasStripe
+                          value={search.vote_average}
+                          max={10}
+                          colorScheme={getProgressColor(search.vote_average)}
+                        />
+                      </ChakraProvider>
+                    </div>
                   </span>{" "}
                   <br />
                   <span className={styles.spantext}>
@@ -245,6 +270,16 @@ export default function Home() {
               </span>{" "}
               <br />
               <span className={styles.spantext}>{searchtv.vote_average}</span>
+              <div style={{ maxWidth: "240px", margin: "0 auto" }}>
+                <ChakraProvider>
+                  <Progress
+                    hasStripe
+                    value={searchtv.vote_average}
+                    max={10}
+                    colorScheme={getProgressColor(searchtv.vote_average)}
+                  />
+                </ChakraProvider>
+              </div>
               <br />
               <span>
                 {searchtv.poster_path != null ? (
