@@ -5,7 +5,17 @@ import { format } from "date-fns";
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
-import { ChakraProvider, Progress } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  Progress,
+  Select,
+  FormLabel,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+} from "@chakra-ui/react";
 
 export default function Discovery() {
   let [movieId, setMovieId] = useState();
@@ -108,72 +118,87 @@ export default function Discovery() {
         <h2 className={styles.label}>
           {" "}
           <br />
-          <label className={styles.label} type="text">
-            Posição:
-            <select
-              name="select"
-              type="text"
-              className={styles.card}
-              value={searchRatingSort}
-              onChange={(event) => setSearchRatingSort(event.target.value)}
-            >
-              <option className={styles.card} value="vote_average.asc">
-                Da Pior Nota Para Melhor
-              </option>
-              <option className={styles.card} value="vote_average.desc">
-                Da Melhor Nota Para Pior
-              </option>
-            </select>
-          </label>
+          <div style={{ maxWidth: "300px", margin: "0 auto" }}>
+            <ChakraProvider>
+              <FormLabel htmlFor="ordenation">Ordenação do Resultado</FormLabel>
+              <Select
+                id="ordenation"
+                placeholder="Ordenação"
+                type="text"
+                isRequired={true}
+                value={searchRatingSort}
+                onChange={(event) => setSearchRatingSort(event.target.value)}
+              >
+                <option value="vote_average.asc">
+                  Da Pior Nota Para Melhor
+                </option>
+                <option value="vote_average.desc">
+                  Da Melhor Nota Para Pior
+                </option>
+              </Select>
+            </ChakraProvider>
+          </div>
           <br />
-          <label className={styles.label} type="text">
-            Nº de Votos:
-            <select
-              name="select"
-              type="number"
-              className={styles.card}
-              value={searchVoteCount}
-              onChange={(event) => setSearchVoteCount(event.target.value)}
-            >
-              {" "}
-              <option className={styles.card} value="0">
-                Mais de 0 votos
-              </option>
-              <option className={styles.card} value="50">
-                Mais de 50 votos
-              </option>
-              <option className={styles.card} value="100">
-                Mais de 100 votos
-              </option>
-              <option className={styles.card} value="200">
-                Mais de 200 votos
-              </option>
-              <option className={styles.card} value="500">
-                Mais de 500 votos
-              </option>
-              <option className={styles.card} value="1000">
-                Mais de 1000 votos
-              </option>
-              <option className={styles.card} value="5000">
-                Mais de 5000 votos
-              </option>
-            </select>
-          </label>
+          <label></label>
+          <div style={{ maxWidth: "300px", margin: "0 auto" }}>
+            <ChakraProvider>
+              <FormLabel htmlFor="votes">Range de Votos</FormLabel>
+              <Select
+                id="votes"
+                placeholder="Número de Votos"
+                type="number"
+                isRequired={true}
+                value={searchVoteCount}
+                onChange={(event) => setSearchVoteCount(event.target.value)}
+              >
+                <option value="0">0 Votos</option>
+                <option value="50">Mais de 50</option>
+                <option value="100">Mais de 100</option>
+                <option value="200">Mais de 100</option>
+                <option value="500">Mais de 500</option>
+                <option value="1000">Mais de 1000</option>
+                <option value="5000">Mais de 5000</option>
+              </Select>
+            </ChakraProvider>
+          </div>
           <br />
-          <label type="text">
-            Ano Inicial:
-            <input
-              className={styles.card}
-              type="number"
-              min={1800}
-              max={2022}
-              value={searchMovieReleaseDateFrom}
-              onChange={(event) =>
-                setSearchMovieReleaseDateFrom(event.target.value)
-              }
-            ></input>
-          </label>
-          <label type="text">
+          <div style={{ maxWidth: "150px", margin: "0 auto" }}>
+            <ChakraProvider>
+              <FormLabel htmlFor="year">Ano do Filme</FormLabel>
+              <NumberInput
+                id="year"
+                min={1800}
+                max={2022}
+                value={searchMovieReleaseDateFrom}
+                onChange={(valueString, valueNumber) =>
+                  setSearchMovieReleaseDateFrom(valueNumber)
+                }
+              >
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+
+              <NumberInput
+                id="year"
+                min={1800}
+                max={2023}
+                value={searchMovieReleaseDateTo}
+                onChange={(valueString, valueNumber) =>
+                  setSearchMovieReleaseDateTo(valueNumber)
+                }
+              >
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+            </ChakraProvider>
+          </div>
+          {/* <label type="text">
             Ano Final:
             <input
               className={styles.card}
@@ -185,7 +210,7 @@ export default function Discovery() {
                 setSearchMovieReleaseDateTo(event.target.value)
               }
             ></input>
-          </label>
+          </label> */}
           <br />
           <button className={styles.card} onClick={apiCall}>
             Verificar
