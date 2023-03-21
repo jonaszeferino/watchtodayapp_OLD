@@ -6,6 +6,7 @@ import Head from "next/head";
 import Link from "next/link";
 import TranslationComponent from "../components/translateComponent";
 import TranslationComponentCountryName from "../components/translateComponentCountryName";
+import { ChakraProvider, Progress } from "@chakra-ui/react";
 
 export default function Movieapi() {
   const [movieData, setMovieData] = useState({});
@@ -69,6 +70,20 @@ export default function Movieapi() {
 
   let destino = `/moviepage?movieId=${movieData.movieId}`;
 
+  function getProgressColor(progressValue) {
+    if (progressValue >= 0.1 && progressValue <= 3.999) {
+      return "red";
+    } else if (progressValue >= 4.0 && progressValue <= 5.999) {
+      return "yellow";
+    } else if (progressValue >= 6 && progressValue <= 7.999) {
+      return "green";
+    } else if (progressValue >= 8 && progressValue <= 10) {
+      return "blue";
+    } else {
+      return "gray";
+    }
+  }
+
   return (
     <>
       <Head>
@@ -123,10 +138,25 @@ export default function Movieapi() {
                   )}
                 </span>
                 <br />
-                ...
-                <br />
+
+                {movieData.portugueseTitle ? (
+                  <span>{movieData.average}/10</span>
+                ) : null}
                 <br />
               </h1>
+
+              <div style={{ maxWidth: "480px", margin: "0 auto" }}>
+                <ChakraProvider>
+                  <Progress
+                    hasStripe
+                    value={movieData.average}
+                    max={10}
+                    colorScheme={getProgressColor(movieData.average)}
+                  />
+                </ChakraProvider>
+                <br />
+              </div>
+
               {movieData.portugueseTitle && (
                 <h1>
                   <span>
@@ -163,18 +193,7 @@ export default function Movieapi() {
                       className={styles.table}
                     >{`${movieData.portugueseTitle}`}</td>
                   </tr>
-                  {/* <tr>
-                    <td className={styles.table}>Overview</td>
-                    <td className={styles.table}>
-                      {!movieData.overview ? "Sem infos" : movieData.overview}
-                    </td>
-                  </tr> */}
-                  {/* <tr>
-                    <td className={styles.table}>Popularidade</td>
-                    <td className={styles.table}>
-                      {`${movieData.popularity}`}
-                    </td>
-                  </tr> */}
+
                   <tr>
                     <td className={styles.table}>Nota Média</td>
                     <td

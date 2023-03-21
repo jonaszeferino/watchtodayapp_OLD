@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
+import { ChakraProvider, Progress } from "@chakra-ui/react";
 
 export default function Discovery() {
   let [movieId, setMovieId] = useState();
@@ -77,6 +78,20 @@ export default function Discovery() {
   let totalPages = searchMovieTotalPages;
   let currentPage = searchMovieRealPage;
   let totalResults = searchMovieTotalResults;
+
+  function getProgressColor(progressValue) {
+    if (progressValue >= 0.1 && progressValue <= 3.999) {
+      return "red";
+    } else if (progressValue >= 4.0 && progressValue <= 5.999) {
+      return "yellow";
+    } else if (progressValue >= 6 && progressValue <= 7.999) {
+      return "green";
+    } else if (progressValue >= 8 && progressValue <= 10) {
+      return "blue";
+    } else {
+      return "gray";
+    }
+  }
 
   return (
     <>
@@ -210,6 +225,17 @@ export default function Discovery() {
                 <span className={styles.spantext}>{search.original_title}</span>{" "}
                 <br />
                 <span className={styles.spantext}>{search.title}</span> <br />
+                <div style={{ maxWidth: "240px", margin: "0 auto" }}>
+                  <ChakraProvider>
+                    <Progress
+                      hasStripe
+                      value={search.vote_average}
+                      max={10}
+                      colorScheme={getProgressColor(search.vote_average)}
+                    />
+                  </ChakraProvider>
+                  <br />
+                </div>
                 <span className={styles.spantext}>
                   {search.poster_path != null ? (
                     <span className={styles.spantext}>
