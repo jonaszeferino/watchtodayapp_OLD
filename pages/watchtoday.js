@@ -97,6 +97,8 @@ export default function Movieapi() {
     const url =
       "https://watchtodayapp-dhigpf8rt-jonaszeferino.vercel.app/api/v1/insertLike";
 
+    console.log(url, "veraqui");
+
     const options = {
       method: "POST",
       headers: {
