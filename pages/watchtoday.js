@@ -15,6 +15,7 @@ export default function Movieapi() {
   const [isLoading, setIsLoading] = useState(false);
   const [like, setLike] = useState(0);
   const [isLikeDisabled, setLikeDisable] = useState(false);
+  const [likeThanks, setLikeThanks] = useState(false);
 
   useEffect(() => {
     if (isError) {
@@ -27,6 +28,7 @@ export default function Movieapi() {
     setIsLoading(true);
     setError(false);
     setLikeDisable(false);
+    setLikeThanks(false);
 
     console.log("Movie ID: " + randomMovieId);
 
@@ -308,6 +310,7 @@ export default function Movieapi() {
                     onClick={() => {
                       handleLike(1);
                       setLikeDisable(true);
+                      setLikeThanks(true);
                     }}
                     className={styles.button_green}
                     disabled={isLikeDisabled}
@@ -318,6 +321,7 @@ export default function Movieapi() {
                     onClick={() => {
                       handleLike(2);
                       setLikeDisable(true);
+                      setLikeThanks(true);
                     }}
                     className={styles.button_red}
                     disabled={isLikeDisabled}
@@ -329,6 +333,7 @@ export default function Movieapi() {
                     onClick={() => {
                       handleLike(3);
                       setLikeDisable(true);
+                      setLikeThanks(true);
                     }}
                     className={styles.button_yellow}
                     disabled={isLikeDisabled}
@@ -339,6 +344,8 @@ export default function Movieapi() {
               )}
 
               <br />
+              <br />
+              {likeThanks && <span>Obrigado pela Resposta!! 😀 </span>}
 
               <br />
 
