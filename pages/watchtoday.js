@@ -14,6 +14,7 @@ export default function Movieapi() {
   const [isError, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [like, setLike] = useState(0);
+  const [isLikeDisabled, setLikeDisable] = useState(false);
 
   useEffect(() => {
     if (isError) {
@@ -25,6 +26,7 @@ export default function Movieapi() {
     setRandomMovieId(Math.floor(Math.random() * 560000));
     setIsLoading(true);
     setError(false);
+    setLikeDisable(false);
 
     console.log("Movie ID: " + randomMovieId);
 
@@ -122,12 +124,15 @@ export default function Movieapi() {
   const handleLike = (value) => {
     console.log(value, "veraqui");
     setLike(value);
+    setLikeDisable(false);
     const updatedMovieDataInsert = {
       ...movieDataInsert,
       like_movie: value,
     };
     insertMovieData(updatedMovieDataInsert);
   };
+
+  console.log(isLikeDisabled, "like");
 
   return (
     <>
@@ -300,21 +305,33 @@ export default function Movieapi() {
               {movieData.portugueseTitle && (
                 <span>
                   <button
-                    onClick={() => handleLike(1)}
+                    onClick={() => {
+                      handleLike(1);
+                      setLikeDisable(true);
+                    }}
                     className={styles.button_green}
+                    disabled={isLikeDisabled}
                   >
                     Gostei
                   </button>
                   <button
-                    onClick={() => handleLike(2)}
+                    onClick={() => {
+                      handleLike(2);
+                      setLikeDisable(true);
+                    }}
                     className={styles.button_red}
+                    disabled={isLikeDisabled}
                   >
                     Não Gostei
                   </button>
 
                   <button
-                    onClick={() => handleLike(3)}
+                    onClick={() => {
+                      handleLike(3);
+                      setLikeDisable(true);
+                    }}
                     className={styles.button_yellow}
+                    disabled={isLikeDisabled}
                   >
                     Indiferente
                   </button>
