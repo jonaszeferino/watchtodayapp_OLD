@@ -109,13 +109,13 @@ export default function Movieapi() {
     fetch(url, options)
       .then((response) => {
         if (response.ok) {
-          console.log("Dados inseridos com sucesso!");
+          console.log("Dados inseridos com sucesso!", "veraqui");
         } else {
-          console.log("Erro ao inserir dados");
+          console.log("Erro ao inserir dados", "veraqui");
         }
       })
       .catch((error) => {
-        console.log("Erro ao inserir dados: " + error);
+        console.log("veraqui " + error);
       });
   };
 
