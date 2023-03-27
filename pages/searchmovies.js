@@ -237,7 +237,15 @@ export default function Discovery() {
             ""
           )}
           <span className={styles.spantext}>
-            {isLoading ? <div>Carregando...</div> : " "}
+            {isLoading ? (
+
+              
+              <ChakraProvider>
+                <Progress size="xs" isIndeterminate />{" "}
+              </ChakraProvider>
+            ) : null}
+
+            {/* {isLoading ? <div>Carregando...</div> : " "} */}
           </span>
         </h2>
 
