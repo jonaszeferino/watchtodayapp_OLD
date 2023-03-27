@@ -13,6 +13,7 @@ export default function Movieapi() {
   const [randomMovieId, setRandomMovieId] = useState(null);
   const [isError, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [like, setLike] = useState(0);
 
   useEffect(() => {
     if (isError) {
@@ -83,6 +84,47 @@ export default function Movieapi() {
       return "gray";
     }
   }
+
+  const movieDataInsert = {
+    movie_id: movieData.movieId,
+    like_movie: like,
+    movie_name: movieData.originalTitle,
+    user_id: "1",
+  };
+
+  const insertMovieData = (movieDataInsert) => {
+    setLike(0);
+    const url = "https://watchtodayapp-apa8.vercel.app/api/v1/insertLike";
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(movieDataInsert),
+    };
+
+    fetch(url, options)
+      .then((response) => {
+        if (response.ok) {
+          console.log("Dados inseridos com sucesso!");
+        } else {
+          console.log("Erro ao inserir dados");
+        }
+      })
+      .catch((error) => {
+        console.log("Erro ao inserir dados: " + error);
+      });
+  };
+
+  const handleLike = (value) => {
+    console.log(value, "veraqui");
+    setLike(value);
+    const updatedMovieDataInsert = {
+      ...movieDataInsert,
+      like_movie: value,
+    };
+    insertMovieData(updatedMovieDataInsert);
+  };
 
   return (
     <>
@@ -255,22 +297,23 @@ export default function Movieapi() {
               {movieData.portugueseTitle && (
                 <span>
                   <button
-                    onClick={() => LikeMovie(event, "0")}
+                    onClick={() => handleLike(1)}
                     className={styles.button_green}
                   >
                     Gostei
                   </button>
                   <button
-                    onClick={() => LikeMovie(event, "1")}
+                    onClick={() => handleLike(2)}
                     className={styles.button_red}
                   >
                     Não Gostei
                   </button>
+
                   <button
-                    onClick={() => LikeMovie(event, "2")}
+                    onClick={() => handleLike(3)}
                     className={styles.button_yellow}
                   >
-                    mais ou Menos
+                    Indiferente
                   </button>
                 </span>
               )}
