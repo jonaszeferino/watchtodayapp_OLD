@@ -6,7 +6,19 @@ import Head from "next/head";
 import Link from "next/link";
 import TranslationComponent from "../components/translateComponent";
 import TranslationComponentCountryName from "../components/translateComponentCountryName";
-import { ChakraProvider, Progress } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  Progress,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from "@chakra-ui/react";
 
 export default function Movieapi() {
   const [movieData, setMovieData] = useState({});
@@ -236,60 +248,62 @@ export default function Movieapi() {
                 </h1>
               )}
               {movieData.portugueseTitle && (
-                <table className={styles.tableMain}>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                  <tr>
-                    <td className={styles.table}>Título em Português</td>
-                    <td
-                      className={styles.table}
-                    >{`${movieData.portugueseTitle}`}</td>
-                  </tr>
-
-                  <tr>
-                    <td className={styles.table}>Nota Média</td>
-                    <td
-                      className={styles.table}
-                    >{`${movieData.average} / ${movieData.ratingCount} votos`}</td>
-                  </tr>
-                  <tr>
-                    <td className={styles.table}>País de Origem</td>
-                    <td className={styles.table}>
-                      {" "}
-                      <TranslationComponentCountryName
-                        text={movieData.country}
-                        language="pt"
-                      />
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className={styles.table}>Idioma do Filme</td>
-                    <td className={styles.table}>
-                      {" "}
-                      <TranslationComponent
-                        text={movieData.originalLanguage}
-                        language="pt"
-                      />
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className={styles.table}>Generos</td>
-                    <td className={styles.table}>
-                      {movieData.gender &&
-                        movieData.gender.length > 0 &&
-                        movieData.gender.map((gender, index) => (
-                          <span key={gender}>
-                            {gender}
-                            {index !== movieData.gender.length - 1 ? ", " : ""}
-                          </span>
-                        ))}
-                    </td>
-                  </tr>
-                </table>
+                <div style={{ maxWidth: "480px", margin: "0 auto" }}>
+                  <ChakraProvider>
+                    <TableContainer>
+                      <Table size="sm">
+                        <Thead>
+                          <Tr>
+                            <Th>Título Em Português</Th>
+                            <Td>{movieData.portugueseTitle}</Td>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                          <Tr>
+                            <Th>Nota Média</Th>
+                            <Td>{`${movieData.average} / ${movieData.ratingCount} votos`}</Td>
+                          </Tr>
+                          <Tr>
+                            <Th>País de Origem</Th>
+                            <Td>
+                              <TranslationComponentCountryName
+                                text={movieData.country}
+                                language="pt"
+                              />
+                            </Td>
+                          </Tr>
+                          <Tr>
+                            <Th>Língua</Th>
+                            <Td>
+                              <TranslationComponent
+                                text={movieData.originalLanguage}
+                                language="pt"
+                              />
+                            </Td>
+                          </Tr>
+                        </Tbody>
+                        <Tfoot>
+                          <Tr>
+                            <Th>Genero</Th>
+                            <Td>
+                              {" "}
+                              {movieData.gender &&
+                                movieData.gender.length > 0 &&
+                                movieData.gender.map((gender, index) => (
+                                  <span key={gender}>
+                                    {gender}
+                                    {index !== movieData.gender.length - 1
+                                      ? ", "
+                                      : ""}
+                                  </span>
+                                ))}
+                            </Td>
+                          </Tr>
+                        </Tfoot>
+                      </Table>
+                    </TableContainer>
+                  </ChakraProvider>
+                </div>
               )}
               <br />
               {movieData.portugueseTitle && (
