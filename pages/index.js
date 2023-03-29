@@ -98,7 +98,7 @@ export default function Home() {
         <meta name="description" content="movies,tvshows"></meta>
       </Head>
       <br />
-      <div className={styles.container}>
+      {/* <div className={styles.container}>
         <div>
           <div
             className={`${styles.card_image_home} bg-color`}
@@ -166,7 +166,7 @@ export default function Home() {
         <br />
         <br />
         <br />
-      </div>
+      </div> */}
       <div>
         <br />
         <br />
