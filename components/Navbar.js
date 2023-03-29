@@ -45,5 +45,3 @@ export default function navbar() {
     </ul>
   );
 }
-
-// index vai ser sempre o '/' ou seja acesso a pasta raiz

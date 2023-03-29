@@ -5,7 +5,19 @@ import { format } from "date-fns";
 import { useRouter } from "next/router";
 import TranslationComponent from "../components/translateComponent";
 import TranslationComponentCountryName from "../components/translateComponentCountryName";
-import { ChakraProvider, Progress } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  Progress,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from "@chakra-ui/react";
 
 const MoviePage = () => {
   const router = useRouter();
@@ -148,109 +160,113 @@ const MoviePage = () => {
           </span>
         )}
       </div>
-      <div>
-        {/* Tabela aqui para baixo */}
+      {/* Tabela aqui para baixo */}
+      <br />
+      <div
+        style={{ maxWidth: "480px", margin: "0 auto", wordBreak: "break-word" }}
+      >
+        <ChakraProvider>
+          <TableContainer>
+            <Table size="sm">
+              <Thead>
+                <Tr>
+                  <Th>Título Em Português</Th>
+                  <Td>{data.portugueseTitle}</Td>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Th>
+                    {data.budget === 0 || data.budget === null
+                      ? null
+                      : `Orçamento:`}
+                  </Th>
+                  <Td>
+                    {" "}
+                    {data.budget === 0 || data.budget === null
+                      ? null
+                      : `${new Intl.NumberFormat("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                        }).format(data.budget)}`}
+                  </Td>
+                </Tr>
 
-        <br />
+                <Tr>
+                  <Th>Overview</Th>
 
-        <table className={styles.tableMain}>
-          <tr>
-            <td className={styles.table}>Título em Português:</td>
-            <td className={styles.table}>{data.portugueseTitle}</td>
-          </tr>
+                  <Td
+                    style={{
+                      maxWidth: "480px",
+                      margin: "0 auto",
+                      whiteSpace: "pre-wrap",
+                      wordBreak: "break-word",
+                    }}
+                  >
+                    {data.overview ? data.overview : "Sem infos"}
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Th>Número de votos</Th>
+                  <Td>{data.ratingCount}</Td>
+                </Tr>
+                <Tr>
+                  <Th>Nota</Th>
+                  <Td>{data.average}</Td>
+                </Tr>
 
-          {data.budget === 0 || data.budget === null ? null : (
-            <tr>
-              <td className={styles.table}>
-                {data.budget === 0 || data.budget === null
-                  ? null
-                  : `Orçamento:`}
-              </td>
-              <td className={styles.table}>
-                {" "}
-                {data.budget === 0 || data.budget === null
-                  ? null
-                  : `${new Intl.NumberFormat("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    }).format(data.budget)}`}
-              </td>
-            </tr>
-          )}
-          <tr></tr>
+                <Tr>
+                  <Th>IMDB</Th>
+                  <Td>https://www.imdb.com/title/{data.imdb}</Td>
+                </Tr>
+                <Tr>
+                  <Th>País de Origem</Th>
+                  <Td>
+                    <TranslationComponentCountryName
+                      text={data.country}
+                      language="pt"
+                    />
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Th>Idioma</Th>
+                  <Td>
+                    <TranslationComponent
+                      text={data.originalLanguage}
+                      language="pt"
+                    />
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Th>Data de Lançamento</Th>
+                  <Td>
+                    {data.releaseDate
+                      ? format(new Date(data.releaseDate), " dd/MM/yyyy")
+                      : ""}
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Th>Popularidade</Th>
+                  <Td>{data.popularity}</Td>
+                </Tr>
+                <Tr>
+                  <Th>Generos</Th>
+                  <Td>{data.gender}</Td>
+                </Tr>
+                <Tr>
+                  <Th>Streamings Brasil</Th>
+                  <Td>{data.providersBR}</Td>
+                </Tr>
 
-          <tr>
-            <td className={styles.table}>Overview:</td>
-            <td className={styles.table}>
-              {" "}
-              {data.overview ? data.overview : "Sem infos"}
-            </td>
-          </tr>
-
-          <tr>
-            <td className={styles.table}>Nº de votos:</td>
-            <td className={styles.table}>{data.ratingCount}</td>
-          </tr>
-          <tr>
-            <td className={styles.table}>Nota:</td>
-            <td className={styles.table}>{data.average}</td>
-          </tr>
-          <tr>
-            <td className={styles.table}>Imdb:</td>
-            <td className={styles.table}>{data.imdb}</td>
-          </tr>
-
-          <tr>
-            <td className={styles.table}>Páis de Origem:</td>
-            <td className={styles.table}>
-              <TranslationComponentCountryName
-                text={data.country}
-                language="pt"
-              />
-            </td>
-          </tr>
-
-          <tr>
-            <td className={styles.table}>Idioma do Filme:</td>
-            <td className={styles.table}>
-              <TranslationComponent
-                text={data.originalLanguage}
-                language="pt"
-              />
-            </td>
-          </tr>
-
-          <tr>
-            <td className={styles.table}>Data de Lançamento:</td>
-            <td className={styles.table}>
-              {data.releaseDate
-                ? format(new Date(data.releaseDate), " dd/MM/yyyy")
-                : ""}
-            </td>
-          </tr>
-          <tr>
-            <td className={styles.table}>Popularidade:</td>
-            <td className={styles.table}>{data.popularity}</td>
-          </tr>
-          <tr>
-            <td className={styles.table}>Generos:</td>
-            <td className={styles.table}>{data.gender}</td>
-          </tr>
-          <tr>
-            <td className={styles.table}>
-              {" "}
-              {data.providersBR === null ? null : `Streamings Brasil:`}
-            </td>
-            <td className={styles.table}>
-              {" "}
-              {data.providersBR === null ? null : `${data.providersBR}`}
-            </td>
-          </tr>
-          <tr>
-            <td className={styles.table}>Streamings EUA:</td>
-            <td className={styles.table}>{data.providersUS}</td>
-          </tr>
-        </table>
+                <Tr>
+                  <Th>Streamings EUA</Th>
+                  <Td>{data.providerUS}</Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </ChakraProvider>
+        <div />
       </div>
     </>
   );

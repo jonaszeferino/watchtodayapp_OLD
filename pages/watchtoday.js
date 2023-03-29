@@ -18,6 +18,12 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  Center,
+  Divider,
+  Box,
+  Heading,
+  Text,
+  Button,
 } from "@chakra-ui/react";
 
 export default function Movieapi() {
@@ -160,17 +166,34 @@ export default function Movieapi() {
       </Head>
 
       <div>
-        <div className={styles.top}>
+        {/* <div className={styles.top}>
           <h3 className={styles.title}>Que filme Assistir Hoje?</h3>
+        </div> */}
+        <div style={{ maxWidth: "480px", margin: "0 auto" }}>
+          <ChakraProvider>
+            <Box maxW="32rem">
+              <Heading mb={4}>Que filme Assistir hoje?</Heading>
+              <Text fontSize="xl">
+                Clique e veja as possibilidades até que um seja do seu agrado!
+              </Text>
+              <Button
+                size="lg"
+                colorScheme="purple"
+                mt="24px"
+                onClick={apiCall}
+              >
+                Verificar
+              </Button>
+            </Box>
+          </ChakraProvider>
         </div>
 
         <br />
 
         <br />
-        <button onClick={apiCall} className={styles.button}>
+        {/* <button onClick={apiCall} className={styles.button}>
           Verificar
-        </button>
-        <br />
+        </button> */}
 
         {isLoading ? <Progress size="xs" isIndeterminate /> : null}
 
@@ -281,8 +304,7 @@ export default function Movieapi() {
                               />
                             </Td>
                           </Tr>
-                        </Tbody>
-                        <Tfoot>
+
                           <Tr>
                             <Th>Genero</Th>
                             <Td>
@@ -299,7 +321,7 @@ export default function Movieapi() {
                                 ))}
                             </Td>
                           </Tr>
-                        </Tfoot>
+                        </Tbody>
                       </Table>
                     </TableContainer>
                   </ChakraProvider>

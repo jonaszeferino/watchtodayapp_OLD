@@ -2,6 +2,12 @@
   padding: 0 2rem;
 }
 
+@media (max-width: 480px) {
+  .container {
+    max-width: 90%;
+  }
+}
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;
