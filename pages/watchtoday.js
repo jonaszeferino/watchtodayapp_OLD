@@ -44,8 +44,10 @@ export default function Movieapi() {
       apiCall();
     }
   });
+  const posterRef = useRef(null);
 
   const apiCall = () => {
+    posterRef.current.scrollIntoView({ behavior: "smooth" });
     setRandomMovieId(Math.floor(Math.random() * 560000));
     setIsLoading(true);
     setError(false);
@@ -144,12 +146,12 @@ export default function Movieapi() {
         console.log("veraqui " + error);
       });
   };
-  const posterRef = useRef(null);
+
   const handleLike = (value) => {
     console.log(value, "veraqui");
     setLike(value);
     setLikeDisable(false);
-    posterRef.current.scrollIntoView({ behavior: "smooth" });
+
     const updatedMovieDataInsert = {
       ...movieDataInsert,
       like_movie: value,
