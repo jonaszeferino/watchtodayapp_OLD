@@ -47,7 +47,7 @@ export default function Movieapi() {
   const posterRef = useRef(null);
 
   const apiCall = () => {
-    if (posterRef.current) {
+    if (!isError && posterRef.current) {
       posterRef.current.scrollIntoView({ behavior: "smooth" });
     }
     setRandomMovieId(Math.floor(Math.random() * 560000));
