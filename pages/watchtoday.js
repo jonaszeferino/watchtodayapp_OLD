@@ -24,6 +24,10 @@ import {
   Heading,
   Text,
   Button,
+  AlertDescription,
+  AlertTitle,
+  AlertIcon,
+  Alert,
 } from "@chakra-ui/react";
 
 export default function Movieapi() {
@@ -212,18 +216,30 @@ export default function Movieapi() {
                       className={styles.title}
                     >{`${movieData.originalTitle}`}</span>
                   ) : (
-                    <span className={styles.button_green_card}>
-                      O algoritmo funciona selecionando um ID de filme
-                      <br />
-                      aleatoriamente a partir de uma base de mais de 560 mil
-                      filmes.
-                      <br />
-                      Caso o filme correspondente ao ID selecionado tenha sido
-                      deletado, <br />
-                      basta clicar novamente para gerar um novo ID.
-                      <br />
-                      Have Fun!
-                    </span>
+                    <ChakraProvider>
+                      <Alert
+                        status="success"
+                        variant="subtle"
+                        flexDirection="column"
+                        alignItems="center"
+                        justifyContent="center"
+                        textAlign="center"
+                        height="250px"
+                        weight="100px"
+                        fontSize="12px"
+                      >
+                        <AlertIcon boxSize="40px" mr={0} />
+                        <AlertTitle mt={4} mb={1} fontSize="lg">
+                          Como Funciona!
+                        </AlertTitle>
+                        <AlertDescription maxWidth="sm">
+                          O algoritmo seleciona um ID de filme aleatoriamente a
+                          partir de uma base de mais de 560 mil filmes. Caso o o
+                          ID do filme selecionado tenha sido deletado, basta
+                          clicar novamente para gerar um novo ID. Have Fun!
+                        </AlertDescription>
+                      </Alert>
+                    </ChakraProvider>
                   )}
                 </span>
                 <br />
@@ -353,6 +369,7 @@ export default function Movieapi() {
                   >
                     Gostei
                   </button>
+
                   <button
                     onClick={() => {
                       handleLike(2);

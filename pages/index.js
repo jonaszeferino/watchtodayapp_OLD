@@ -4,7 +4,8 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 import ErrorPage from "./error-page";
-import { ChakraProvider, Progress } from "@chakra-ui/react";
+import CarouselLinks from "../components/carrossel";
+import { ChakraProvider, Progress, Container } from "@chakra-ui/react";
 
 export default function Home() {
   let [movieId, setMovieId] = useState();
@@ -167,6 +168,11 @@ export default function Home() {
         <br />
         <br />
       </div> */}
+
+      {/* <Container>
+        <CarouselLinks />
+      </Container> */}
+
       <div>
         <br />
         <br />
