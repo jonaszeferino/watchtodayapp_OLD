@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "../styles/Home.module.css";
 import ErrorPage from "./error-page";
 import Image from "next/image";
@@ -144,11 +144,12 @@ export default function Movieapi() {
         console.log("veraqui " + error);
       });
   };
-
+  const posterRef = useRef(null);
   const handleLike = (value) => {
     console.log(value, "veraqui");
     setLike(value);
     setLikeDisable(false);
+    posterRef.current.scrollIntoView({ behavior: "smooth" });
     const updatedMovieDataInsert = {
       ...movieDataInsert,
       like_movie: value,
@@ -264,7 +265,7 @@ export default function Movieapi() {
 
               {movieData.portugueseTitle && (
                 <h1>
-                  <span>
+                  <span ref={posterRef}>
                     {poster != null ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
