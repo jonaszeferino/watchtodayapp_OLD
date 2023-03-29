@@ -1,47 +1,94 @@
 import Link from "next/link";
 import styles from "../styles/Navbar.module.css";
 
-export default function navbar() {
+export default function Navbar() {
   return (
     <ul className={styles.navbar}>
       <li>
         <Link href="/">
-          <a>Home</a>
+          <a>|Home</a>
         </Link>
       </li>
       <li>
         <Link href="/watchtoday">
-          <a>O que Assistir Hoje?</a>
+          <a>| O que Assistir Hoje?</a>
         </Link>
         <ul></ul>
       </li>
       <li>
         <Link href="/searchmovies">
-          <a>Descobrir Filmes Por Nota</a>
+          <a>| Descobrir Filmes Por Nota</a>
         </Link>
       </li>
       <li>
         <Link href="/searchmoviesbycountry">
-          <a>Filmes Por Língua</a>
+          <a>| Filmes Por Língua</a>
         </Link>
       </li>
       <li>
         <Link href="/searchtvshows">
-          <a>Busca de Séries</a>
+          <a>| Busca de Séries</a>
         </Link>
       </li>
-
       <li>
         <Link href="/searchfree">
-          <a>Busca Livre</a>
+          <a>| Busca Livre</a>
         </Link>
       </li>
-
       <li>
         <Link href="/searchStandardFilters">
-          <a>Buscas Fixas</a>
+          <a>| Buscas Fixas</a>
         </Link>
       </li>
     </ul>
   );
 }
+
+// Como estava dia 28/03/2023
+// import Link from "next/link";
+// import styles from "../styles/Navbar.module.css";
+
+// export default function navbar() {
+//   return (
+//     <ul className={styles.navbar}>
+//       <li>
+//         <Link href="/">
+//           <a>Home</a>
+//         </Link>
+//       </li>
+//       <li>
+//         <Link href="/watchtoday">
+//           <a>| O que Assistir Hoje?</a>
+//         </Link>
+//         <ul></ul>
+//       </li>
+//       <li>
+//         <Link href="/searchmovies">
+//           <a>| Descobrir Filmes Por Nota</a>
+//         </Link>
+//       </li>
+//       <li>
+//         <Link href="/searchmoviesbycountry">
+//           <a>| Filmes Por Língua</a>
+//         </Link>
+//       </li>
+//       <li>
+//         <Link href="/searchtvshows">
+//           <a>| Busca de Séries</a>
+//         </Link>
+//       </li>
+
+//       <li>
+//         <Link href="/searchfree">
+//           <a>| Busca Livre</a>
+//         </Link>
+//       </li>
+
+//       <li>
+//         <Link href="/searchStandardFilters">
+//           <a>| Buscas Fixas</a>
+//         </Link>
+//       </li>
+//     </ul>
+//   );
+// }
