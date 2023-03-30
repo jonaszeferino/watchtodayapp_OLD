@@ -12,14 +12,10 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
-  Center,
-  Divider,
   Box,
   Heading,
   Text,
@@ -28,6 +24,11 @@ import {
   AlertTitle,
   AlertIcon,
   Alert,
+  Tab,
+  Tabs,
+  TabList,
+  TabPanels,
+  TabPanel,
 } from "@chakra-ui/react";
 
 export default function Movieapi() {
@@ -302,48 +303,46 @@ export default function Movieapi() {
                             <Td>{movieData.portugueseTitle}</Td>
                           </Tr>
                         </Thead>
-                        <Tbody>
-                          <Tr>
-                            <Th>Nota Média</Th>
-                            <Td>{`${movieData.average} / ${movieData.ratingCount} votos`}</Td>
-                          </Tr>
-                          <Tr>
-                            <Th>País de Origem</Th>
-                            <Td>
-                              <TranslationComponentCountryName
-                                text={movieData.country}
-                                language="pt"
-                              />
-                            </Td>
-                          </Tr>
-                          <Tr>
-                            <Th>Língua</Th>
-                            <Td>
-                              <TranslationComponent
-                                text={movieData.originalLanguage}
-                                language="pt"
-                              />
-                            </Td>
-                          </Tr>
-
-                          <Tr>
-                            <Th>Genero</Th>
-                            <Td>
-                              {" "}
-                              {movieData.gender &&
-                                movieData.gender.length > 0 &&
-                                movieData.gender.map((gender, index) => (
-                                  <span key={gender}>
-                                    {gender}
-                                    {index !== movieData.gender.length - 1
-                                      ? ", "
-                                      : ""}
-                                  </span>
-                                ))}
-                            </Td>
-                          </Tr>
-                        </Tbody>
+                        <Tbody></Tbody>
                       </Table>
+                      <Tabs size="md" variant="enclosed">
+                        <TabList>
+                          <Tab>Nota Média</Tab>
+                          <Tab>País de Origem</Tab>
+                          <Tab>Idioma</Tab>
+                          <Tab>Genero</Tab>
+                        </TabList>
+                        <TabPanels>
+                          <TabPanel>
+                            {`${movieData.average} / ${movieData.ratingCount} votos`}
+                          </TabPanel>
+                          <TabPanel>
+                            <TranslationComponentCountryName
+                              text={movieData.country}
+                              language="pt"
+                            />
+                          </TabPanel>
+                          <TabPanel>
+                            <TranslationComponent
+                              text={movieData.originalLanguage}
+                              language="pt"
+                            />
+                          </TabPanel>
+                          <TabPanel>
+                            {" "}
+                            {movieData.gender &&
+                              movieData.gender.length > 0 &&
+                              movieData.gender.map((gender, index) => (
+                                <span key={gender}>
+                                  {gender}
+                                  {index !== movieData.gender.length - 1
+                                    ? ", "
+                                    : ""}
+                                </span>
+                              ))}
+                          </TabPanel>
+                        </TabPanels>
+                      </Tabs>
                     </TableContainer>
                   </ChakraProvider>
                 </div>
