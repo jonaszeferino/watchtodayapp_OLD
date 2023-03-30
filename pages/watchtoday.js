@@ -4,6 +4,7 @@ import ErrorPage from "./error-page";
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
+
 import TranslationComponent from "../components/translateComponent";
 import TranslationComponentCountryName from "../components/translateComponentCountryName";
 import {
@@ -299,21 +300,61 @@ export default function Movieapi() {
                       <Table size="sm">
                         <Thead>
                           <Tr>
-                            <Th>Título Em Português</Th>
-                            <Td>{movieData.portugueseTitle}</Td>
+                            <Td
+                              style={{
+                                fontFamily: "Helvetica Neue, sans-serif",
+                              }}
+                            >
+                              Título Em Português
+                            </Td>
+                            <Td
+                              style={{
+                                fontFamily: "Helvetica Neue, sans-serif",
+                              }}
+                            >
+                              {movieData.portugueseTitle}
+                            </Td>
                           </Tr>
                         </Thead>
                         <Tbody></Tbody>
                       </Table>
                       <Tabs size="md" variant="enclosed">
                         <TabList>
-                          <Tab>Nota Média</Tab>
-                          <Tab>País de Origem</Tab>
-                          <Tab>Idioma</Tab>
-                          <Tab>Genero</Tab>
+                          <Tab
+                            style={{
+                              fontFamily: "Helvetica Neue, sans-serif",
+                            }}
+                          >
+                            Nota Média
+                          </Tab>
+                          <Tab
+                            style={{
+                              fontFamily: "Helvetica Neue, sans-serif",
+                            }}
+                          >
+                            País de Origem
+                          </Tab>
+                          <Tab
+                            style={{
+                              fontFamily: "Helvetica Neue, sans-serif",
+                            }}
+                          >
+                            Idioma
+                          </Tab>
+                          <Tab
+                            style={{
+                              fontFamily: "Helvetica Neue, sans-serif",
+                            }}
+                          >
+                            Genero
+                          </Tab>
                         </TabList>
                         <TabPanels>
-                          <TabPanel>
+                          <TabPanel
+                            style={{
+                              fontFamily: "Helvetica Neue, sans-serif",
+                            }}
+                          >
                             {`${movieData.average} / ${movieData.ratingCount} votos`}
                           </TabPanel>
                           <TabPanel>
@@ -328,7 +369,11 @@ export default function Movieapi() {
                               language="pt"
                             />
                           </TabPanel>
-                          <TabPanel>
+                          <TabPanel
+                            style={{
+                              fontFamily: "Helvetica Neue, sans-serif",
+                            }}
+                          >
                             {" "}
                             {movieData.gender &&
                               movieData.gender.length > 0 &&
