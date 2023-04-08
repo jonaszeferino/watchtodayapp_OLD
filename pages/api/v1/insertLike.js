@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     const { movie_id, like_movie, movie_name, user_id, createdDate } = req.body;
 
     const query =
-      "INSERT INTO movielikes (movie_id, like_movie, movie_name, user_id, createdDate) VALUES (?, ?, ?, ?, ?)";
+      "INSERT INTO movieLikes (movie_id, like_movie, movie_name, user_id, createdDate) VALUES (?, ?, ?, ?, ?)";
     const values = [
       movie_id ? movie_id : null,
       like_movie ? like_movie : null,
