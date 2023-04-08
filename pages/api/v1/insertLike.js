@@ -4,15 +4,16 @@ export default async function handler(req, res) {
   const connection = await connectionRdsMySql();
 
   try {
-    const { movie_id, like_movie, movie_name, user_id } = req.body;
+    const { movie_id, like_movie, movie_name, user_id, createdDate } = req.body;
 
     const query =
-      "INSERT INTO movielikes (movie_id, like_movie, movie_name, user_id) VALUES (?, ?, ?, ?)";
+      "INSERT INTO movielikes (movie_id, like_movie, movie_name, user_id, createdDate) VALUES (?, ?, ?, ?, ?)";
     const values = [
       movie_id ? movie_id : null,
       like_movie ? like_movie : null,
       movie_name ? movie_name : null,
       user_id ? user_id : null,
+      createdDate ? createdDate : null,
     ];
 
     const [result] = await connection.execute(query, values);

@@ -40,6 +40,7 @@ export default function Movieapi() {
   const [like, setLike] = useState(0);
   const [isLikeDisabled, setLikeDisable] = useState(false);
   const [likeThanks, setLikeThanks] = useState(false);
+  const [dateNow, setDatenow] = useState(new Date());
 
   useEffect(() => {
     if (isError) {
@@ -122,6 +123,7 @@ export default function Movieapi() {
     like_movie: like,
     movie_name: movieData.originalTitle,
     user_id: "1",
+    createdDate: dateNow,
   };
 
   const insertMovieData = (movieDataInsert) => {
@@ -241,7 +243,7 @@ export default function Movieapi() {
                         </AlertTitle>
                         <AlertDescription maxWidth="sm">
                           O algoritmo seleciona um ID de filme aleatoriamente a
-                          partir de uma base de mais de 560 mil filmes. Caso o o
+                          partir de uma base de mais de 560 mil filmes. Caso o
                           ID do filme selecionado tenha sido deletado, basta
                           clicar novamente para gerar um novo ID. Have Fun!
                         </AlertDescription>
