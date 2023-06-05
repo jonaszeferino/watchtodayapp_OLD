@@ -18,12 +18,13 @@ import {
   TableCaption,
   TableContainer,
   Button,
+  Select,Stack,Input
 } from "@chakra-ui/react";
 
 const MoviePage = () => {
   const router = useRouter();
   // const movieId = router.query.movieId;
-  const movieId = 152;
+  const movieId = 666;
   const [movieIdRequest, setMovieIdRequest] = useState();
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -32,10 +33,9 @@ const MoviePage = () => {
   const [exibirTabelaBuy, setExibirTabelaBuy] = useState(false);
   const [exibirTabelaFree, setExibirTabelaFree] = useState(false);
   const [exibirTabelaAds, setExibirTabelaAds] = useState(false);
-
-  const [dataFlatrate, setDataFlatrate] = useState({});
-  const [dataRent, setDataRent] = useState({});
-  const [dataBuy, setDataBuy] = useState({});
+  const [selectedLanguage, setSelectedLanguage] = useState("PT")
+ 
+  const [movieSearchQuery, setMovieSearchQuery] = useState("")
 
   const providers = [
     "AD",
@@ -144,6 +144,14 @@ const MoviePage = () => {
     "ZM",
     "ZW",
   ];
+
+  // const callSearchMovie = {
+  //  urlSearch = `https://api.themoviedb.org/3/search/movie?query=${movieSearchQuery}&include_adult=false&language=pt-BR&page=1`
+
+  // }
+
+  console.log(movieSearchQuery)
+  console.log(selectedLanguage)
 
   useEffect(() => {
     setMovieIdRequest(movieId);
@@ -260,6 +268,29 @@ const MoviePage = () => {
   };
   return (
     <>
+
+<ChakraProvider>
+  <h1>Pesquise o Filme que Você Deseja Encontrar nos Streamings</h1>
+<div
+        style={{ maxWidth: "500px", margin: "0 auto", wordBreak: "break-word" }}
+      >
+<Input
+        placeholder="Digite o termo de pesquisa"
+        value={movieSearchQuery}
+        onChange={(e) => setMovieSearchQuery(e.target.value)}
+      />
+      <Select
+        value={selectedLanguage}
+        onChange={(e) => setSelectedLanguage(e.target.value)}
+      >
+        <option value="PT">Português</option>
+        <option value="EN">Inglês</option>
+      </Select>
+      <Button colorScheme="purple" onClick={handleExibirTabela}>
+        Pesquisar
+      </Button>
+      </div>
+    </ChakraProvider>
       {" "}
       <span className={styles.title}>{data.originalTitle}</span>
       <br />
