@@ -30,8 +30,8 @@ import {
 const MoviePage = () => {
   const router = useRouter();
   // const movieId = router.query.movieId;
-  const movieId = 785084;
-  const [movieIdRequest, setMovieIdRequest] = useState(movieId);
+  
+  const [movieIdRequest, setMovieIdRequest] = useState(null);
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [exibirTabela, setExibirTabela] = useState(false);
@@ -184,13 +184,13 @@ console.log(movieIdSearch)
   };
 
   const fetchData = () => {
-    setMovieIdRequest(movieId);
+    
     Promise.all([
       fetch(
-        `https://api.themoviedb.org/3/movie/${movieIdRequest}?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`
+        `https://api.themoviedb.org/3/movie/${movieIdSearch}?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`
       ),
       fetch(
-        `https://api.themoviedb.org/3/movie/${movieIdRequest}/watch/providers?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c`
+        `https://api.themoviedb.org/3/movie/${movieIdSearch}/watch/providers?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c`
       ),
     ])
       .then(([resMovie, resProviders]) =>
@@ -351,7 +351,7 @@ console.log(movieIdSearch)
             </Tbody>
           </Table>
 
-          <Button colorScheme="purple" onClick={handleExibirTabela}>
+          <Button colorScheme="purple" onClick={fetchData}>
             Verificar Os Streamings
           </Button>
         </div>
