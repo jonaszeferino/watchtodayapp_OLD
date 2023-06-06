@@ -18,14 +18,20 @@ import {
   TableCaption,
   TableContainer,
   Button,
-  Select,Stack,Input
+  Select,
+  Stack,
+  Input,
+  UnorderedList,
+  ListItem,
+  Box,
+  Checkbox,
 } from "@chakra-ui/react";
 
 const MoviePage = () => {
   const router = useRouter();
   // const movieId = router.query.movieId;
-  const movieId = 666;
-  const [movieIdRequest, setMovieIdRequest] = useState();
+  const movieId = 785084;
+  const [movieIdRequest, setMovieIdRequest] = useState(movieId);
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [exibirTabela, setExibirTabela] = useState(false);
@@ -33,9 +39,13 @@ const MoviePage = () => {
   const [exibirTabelaBuy, setExibirTabelaBuy] = useState(false);
   const [exibirTabelaFree, setExibirTabelaFree] = useState(false);
   const [exibirTabelaAds, setExibirTabelaAds] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("PT")
- 
-  const [movieSearchQuery, setMovieSearchQuery] = useState("")
+  const [selectedLanguage, setSelectedLanguage] = useState("PT");
+  const [showAllTables, setShowAllTables] = useState(false);
+  const [movieIdSearch, setMovieIdSearch] = useState(null);
+
+  const [movieSearchQuery, setMovieSearchQuery] = useState("");
+  const [movieResultSearchMovie, setResultSearchMovie] = useState([]);
+  const [error, setError] = useState("");
 
   const providers = [
     "AD",
@@ -145,15 +155,35 @@ const MoviePage = () => {
     "ZW",
   ];
 
-  // const callSearchMovie = {
-  //  urlSearch = `https://api.themoviedb.org/3/search/movie?query=${movieSearchQuery}&include_adult=false&language=pt-BR&page=1`
+console.log(movieIdSearch)
+  const apiCall = () => {
+    const url = `https://api.themoviedb.org/3/search/movie?query=${movieSearchQuery}&include_adult=false&language=pt-BR&page=1`;
+    setIsLoading(true);
 
-  // }
+    fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZDEwYmIyZmJjMTJkZmI2MjlhMGNiYWEzZjQ3ODEwYyIsInN1YiI6IjYzYTY2YmRiZWVhMzRkMDA5MDVlNzQ0NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.R2dOkW2sjiG0957GpRYFpWQJcfGC_WBHFs5lIKEYGlE",
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          setError(false);
+          return response.json();
+        } else {
+          throw new Error("Dados Incorretos");
+        }
+      })
+      .then((result) => {
+        setResultSearchMovie(result.results);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
 
-  console.log(movieSearchQuery)
-  console.log(selectedLanguage)
-
-  useEffect(() => {
+  const fetchData = () => {
     setMovieIdRequest(movieId);
     Promise.all([
       fetch(
@@ -224,30 +254,16 @@ const MoviePage = () => {
 
         setIsLoading(false);
       });
-  }, [movieId, movieIdRequest, providers]);
+  };
 
-  if (isLoading) {
-    return <p>Carregando dados...</p>;
-  }
+  const handleButtonClick = () => {
+    fetchData();
+  };
 
   let poster = "/callback.png";
 
   if (data.poster_path) {
     poster = "https://image.tmdb.org/t/p/original" + data.poster_path;
-  }
-
-  function getProgressColor(progressValue) {
-    if (progressValue >= 0.1 && progressValue <= 3.999) {
-      return "red";
-    } else if (progressValue >= 4.0 && progressValue <= 5.999) {
-      return "yellow";
-    } else if (progressValue >= 6 && progressValue <= 7.999) {
-      return "green";
-    } else if (progressValue >= 8 && progressValue <= 10) {
-      return "blue";
-    } else {
-      return "gray";
-    }
   }
 
   const handleExibirTabela = () => {
@@ -268,47 +284,86 @@ const MoviePage = () => {
   };
   return (
     <>
+      <ChakraProvider>
+        <h1>Pesquise o Filme que Você Deseja Encontrar nos Streamings</h1>
+        <div
+          style={{
+            maxWidth: "500px",
+            margin: "0 auto",
+            wordBreak: "break-word",
+          }}
+        >
+          <Input
+            placeholder="Digite o termo de pesquisa"
+            value={movieSearchQuery}
+            onChange={(e) => setMovieSearchQuery(e.target.value)}
+          />
+          <Select
+            value={selectedLanguage}
+            onChange={(e) => setSelectedLanguage(e.target.value)}
+          >
+            <option value="PT">Português</option>
+            <option value="EN">Inglês</option>
+          </Select>
+          <Button colorScheme="purple" onClick={apiCall}>
+            Pesquisar
+          </Button>
 
-<ChakraProvider>
-  <h1>Pesquise o Filme que Você Deseja Encontrar nos Streamings</h1>
-<div
-        style={{ maxWidth: "500px", margin: "0 auto", wordBreak: "break-word" }}
-      >
-<Input
-        placeholder="Digite o termo de pesquisa"
-        value={movieSearchQuery}
-        onChange={(e) => setMovieSearchQuery(e.target.value)}
-      />
-      <Select
-        value={selectedLanguage}
-        onChange={(e) => setSelectedLanguage(e.target.value)}
-      >
-        <option value="PT">Português</option>
-        <option value="EN">Inglês</option>
-      </Select>
-      <Button colorScheme="purple" onClick={handleExibirTabela}>
-        Pesquisar
-      </Button>
-      </div>
-    </ChakraProvider>
-      {" "}
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>Título</Th>
+                <Th>Título Original</Th>
+                <Th>Poster</Th>
+                <Th>Selecionar</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {movieResultSearchMovie.map((movie) => (
+                <Tr key={movie.id}>
+                  <Td>{movie.title}</Td>
+                  <Td>{movie.original_title}</Td>
+                  <Td>
+                    {movie.poster_path ? (
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                        alt="Poster"
+                        width="240"
+                        height="360"
+                      />
+                    ) : (
+                      <Image
+                        src="/callback.png"
+                        alt="Placeholder"
+                        width="240"
+                        height="360"
+                      />
+                    )}
+                  </Td>
+                  <Td>
+                    <Checkbox
+                      isChecked={movieIdSearch === movie.id}
+                      onChange={() => setMovieIdSearch(movie.id)}
+                    />
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+
+          <Button colorScheme="purple" onClick={handleExibirTabela}>
+            Verificar Os Streamings
+          </Button>
+        </div>
+      </ChakraProvider>{" "}
       <span className={styles.title}>{data.originalTitle}</span>
       <br />
       <br />
-      <div style={{ maxWidth: "480px", margin: "0 auto" }}>
-        <ChakraProvider>
-          <Progress
-            hasStripe
-            value={data.average}
-            max={10}
-            colorScheme={getProgressColor(data.average)}
-          />
-        </ChakraProvider>
-      </div>
+      <div style={{ maxWidth: "480px", margin: "0 auto" }}></div>
       <br />
       <div>
-        {isLoading ? (
-          <div>Loading...</div>
+        {showAllTables ? (
+          <div></div>
         ) : (
           <span>
             <span>
