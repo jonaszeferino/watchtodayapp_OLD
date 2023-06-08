@@ -25,12 +25,16 @@ import {
   ListItem,
   Box,
   Checkbox,
+  Heading,
+  InputGroup,
+  InputRightElement,
+  Text,
 } from "@chakra-ui/react";
+
+import Providers from "../components/countries";
 
 const MoviePage = () => {
   const router = useRouter();
-  // const movieId = router.query.movieId;
-  
   const [movieIdRequest, setMovieIdRequest] = useState(null);
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -42,121 +46,28 @@ const MoviePage = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("PT");
   const [showAllTables, setShowAllTables] = useState(false);
   const [movieIdSearch, setMovieIdSearch] = useState(null);
+  const [totals, setTotals] = useState("");
+  const [showPoster, setShowPoster] = useState(false)
 
   const [movieSearchQuery, setMovieSearchQuery] = useState("");
   const [movieResultSearchMovie, setResultSearchMovie] = useState([]);
   const [error, setError] = useState("");
 
-  const providers = [
-    "AD",
-    "AE",
-    "AL",
-    "AO",
-    "AR",
-    "AT",
-    "AU",
-    "BA",
-    "BE",
-    "BF",
-    "BG",
-    "BH",
-    "BO",
-    "BR",
-    "BZ",
-    "CA",
-    "CD",
-    "CH",
-    "CI",
-    "CL",
-    "CM",
-    "CO",
-    "CR",
-    "CV",
-    "CZ",
-    "DE",
-    "DK",
-    "DO",
-    "DZ",
-    "EC",
-    "EE",
-    "EG",
-    "ES",
-    "FI",
-    "FR",
-    "GB",
-    "GG",
-    "GH",
-    "GI",
-    "GT",
-    "HN",
-    "HR",
-    "HU",
-    "ID",
-    "IE",
-    "IL",
-    "IN",
-    "IQ",
-    "IT",
-    "JO",
-    "JP",
-    "KE",
-    "KR",
-    "KW",
-    "LB",
-    "LT",
-    "LU",
-    "LV",
-    "LY",
-    "MA",
-    "MG",
-    "MK",
-    "ML",
-    "MU",
-    "MW",
-    "MX",
-    "MY",
-    "MZ",
-    "NE",
-    "NG",
-    "NI",
-    "NL",
-    "NO",
-    "NZ",
-    "OM",
-    "PA",
-    "PE",
-    "PH",
-    "PL",
-    "PT",
-    "PY",
-    "QA",
-    "RO",
-    "RS",
-    "RU",
-    "SA",
-    "SE",
-    "SG",
-    "SI",
-    "SK",
-    "SV",
-    "TD",
-    "TH",
-    "TN",
-    "TR",
-    "TZ",
-    "UA",
-    "UG",
-    "US",
-    "UY",
-    "VE",
-    "YE",
-    "ZA",
-    "ZM",
-    "ZW",
-  ];
+  const Clean = () => {
+  setIsLoading(true);
+  setExibirTabela(false);
+  setExibirTabelaRent(false);
+  setExibirTabelaBuy(false);
+  setExibirTabelaFree(false);
+  setExibirTabelaAds(false);
+  setShowAllTables(false);
+  }
+  
+  const providers = `AD,AE,AL,AO,AR,AT,AU,BA,BE,BF,BG,BH,BO,BR,BZ,CA,CD,CH,CI,CL,CM,CO,CR,CV,CZ,DE,DK,DO,DZ,EC,EE,EG,ES,FI,FR,GB,GG,GH,GI,GT,HN,HR,HU,ID,IE,IL,IN,IQ,IT,JO,JP,KE,KR,KW,LB,LT,LU,LV,LY,MA,MG,MK,ML,MU,MW,MX,MY,MZ,NE,NG,NI,NL,NO,NZ,OM,PA,PE,PH,PL,PT,PY,QA,RO,RS,RU,SA,SE,SG,SI,SK,SV,TD,TH,TN,TR,TZ,UA,UG,US,UY,VE,YE,ZA,ZM,ZW`.split(",");
 
-console.log(movieIdSearch)
   const apiCall = () => {
+    setMovieSearchQuery(null)
+    Clean();
     const url = `https://api.themoviedb.org/3/search/movie?query=${movieSearchQuery}&include_adult=false&language=pt-BR&page=1`;
     setIsLoading(true);
 
@@ -177,6 +88,7 @@ console.log(movieIdSearch)
       })
       .then((result) => {
         setResultSearchMovie(result.results);
+        setTotals(result.total_results);
       })
       .catch((error) => {
         setError(error.message);
@@ -184,7 +96,7 @@ console.log(movieIdSearch)
   };
 
   const fetchData = () => {
-    
+    setTotals("")
     Promise.all([
       fetch(
         `https://api.themoviedb.org/3/movie/${movieIdSearch}?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`
@@ -197,67 +109,66 @@ console.log(movieIdSearch)
         Promise.all([resMovie.json(), resProviders.json()])
       )
       .then(([dataMovies, dataProviders]) => {
-        setData({
-          budget: dataMovies.budget,
-          originalTitle: dataMovies.original_title,
-          portugueseTitle: dataMovies.title,
-          poster_path: dataMovies.poster_path,
-          gender: dataMovies.genres
-            ? dataMovies.genres.map((genre) => genre.name).join(", ")
-            : "",
-          providers: providers.reduce((acc, provider) => {
-            if (dataProviders.results && dataProviders.results[provider]) {
-              if (dataProviders.results[provider].flatrate) {
-                acc[provider] = dataProviders.results[provider].flatrate
-                  .map((providerItem) => providerItem.provider_name)
-                  .join(", ");
-              } else {
-                acc[provider] = "";
+        setTotals({
+          total_results: dataProviders.total_results,
+        }),
+          setData({
+            budget: dataMovies.budget,
+            originalTitle: dataMovies.original_title,
+            portugueseTitle: dataMovies.title,
+            poster_path: dataMovies.poster_path,
+            gender: dataMovies.genres
+              ? dataMovies.genres.map((genre) => genre.name).join(", ")
+              : "",
+            providers: providers.reduce((acc, provider) => {
+              if (dataProviders.results && dataProviders.results[provider]) {
+                if (dataProviders.results[provider].flatrate) {
+                  acc[provider] = dataProviders.results[provider].flatrate
+                    .map((providerItem) => providerItem.provider_name)
+                    .join(", ");
+                } else {
+                  acc[provider] = "";
+                }
+
+                if (dataProviders.results[provider].rent) {
+                  acc[provider + "_rent"] = dataProviders.results[provider].rent
+                    .map((providerItem) => providerItem.provider_name)
+                    .join(", ");
+                } else {
+                  acc[provider + "_rent"] = "";
+                }
+
+                if (dataProviders.results[provider].ads) {
+                  acc[provider + "_ads"] = dataProviders.results[provider].ads
+                    .map((providerItem) => providerItem.provider_name)
+                    .join(", ");
+                } else {
+                  acc[provider + "_ads"] = "";
+                }
+
+                if (dataProviders.results[provider].free) {
+                  acc[provider + "_free"] = dataProviders.results[provider].free
+                    .map((providerItem) => providerItem.provider_name)
+                    .join(", ");
+                } else {
+                  acc[provider + "_free"] = "";
+                }
+
+                if (dataProviders.results[provider].buy) {
+                  acc[provider + "_buy"] = dataProviders.results[provider].buy
+                    .map((providerItem) => providerItem.provider_name)
+                    .join(", ");
+                } else {
+                  acc[provider + "_buy"] = "";
+                }
               }
 
-              if (dataProviders.results[provider].rent) {
-                acc[provider + "_rent"] = dataProviders.results[provider].rent
-                  .map((providerItem) => providerItem.provider_name)
-                  .join(", ");
-              } else {
-                acc[provider + "_rent"] = "";
-              }
-
-              if (dataProviders.results[provider].ads) {
-                acc[provider + "_ads"] = dataProviders.results[provider].ads
-                  .map((providerItem) => providerItem.provider_name)
-                  .join(", ");
-              } else {
-                acc[provider + "_ads"] = "";
-              }
-
-              if (dataProviders.results[provider].free) {
-                acc[provider + "_free"] = dataProviders.results[provider].free
-                  .map((providerItem) => providerItem.provider_name)
-                  .join(", ");
-              } else {
-                acc[provider + "_free"] = "";
-              }
-
-              if (dataProviders.results[provider].buy) {
-                acc[provider + "_buy"] = dataProviders.results[provider].buy
-                  .map((providerItem) => providerItem.provider_name)
-                  .join(", ");
-              } else {
-                acc[provider + "_buy"] = "";
-              }
-            }
-
-            return acc;
-          }, {}),
-        });
+              return acc;
+            }, {}),
+          });
 
         setIsLoading(false);
       });
-  };
-
-  const handleButtonClick = () => {
-    fetchData();
   };
 
   let poster = "/callback.png";
@@ -282,10 +193,13 @@ console.log(movieIdSearch)
   const handleExibirTabelaAds = () => {
     setExibirTabelaAds(!exibirTabelaAds);
   };
+
   return (
     <>
       <ChakraProvider>
-        <h1>Pesquise o Filme que Você Deseja Encontrar nos Streamings</h1>
+        <Heading as="h1" size="xl" mb={4}>
+          Pesquise o Filme que Você Deseja Encontrar nos Streamings
+        </Heading>
         <div
           style={{
             maxWidth: "500px",
@@ -293,67 +207,81 @@ console.log(movieIdSearch)
             wordBreak: "break-word",
           }}
         >
-          <Input
-            placeholder="Digite o termo de pesquisa"
-            value={movieSearchQuery}
-            onChange={(e) => setMovieSearchQuery(e.target.value)}
-          />
-          <Select
-            value={selectedLanguage}
-            onChange={(e) => setSelectedLanguage(e.target.value)}
-          >
-            <option value="PT">Português</option>
-            <option value="EN">Inglês</option>
-          </Select>
-          <Button colorScheme="purple" onClick={apiCall}>
-            Pesquisar
-          </Button>
-
-          <Table>
-            <Thead>
-              <Tr>
-                <Th>Título</Th>
-                <Th>Título Original</Th>
-                <Th>Poster</Th>
-                <Th>Selecionar</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {movieResultSearchMovie.map((movie) => (
-                <Tr key={movie.id}>
-                  <Td>{movie.title}</Td>
-                  <Td>{movie.original_title}</Td>
-                  <Td>
-                    {movie.poster_path ? (
-                      <Image
-                        src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                        alt="Poster"
-                        width="240"
-                        height="360"
-                      />
-                    ) : (
-                      <Image
-                        src="/callback.png"
-                        alt="Placeholder"
-                        width="240"
-                        height="360"
-                      />
-                    )}
-                  </Td>
-                  <Td>
-                    <Checkbox
-                      isChecked={movieIdSearch === movie.id}
-                      onChange={() => setMovieIdSearch(movie.id)}
-                    />
-                  </Td>
+          <InputGroup>
+            <Input
+              placeholder="Digite o termo de pesquisa"
+              value={movieSearchQuery}
+              onChange={(e) => setMovieSearchQuery(e.target.value)}
+            />
+            <InputRightElement width="auto">
+              <Button colorScheme="purple" onClick={apiCall}>
+                Pesquisar
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+          <Text>
+            {totals === 0 ? (
+              <>
+                Sem resultados para a busca: <strong>{movieSearchQuery}</strong>{" "}
+                - Tente outro termo!
+              </>
+            ) : (
+              ""
+            )}
+          </Text>
+          {totals > 0 ? (
+            <Table>
+              <Thead>
+                <Tr>
+                  <Th>Título</Th>
+                  <Th>Título Original</Th>
+                  <Th>Poster</Th>
+                  <Th>Selecionar</Th>
                 </Tr>
-              ))}
-            </Tbody>
-          </Table>
+              </Thead>
 
+              <Tbody>
+                {movieResultSearchMovie.map((movie) => (
+                  <Tr key={movie.id}>
+                    <Td>{movie.title}</Td>
+                    <Td>{movie.original_title}</Td>
+                    <Td>
+                      {movie.poster_path ? (
+                        <Image
+                          src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                          alt="Poster"
+                          width="240"
+                          height="360"
+                        />
+                      ) : (
+                        <Image
+                          src="/callback.png"
+                          alt="Placeholder"
+                          width="240"
+                          height="360"
+                        />
+                      )}
+                    </Td>
+                    <Td>
+  <Checkbox
+    isChecked={movieIdSearch === movie.id}
+    onChange={() => {
+      setMovieIdSearch(movie.id);
+      
+    }}
+  />
+</Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          
+          ) : null}
+          {totals > 0 ? (
           <Button colorScheme="purple" onClick={fetchData}>
             Verificar Os Streamings
           </Button>
+          ) : null}
         </div>
       </ChakraProvider>{" "}
       <span className={styles.title}>{data.originalTitle}</span>
@@ -361,51 +289,46 @@ console.log(movieIdSearch)
       <br />
       <div style={{ maxWidth: "480px", margin: "0 auto" }}></div>
       <br />
-      <div>
-        {showAllTables ? (
-          <div></div>
-        ) : (
-          <span>
-            <span>
-              {poster != null ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  className={styles.card_image_big}
-                  src={poster}
-                  alt="poster"
-                  width="480"
-                  height="720"
-                />
-              ) : (
-                <Image
-                  className={styles.card_image_big}
-                  src="/callback.png"
-                  alt="poster"
-                  width="480"
-                  height="720"
-                />
-              )}
-            </span>
-          </span>
-        )}
-      </div>
+      <Box>
+  {showAllTables ? (
+    <Box></Box>
+  ) : (
+    <Box>
+      
+      {Object.keys(data).length > 0 && (
+  <Box>
+    {poster != null ? (
+      <Image
+        className={styles.card_image_big}
+        src={poster}
+        alt="poster"
+        width={480}
+        height={720}
+      />
+    ) : (
+      <Image
+        className={styles.card_image_big}
+        src="/callback.png"
+        alt="poster"
+        width={480}
+        height={720}
+      />
+    )}
+  </Box>
+)}
+
+    </Box>
+  )}
+</Box>
       {/* Tabela aqui para baixo */}
       <br />
       <div
         style={{ maxWidth: "480px", margin: "0 auto", wordBreak: "break-word" }}
       >
         <ChakraProvider>
-          <h1>
-            Abaixo temos todas os tipos de Streamings Disponíveis por Países e
-            Plataformas
-          </h1>
-          <span>
-            Via Assinatura (Streaming Tradicional), Via Aluguel, Via Compra, Via
-            Exibição com Anuncios durante a Exibição e de Forma Gratuita sem
-            anuncios.
-          </span>
+
           <br />
-          <sapn>Clique nos tipos abaixo pra verificar a lista completa</sapn>
+          <span>Clique nos tipos abaixo pra verificar as listas completas por países</span>
           <br />
           <br />
           <Button

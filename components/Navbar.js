@@ -36,8 +36,8 @@ export default function Navbar() {
         </Link>
       </li>
       <li>
-        <Link href="/searchStandardFilters">
-          <a>| Buscas Fixas |</a>
+        <Link href="/where-is-my-movie">
+          <a>| Onde Está Meu Filme? |</a>
         </Link>
       </li>
     </ul>
