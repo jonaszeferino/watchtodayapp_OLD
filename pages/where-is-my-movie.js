@@ -202,6 +202,9 @@ const MoviePage = () => {
         <Heading as="h1" size="xl" mb={4}>
           Pesquise o Filme que Você Deseja Encontrar nos Streamings
         </Heading>
+        <spna>
+          A busca irá trazer onde seu filme está dispnível no mundo
+        </spna>
         <br/>
         <br/>
         <br/>

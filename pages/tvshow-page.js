@@ -189,22 +189,21 @@ const MoviePage = () => {
       <Td>Primeiro Episódio no Ar:</Td>
       <Td>
         {data.firstEpisodeToAir
-          ? format(new Date(data.firstEpisodeToAir), " dd/MM/yyyy")
+          ? format(new Date(data.firstEpisodeToAir), "dd/MM/yyyy")
           : ""}
       </Td>
     </Tr>
 
     <Tr>
-      <Td>Último Episódio no Ar:</Td>
-      <Td>
-        {data.lastEpisodeToAir !== undefined &&
-        data.lastEpisodeToAir !== null
-          ? typeof data.lastEpisodeToAir === "string"
-            ? data.lastEpisodeToAir
-            : format(new Date(data.lastEpisodeToAir), "dd/MM/yyyy")
-          : "Ainda No Ar"}
-      </Td>
-    </Tr>
+  <Td>Último Episódio no Ar:</Td>
+  <Td>
+    {data.lastEpisodeToAir !== undefined && data.lastEpisodeToAir !== null
+      ? typeof data.lastEpisodeToAir === "string"
+        ? format(new Date(data.lastEpisodeToAir), "dd/MM/yyyy")
+        : format(data.lastEpisodeToAir, "dd/MM/yyyy")
+      : "Ainda No Ar"}
+  </Td>
+</Tr>
 
     <Tr>
       <Td>Última Temporada No Ar:</Td>
