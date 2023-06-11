@@ -5,6 +5,20 @@ import { format } from "date-fns";
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  Spinner,
+  Text,
+  ChakraProvider,
+  VStack, Center
+
+} from "@chakra-ui/react";
+import { CacheProvider } from "@emotion/react";
 
 export default function Discovery() {
   let [searchMovies, setSearchMovies] = useState([]);
@@ -90,131 +104,102 @@ export default function Discovery() {
         <div className={styles.top}>
           <h3 className={styles.title}> Séries - Programas de TV</h3>
         </div>
-        <h2>
-          {" "}
-          <br />
-          <label type="text">
-            Ordem:
-            <select
-              name="select"
-              type="text"
-              className={styles.card}
-              value={searchRatingSort}
-              onChange={(event) => setSearchRatingSort(event.target.value)}
-            >
-              <option className={styles.card} value="vote_average.asc">
-                Da Pior Para Melhor Nota
-              </option>
-              <option className={styles.card} value="vote_average.desc">
-                Da Melhor Para Pior Nota
-              </option>
-            </select>
-          </label>
-          <br />
-          <label type="text">
-            Nº de Votos:
-            <select
-              name="select"
-              type="number"
-              className={styles.card}
-              value={searchVoteCount}
-              onChange={(event) => setSearchVoteCount(event.target.value)}
-            >
-              {" "}
-              <option className={styles.card} value="0">
-                Mais de 0 votos
-              </option>
-              <option className={styles.card} value="50">
-                Mais de 50 votos
-              </option>
-              <option className={styles.card} value="100">
-                Mais de 100 votos
-              </option>
-              <option className={styles.card} value="200">
-                Mais de 200 votos
-              </option>
-              <option className={styles.card} value="500">
-                Mais de 500 votos
-              </option>
-              <option className={styles.card} value="1000">
-                Mais de 1000 votos
-              </option>
-              <option className={styles.card} value="5000">
-                Mais de 5000 votos
-              </option>
-            </select>
-          </label>
-          <label type="text">
-            Tipo de Série:
-            <select
-              name="select"
-              type="text"
-              className={styles.card}
-              value={searchTvType}
-              onChange={(event) => setSearchTvType(event.target.value)}
-            >
-              {" "}
-              <option className={styles.card} value="">
-                Todos Tipos
-              </option>
-              <option className={styles.card} value="0">
-                Documentário
-              </option>
-              <option className={styles.card} value="1">
-                Notícias
-              </option>
-              <option className={styles.card} value="2">
-                Mini Séries
-              </option>
-              <option className={styles.card} value="3">
-                Realities
-              </option>
-              <option className={styles.card} value="4">
-                Roteirizadas
-              </option>
-              <option className={styles.card} value="5">
-                Talk Show
-              </option>
-              <option className={styles.card} value="6">
-                Videos
-              </option>
-            </select>
-          </label>
-          <br />
-          <label type="text">
-            Ano Inicial:
-            <input
-              className={styles.card}
-              type="number"
-              min={1800}
-              max={2022}
-              value={searchMovieReleaseDateFrom}
-              onChange={(event) =>
-                setSearchMovieReleaseDateFrom(event.target.value)
-              }
-            ></input>
-          </label>
-          <label type="text">
-            Ano Final:
-            <input
-              className={styles.card}
-              type="number"
-              min={1800}
-              max={2023}
-              value={searchMovieReleaseDateTo}
-              onChange={(event) =>
-                setSearchMovieReleaseDateTo(event.target.value)
-              }
-            ></input>
-          </label>
-          <br />
-          <br />
-          <button className={styles.button} onClick={apiCall}>
-            Verificar
-          </button>
-          <br />
-          <span>{isLoading ? <div>Carregando...</div> : " "}</span>
-        </h2>
+<ChakraProvider>
+  <Center>
+    <VStack>
+ <Box>
+  
+
+  <FormControl>
+    <FormLabel>Ordem:</FormLabel>
+    <Select
+      name="select"
+      value={searchRatingSort}
+      onChange={(event) => setSearchRatingSort(event.target.value)}
+    >
+      <option value="vote_average.asc">Da Pior Para Melhor Nota</option>
+      <option value="vote_average.desc">Da Melhor Para Pior Nota</option>
+    </Select>
+  </FormControl>
+
+  <FormControl>
+    <FormLabel>Nº de Votos:</FormLabel>
+    <Select
+      name="select"
+      type="number"
+      value={searchVoteCount}
+      onChange={(event) => setSearchVoteCount(event.target.value)}
+    >
+      <option value="0">Mais de 0 votos</option>
+      <option value="50">Mais de 50 votos</option>
+      <option value="100">Mais de 100 votos</option>
+      <option value="200">Mais de 200 votos</option>
+      <option value="500">Mais de 500 votos</option>
+      <option value="1000">Mais de 1000 votos</option>
+      <option value="5000">Mais de 5000 votos</option>
+    </Select>
+  </FormControl>
+
+  <FormControl>
+    <FormLabel>Tipo de Série:</FormLabel>
+    <Select
+      name="select"
+      value={searchTvType}
+      onChange={(event) => setSearchTvType(event.target.value)}
+    >
+      <option value="">Todos Tipos</option>
+      <option value="0">Documentário</option>
+      <option value="1">Notícias</option>
+      <option value="2">Mini Séries</option>
+      <option value="3">Realities</option>
+      <option value="4">Roteirizadas</option>
+      <option value="5">Talk Show</option>
+      <option value="6">Videos</option>
+    </Select>
+  </FormControl>
+
+  <FormControl>
+    <FormLabel>Ano Inicial:</FormLabel>
+    <Input
+      type="number"
+      min={1800}
+      max={2022}
+      value={searchMovieReleaseDateFrom}
+      onChange={(event) =>
+        setSearchMovieReleaseDateFrom(event.target.value)
+      }
+    />
+  </FormControl>
+
+  <FormControl>
+    <FormLabel>Ano Final:</FormLabel>
+    <Input
+      type="number"
+      min={1800}
+      max={2023}
+      value={searchMovieReleaseDateTo}
+      onChange={(event) =>
+        setSearchMovieReleaseDateTo(event.target.value)
+      }
+    />
+  </FormControl>
+
+  <Button
+                size="lg"
+                colorScheme="purple"
+                mt="24px"
+                onClick={apiCall}
+              >
+                Verificar
+              </Button>
+
+  <Box>{isLoading ? <Spinner /> : null}</Box>
+</Box>
+</VStack>
+</Center>
+
+</ChakraProvider>
+
 
         {isError === true ? (
           <ErrorPage message={`Verifique as Credenciais`}></ErrorPage>
@@ -266,7 +251,12 @@ export default function Discovery() {
                     : ""}
                 </span>
                 <br />
-                <Link href="/moviepage">
+                <Link
+                  href={{
+                    pathname: "/tvshow-page",
+                    query: { tvshowId: search.id },
+                  }}
+                >
                   <a className={styles.button}>Detalhes</a>
                 </Link>
                 <br />

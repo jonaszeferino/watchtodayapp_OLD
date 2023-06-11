@@ -15,6 +15,7 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  Button
 } from "@chakra-ui/react";
 
 export default function Discovery() {
@@ -106,7 +107,7 @@ export default function Discovery() {
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>Descubra Filmes</title>
         <meta name="keywords" content="movies,watch,review"></meta>
         <meta name="description" content="encontre tudo de nba aqui"></meta>
       </Head>
@@ -198,23 +199,18 @@ export default function Discovery() {
               </NumberInput>
             </ChakraProvider>
           </div>
-          {/* <label type="text">
-            Ano Final:
-            <input
-              className={styles.card}
-              type="number"
-              min={1800}
-              max={2023}
-              value={searchMovieReleaseDateTo}
-              onChange={(event) =>
-                setSearchMovieReleaseDateTo(event.target.value)
-              }
-            ></input>
-          </label> */}
+  
           <br />
-          <button className={styles.card} onClick={apiCall}>
-            Verificar
-          </button>
+          <ChakraProvider>
+          <Button
+                size="lg"
+                colorScheme="purple"
+                mt="24px"
+                onClick={apiCall}
+              >
+                Verificar
+              </Button>
+              </ChakraProvider>
           <br />
           {!searchMovies ? (
             <div>
@@ -313,7 +309,7 @@ export default function Discovery() {
                 <br />
                 <Link
                   href={{
-                    pathname: "/moviepage",
+                    pathname: "/movie-page",
                     query: { movieId: search.id },
                   }}
                 >

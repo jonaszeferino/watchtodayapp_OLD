@@ -1,6 +1,7 @@
 .footer {
   display: flex;
-  background-image: linear-gradient(to right, #311150, #ab87ff);
+  /* background-image: linear-gradient(to right, #311150, #ab87ff); */
+  background-image: linear-gradient(to right, #311150, #141315); 
   background-size: cover;
   background-position: center;
   color: rgb(255, 255, 255);

@@ -10,28 +10,28 @@ export default function Navbar() {
         </Link>
       </li>
       <li>
-        <Link href="/watchtoday">
+        <Link href="/watch-today">
           <a>| O que Assistir Hoje?</a>
         </Link>
         <ul></ul>
       </li>
       <li>
-        <Link href="/searchmovies">
+        <Link href="/search-movies">
           <a>| Descobrir Filmes Por Nota</a>
         </Link>
       </li>
       <li>
-        <Link href="/searchmoviesbycountry">
+        <Link href="/search-movies-by-country">
           <a>| Filmes Por Língua</a>
         </Link>
       </li>
       <li>
-        <Link href="/searchtvshows">
+        <Link href="/search-tvshows">
           <a>| Busca de Séries</a>
         </Link>
       </li>
       <li>
-        <Link href="/searchfree">
+        <Link href="/search-free">
           <a>| Busca Livre</a>
         </Link>
       </li>

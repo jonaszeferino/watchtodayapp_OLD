@@ -3,6 +3,15 @@ import styles from "../styles/Home.module.css";
 import ErrorPage from "./error-page";
 import Image from "next/image";
 import Head from "next/head";
+import {
+  Box,
+  Button,
+  Input,
+  Spinner,
+  Text,
+  ChakraProvider,
+  Center,
+} from "@chakra-ui/react";
 
 export default function Discovery() {
   let [movieId, setMovieId] = useState();
@@ -73,28 +82,37 @@ export default function Discovery() {
           <h3 className={styles.title}> Busca Livre</h3>
           <span>Procure, Pessoas, Séries, Filmes</span>
         </div>
+        <ChakraProvider>
+          <Center>
+            <Box>
+              <Text as="h2" className={styles.label}>
+                Procure Por Texto
+              </Text>
+              <Input
+                className={styles.top}
+                required={true}
+                type="search"
+                value={searchText}
+                onChange={(event) => setSearchText(event.target.value)}
+              />
 
-        <h2 className={styles.label}>
-          <br />
-          <h2>Procure Por Texto</h2>
-          <input
-            className={styles.top}
-            required={true}
-            type="search"
-            value={searchText}
-            onChange={(event) => setSearchText(event.target.value)}
-          ></input>
-          <br />
-          <br />
-          <button className={styles.button} onClick={apiCall}>
-            Verificar
-          </button>
-          <br />
+              <Button
+                size="lg"
+                colorScheme="purple"
+                mt="24px"
+                onClick={apiCall}
+              >
+                Verificar
+              </Button>
 
-          <span className={styles.spantext}>
-            {isLoading ? <div>Carregando...</div> : " "}
-          </span>
-        </h2>
+              <Box>
+                <Text className={styles.spantext}>
+                  {isLoading ? <Spinner /> : " "}
+                </Text>
+              </Box>
+            </Box>
+          </Center>
+        </ChakraProvider>
 
         {isError === true ? (
           <ErrorPage message={`Verifique as Credenciais`}></ErrorPage>

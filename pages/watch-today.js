@@ -204,13 +204,10 @@ export default function Movieapi() {
         <br />
 
         <br />
-        {/* <button onClick={apiCall} className={styles.button}>
-          Verificar
-        </button> */}
-
+  
         {isLoading ? <Progress size="xs" isIndeterminate /> : null}
 
-        {/* <span>{isLoading ? <div>Carregando...</div> : " "}</span> */}
+        
         <br />
         {isError === true || movieData.adult === true ? (
           <ErrorPage message={`- Filme Deletado`}></ErrorPage>

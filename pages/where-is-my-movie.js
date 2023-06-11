@@ -177,6 +177,8 @@ const MoviePage = () => {
     poster = "https://image.tmdb.org/t/p/original" + data.poster_path;
   }
 
+  
+
   const handleExibirTabela = () => {
     setExibirTabela(!exibirTabela);
   };
@@ -200,6 +202,9 @@ const MoviePage = () => {
         <Heading as="h1" size="xl" mb={4}>
           Pesquise o Filme que Você Deseja Encontrar nos Streamings
         </Heading>
+        <br/>
+        <br/>
+        <br/>
         <div
           style={{
             maxWidth: "500px",
@@ -262,6 +267,9 @@ const MoviePage = () => {
                         />
                       )}
                     </Td>
+
+
+                    
                     <Td>
   <Checkbox
     isChecked={movieIdSearch === movie.id}
@@ -325,6 +333,8 @@ const MoviePage = () => {
       <div
         style={{ maxWidth: "480px", margin: "0 auto", wordBreak: "break-word" }}
       >
+      
+      {Object.keys(data).length > 0 && (
         <ChakraProvider>
 
           <br />
@@ -367,6 +377,7 @@ const MoviePage = () => {
                         ? data.providers.AL
                         : ""}
                     </Td>
+                    
                   </Tr>
 
                   <Tr>
@@ -557,6 +568,15 @@ const MoviePage = () => {
                         : ""}
                     </Td>
                   </Tr>
+
+                  <Tr>
+  <Th>Cuba</Th>
+  <Td>
+    {data.providers && data.providers.CU
+      ? data.providers.CU
+      : ""}
+  </Td>
+</Tr>
 
                   <Tr>
                     <Th>República Tcheca</Th>
@@ -1518,6 +1538,15 @@ const MoviePage = () => {
                   </Tr>
 
                   <Tr>
+                    <Th>Cuba</Th>
+                    <Td>
+                      {data.providers && data.providers.CU_rent
+                        ? data.providers.CU_rent
+                        : ""}
+                    </Td>
+                  </Tr>
+
+                  <Tr>
                     <Th>República Tcheca</Th>
                     <Td>
                       {data.providers && data.providers.CZ_rent
@@ -1525,6 +1554,16 @@ const MoviePage = () => {
                         : ""}
                     </Td>
                   </Tr>
+
+                  <Tr>
+                    <Th>Cuba</Th>
+                    <Td>
+                      {data.providers && data.providers.CU_rent
+                        ? data.providers.CU_rent
+                        : ""}
+                    </Td>
+                  </Tr>
+
 
                   <Tr>
                     <Th>Alemanha</Th>
@@ -2472,6 +2511,15 @@ const MoviePage = () => {
                     <Td>
                       {data.providers && data.providers.CV_buy
                         ? data.providers.CV_buy
+                        : ""}
+                    </Td>
+                  </Tr>
+
+                  <Tr>
+                    <Th>Cuba</Th>
+                    <Td>
+                      {data.providers && data.providers.CU_buy
+                        ? data.providers.CU_buy
                         : ""}
                     </Td>
                   </Tr>
@@ -3437,6 +3485,15 @@ const MoviePage = () => {
                   </Tr>
 
                   <Tr>
+                    <Th>Cuba</Th>
+                    <Td>
+                      {data.providers && data.providers.CU_ads
+                        ? data.providers.CU_ads
+                        : ""}
+                    </Td>
+                  </Tr>
+
+                  <Tr>
                     <Th>República Tcheca</Th>
                     <Td>
                       {data.providers && data.providers.CZ_ads
@@ -4396,6 +4453,15 @@ const MoviePage = () => {
                   </Tr>
 
                   <Tr>
+                    <Th>Cuba</Th>
+                    <Td>
+                      {data.providers && data.providers.CU_free
+                        ? data.providers.CU_free
+                        : ""}
+                    </Td>
+                  </Tr>
+
+                  <Tr>
                     <Th>República Tcheca</Th>
                     <Td>
                       {data.providers && data.providers.CZ_free
@@ -5126,6 +5192,8 @@ const MoviePage = () => {
             </TableContainer>
           )}
         </ChakraProvider>
+      
+      )}
         <div />
       </div>
     </>

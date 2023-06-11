@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
+import { ChakraProvider, FormControl, Select, FormLabel, Button, Input, Center, VStack } from "@chakra-ui/react";
 
 export default function Discovery() {
   let [searchMovies, setSearchMovies] = useState([]);
@@ -79,655 +80,649 @@ export default function Discovery() {
 
   return (
     <>
-      <Head>
-        <title>Filmes Por Língua</title>
-        <meta name="keywords" content="movies,watch,review"></meta>
-        <meta name="description" content="encontre tudo de nba aqui"></meta>
-      </Head>
+
       <div>
         <div className={styles.top}>
           <h3 className={styles.title}>Filmes por Língua</h3>
         </div>
 
-        <h2 className={styles.label}>
-          {" "}
-          <br />
-          <label className={styles.label} type="text">
-            Ordem:
-            <select
-              name="select"
-              type="text"
-              className={styles.card}
-              value={searchRatingSort}
-              onChange={(event) => setSearchRatingSort(event.target.value)}
-            >
-              <option className={styles.card} value="vote_average.asc">
-                Da Pior Nota Para Melhor
-              </option>
-              <option className={styles.card} value="vote_average.desc">
-                Da Melhor Nota Para Pior
-              </option>
-            </select>
-          </label>
-          <label className={styles.label} type="text">
-            Nº de Votos:
-            <select
-              name="select"
-              type="number"
-              className={styles.card}
-              value={searchVoteCount}
-              onChange={(event) => setSearchVoteCount(event.target.value)}
-            >
-              <option className={styles.card} value="0">
-                Mais de 0 votos
-              </option>
-              <option className={styles.card} value="50">
-                Mais de 50 votos
-              </option>
-              <option className={styles.card} value="100">
-                Mais de 100 votos
-              </option>
-              <option className={styles.card} value="200">
-                Mais de 200 votos
-              </option>
-              <option className={styles.card} value="500">
-                Mais de 500 votos
-              </option>
-              <option className={styles.card} value="1000">
-                Mais de 1000 votos
-              </option>
-              <option className={styles.card} value="5000">
-                Mais de 5000 votos
-              </option>
-            </select>
-          </label>
-          <br />
-          <label className={styles.label} type="text">
-            Língua do Filme:
-            <select
-              name="country"
-              type="text"
-              className={styles.card}
-              value={searchMovieCountry}
-              onChange={(event) => setSearchMovieCountry(event.target.value)}
-            >
-              {/* ISO 639-1 */}
-              <option className={styles.card} value="pt">
+   <ChakraProvider>
+    <Center>
+    <VStack>
+          <FormControl>
+  <FormLabel htmlFor="select">Ordem:</FormLabel>
+  <Select
+    id="select"
+    name="select"
+    value={searchRatingSort}
+    onChange={(event) => setSearchRatingSort(event.target.value)}
+  >
+    <option value="vote_average.asc">Da Pior Nota Para Melhor</option>
+    <option value="vote_average.desc">Da Melhor Nota Para Pior</option>
+  </Select>
+</FormControl>
+<FormControl>
+  <FormLabel htmlFor="select">Nº de Votos:</FormLabel>
+  <Select
+    id="select"
+    name="select"
+    value={searchVoteCount}
+    onChange={(event) => setSearchVoteCount(event.target.value)}
+  >
+    <option value="0">Mais de 0 votos</option>
+    <option value="50">Mais de 50 votos</option>
+    <option value="100">Mais de 100 votos</option>
+    <option value="200">Mais de 200 votos</option>
+    <option value="500">Mais de 500 votos</option>
+    <option value="1000">Mais de 1000 votos</option>
+    <option value="5000">Mais de 5000 votos</option>
+  </Select>
+</FormControl>
+
+<div/>
+
+     <br />
+     <FormControl>
+      <FormLabel>Língua do Filme:</FormLabel>
+      <Select
+        name="country"
+        value={searchMovieCountry}
+        onChange={(event) => setSearchMovieCountry(event.target.value)}
+      >
+        {/* ISO 639-1 */}
+              <option value="pt">
                 Português
               </option>
-              <option className={styles.card} value="en">
+              <option value="en">
                 Inglês
               </option>
-              <option className={styles.card} value="ab">
+              <option value="ab">
                 Abkhaziano
               </option>
-              <option className={styles.card} value="aar">
+              <option value="aar">
                 Afar
               </option>
-              <option className={styles.card} value="af">
+              <option value="af">
                 Africano
               </option>
-              <option className={styles.card} value="ak">
+              <option value="ak">
                 Akan
               </option>
-              <option className={styles.card} value="sq">
+              <option value="sq">
                 Albanes
               </option>
-              <option className={styles.card} value="am">
+              <option value="am">
                 Amárico
               </option>
-              <option className={styles.card} value="am">
+              <option value="am">
                 Árabe
               </option>
-              <option className={styles.card} value="an">
+              <option value="an">
                 Aragonês
               </option>
-              <option className={styles.card} value="hy">
+              <option value="hy">
                 Armeno
               </option>
-              <option className={styles.card} value="as">
+              <option value="as">
                 Assamês
               </option>
-              <option className={styles.card} value="av">
+              <option value="av">
                 Avarico
               </option>
-              <option className={styles.card} value="ay">
+              <option value="ay">
                 Aimará
               </option>
-              <option className={styles.card} value="az">
+              <option value="az">
                 Azerbaijano
               </option>
-              <option className={styles.card} value="bm">
+              <option value="bm">
                 Bambara
               </option>
-              <option className={styles.card} value="ba">
+              <option value="ba">
                 Bashkir
               </option>
-              <option className={styles.card} value="eu">
+              <option value="eu">
                 Basco
               </option>
-              <option className={styles.card} value="be">
+              <option value="be">
                 Belorusso
               </option>
-              <option className={styles.card} value="bn">
+              <option value="bn">
                 Bengali
               </option>
-              <option className={styles.card} value="bi">
+              <option value="bi">
                 Bislama
               </option>
-              <option className={styles.card} value="bs">
+              <option value="bs">
                 Bósnio
               </option>
-              <option className={styles.card} value="br">
+              <option value="br">
                 Bretão
               </option>
-              <option className={styles.card} value="bg">
+              <option value="bg">
                 Bulgaro
               </option>
-              <option className={styles.card} value="my">
+              <option value="my">
                 Birmanês
               </option>
-              <option className={styles.card} value="ca">
+              <option value="ca">
                 Catalão
               </option>
-              <option className={styles.card} value="ch">
+              <option value="ch">
                 Chamarro
               </option>
-              <option className={styles.card} value="ce">
+              <option value="ce">
                 Checheno
               </option>
-              <option className={styles.card} value="ny">
+              <option value="ny">
                 Chichewa
               </option>
-              <option className={styles.card} value="zh">
+              <option value="zh">
                 Chinês
               </option>
-              <option className={styles.card} value="cu">
+              <option value="cu">
                 Eslavo
               </option>
-              <option className={styles.card} value="cv">
+              <option value="cv">
                 Chuvash
               </option>
-              <option className={styles.card} value="kw">
+              <option value="kw">
                 Córnico
               </option>
-              <option className={styles.card} value="co">
+              <option value="co">
                 Corso
               </option>
-              <option className={styles.card} value="cr">
+              <option value="cr">
                 Cree
               </option>
-              <option className={styles.card} value="hr">
+              <option value="hr">
                 Croata
               </option>
-              <option className={styles.card} value="cs">
+              <option value="cs">
                 Tcheco
               </option>
-              <option className={styles.card} value="da">
+              <option value="da">
                 Dinamarquês
               </option>
-              <option className={styles.card} value="dv">
+              <option value="dv">
                 Divehi
               </option>
-              <option className={styles.card} value="nl">
+              <option value="nl">
                 Holandês
               </option>
-              <option className={styles.card} value="dz">
+              <option value="dz">
                 Dzongkha
               </option>
-              <option className={styles.card} value="en">
+              <option value="en">
                 Inglês
               </option>
-              <option className={styles.card} value="eo">
+              <option value="eo">
                 Esperanto
               </option>
-              <option className={styles.card} value="et">
+              <option value="et">
                 Estoniano
               </option>
-              <option className={styles.card} value="en">
+              <option value="en">
                 Inglês
               </option>
-              <option className={styles.card} value="ee">
+              <option value="ee">
                 Ewe
               </option>
-              <option className={styles.card} value="fo">
+              <option value="fo">
                 Faroense
               </option>
-              <option className={styles.card} value="fj">
+              <option value="fj">
                 Fijiano
               </option>
-              <option className={styles.card} value="fi">
+              <option value="fi">
                 Finlandês
               </option>
-              <option className={styles.card} value="fr">
+              <option value="fr">
                 Francês
               </option>
-              <option className={styles.card} value="fy">
+              <option value="fy">
                 Frísia Ocidental
               </option>
 
-              <option className={styles.card} value="ff">
+              <option value="ff">
                 Fulah
               </option>
-              <option className={styles.card} value="gd">
+              <option value="gd">
                 Gaélico
               </option>
-              <option className={styles.card} value="gl">
+              <option value="gl">
                 Galego
               </option>
-              <option className={styles.card} value="lg">
+              <option value="lg">
                 Ganda
               </option>
-              <option className={styles.card} value="ka">
+              <option value="ka">
                 Geórgio
               </option>
-              <option className={styles.card} value="de">
+              <option value="de">
                 Alemão
               </option>
-              <option className={styles.card} value="el">
+              <option value="el">
                 Grego
               </option>
-              <option className={styles.card} value="kl">
+              <option value="kl">
                 Kalaallisut
               </option>
-              <option className={styles.card} value="gn">
+              <option value="gn">
                 Guarani
               </option>
-              <option className={styles.card} value="gu">
+              <option value="gu">
                 Gujarati
               </option>
-              <option className={styles.card} value="ht">
+              <option value="ht">
                 Haitiano
               </option>
-              <option className={styles.card} value="ha">
+              <option value="ha">
                 Hauçá
               </option>
-              <option className={styles.card} value="he">
+              <option value="he">
                 Hebraico
               </option>
-              <option className={styles.card} value="ho">
+              <option value="ho">
                 Hiri Motu
               </option>
-              <option className={styles.card} value="hu">
+              <option value="hu">
                 Húngaro
               </option>
-              <option className={styles.card} value="is">
+              <option value="is">
                 Islandês
               </option>
-              <option className={styles.card} value="io">
+              <option value="io">
                 Ido(esperanto)
               </option>
 
-              <option className={styles.card} value="id">
+              <option value="id">
                 Indonésio
               </option>
-              <option className={styles.card} value="ia">
+              <option value="ia">
                 Interlíngua
               </option>
-              <option className={styles.card} value="ie">
+              <option value="ie">
                 Interlíngue
               </option>
-              <option className={styles.card} value="iu">
+              <option value="iu">
                 Inuktitut
               </option>
-              <option className={styles.card} value="ik">
+              <option value="ik">
                 Inupiaq
               </option>
-              <option className={styles.card} value="ga">
+              <option value="ga">
                 Irlandês
               </option>
-              <option className={styles.card} value="it">
+              <option value="it">
                 Italiano
               </option>
-              <option className={styles.card} value="ja">
+              <option value="ja">
                 Joponês
               </option>
-              <option className={styles.card} value="jv">
+              <option value="jv">
                 Javanês
               </option>
-              <option className={styles.card} value="kn">
+              <option value="kn">
                 Kannada
               </option>
-              <option className={styles.card} value="kr">
+              <option value="kr">
                 Kanuri
               </option>
-              <option className={styles.card} value="ks">
+              <option value="ks">
                 Caxemira
               </option>
-              <option className={styles.card} value="kk">
+              <option value="kk">
                 Cazaques
               </option>
-              <option className={styles.card} value="km">
+              <option value="km">
                 Khmer Central
               </option>
-              <option className={styles.card} value="ki">
+              <option value="ki">
                 Kikuyu
               </option>
-              <option className={styles.card} value="rw">
+              <option value="rw">
                 Kinyarwanda
               </option>
-              <option className={styles.card} value="ky">
+              <option value="ky">
                 Quirguiz
               </option>
-              <option className={styles.card} value="kv">
+              <option value="kv">
                 Komi
               </option>
-              <option className={styles.card} value="ko">
+              <option value="ko">
                 Coreano
               </option>
-              <option className={styles.card} value="kj">
+              <option value="kj">
                 Kuanyama
               </option>
-              <option className={styles.card} value="ku">
+              <option value="ku">
                 Curdo
               </option>
-              <option className={styles.card} value="lo">
+              <option value="lo">
                 Laos
               </option>
-              <option className={styles.card} value="la">
+              <option value="la">
                 Latin
               </option>
-              <option className={styles.card} value="lv">
+              <option value="lv">
                 Letão
               </option>
-              <option className={styles.card} value="li">
+              <option value="li">
                 Limburguês
               </option>
-              <option className={styles.card} value="ln">
+              <option value="ln">
                 Lingala
               </option>
-              <option className={styles.card} value="lt">
+              <option value="lt">
                 Lituano
               </option>
-              <option className={styles.card} value="lu">
+              <option value="lu">
                 Luba-Katanga
               </option>
-              <option className={styles.card} value="lb">
+              <option value="lb">
                 Luxemburguês
               </option>
-              <option className={styles.card} value="mk">
+              <option value="mk">
                 Macedônio
               </option>
-              <option className={styles.card} value="mg">
+              <option value="mg">
                 Malgaxe
               </option>
-              <option className={styles.card} value="ms">
+              <option value="ms">
                 Malaio
               </option>
-              <option className={styles.card} value="ml">
+              <option value="ml">
                 Malaiala
               </option>
-              <option className={styles.card} value="mt">
+              <option value="mt">
                 Maltês
               </option>
-              <option className={styles.card} value="gv">
+              <option value="gv">
                 Manx
               </option>
-              <option className={styles.card} value="mi">
+              <option value="mi">
                 Maori
               </option>
-              <option className={styles.card} value="mr">
+              <option value="mr">
                 Marathi
               </option>
-              <option className={styles.card} value="mh">
+              <option value="mh">
                 Marshallês
               </option>
-              <option className={styles.card} value="mn">
+              <option value="mn">
                 Mongol
               </option>
-              <option className={styles.card} value="na">
+              <option value="na">
                 Nauru
               </option>
-              <option className={styles.card} value="nv">
+              <option value="nv">
                 Navajo
               </option>
-              <option className={styles.card} value="nd">
+              <option value="nd">
                 Norte Ndebele
               </option>
-              <option className={styles.card} value="nr">
+              <option value="nr">
                 South Ndebele
               </option>
-              <option className={styles.card} value="ng">
+              <option value="ng">
                 Ndonga
               </option>
-              <option className={styles.card} value="ne">
+              <option value="ne">
                 Nepalês
               </option>
-              <option className={styles.card} value="no">
+              <option value="no">
                 Norueguês
               </option>
-              <option className={styles.card} value="nb">
+              <option value="nb">
                 Bokmal norueguês
               </option>
-              <option className={styles.card} value="nn">
+              <option value="nn">
                 Norueguês Nynorsk
               </option>
-              <option className={styles.card} value="ii">
+              <option value="ii">
                 Sichuan Yi
               </option>
-              <option className={styles.card} value="oc">
+              <option value="oc">
                 Occitano
               </option>
-              <option className={styles.card} value="oj">
+              <option value="oj">
                 Ojibwa
               </option>
-              <option className={styles.card} value="or">
+              <option value="or">
                 Oriá
               </option>
-              <option className={styles.card} value="os">
+              <option value="os">
                 Ossétia
               </option>
-              <option className={styles.card} value="pi">
+              <option value="pi">
                 Páli
               </option>
-              <option className={styles.card} value="ps">
+              <option value="ps">
                 Pashto
               </option>
-              <option className={styles.card} value="fa">
+              <option value="fa">
                 Perso
               </option>
-              <option className={styles.card} value="pl">
+              <option value="pl">
                 Polonês
               </option>
-              <option className={styles.card} value="pt">
+              <option value="pt">
                 Português
               </option>
-              <option className={styles.card} value="pa">
+              <option value="pa">
                 Punjabi
               </option>
-              <option className={styles.card} value="qu">
+              <option value="qu">
                 Quechua
               </option>
-              <option className={styles.card} value="ro">
+              <option value="ro">
                 Romenos
               </option>
-              <option className={styles.card} value="rm">
+              <option value="rm">
                 Romanche
               </option>
-              <option className={styles.card} value="rn">
+              <option value="rn">
                 Rundi
               </option>
-              <option className={styles.card} value="ru">
+              <option value="ru">
                 Russo
               </option>
-              <option className={styles.card} value="se">
+              <option value="se">
                 Sami do Norte
               </option>
-              <option className={styles.card} value="sm">
+              <option value="sm">
                 Samoano
               </option>
-              <option className={styles.card} value="sg">
+              <option value="sg">
                 Sango
               </option>
-              <option className={styles.card} value="sa">
+              <option value="sa">
                 Sânscrito
               </option>
-              <option className={styles.card} value="sc">
+              <option value="sc">
                 Sardos
               </option>
-              <option className={styles.card} value="sr">
+              <option value="sr">
                 Sérvio
               </option>
-              <option className={styles.card} value="sn">
+              <option value="sn">
                 Shona
               </option>
-              <option className={styles.card} value="sd">
+              <option value="sd">
                 Sindi
               </option>
-              <option className={styles.card} value="si">
+              <option value="si">
                 Cingalês
               </option>
-              <option className={styles.card} value="sk">
+              <option value="sk">
                 Eslovaco
               </option>
-              <option className={styles.card} value="sl">
+              <option value="sl">
                 Esloveno
               </option>
-              <option className={styles.card} value="so">
+              <option value="so">
                 Somali
               </option>
-              <option className={styles.card} value="st">
+              <option value="st">
                 Southern Sotho
               </option>
-              <option className={styles.card} value="es">
+              <option value="es">
                 Espanhol
               </option>
-              <option className={styles.card} value="su">
+              <option value="su">
                 Sundanês
               </option>
-              <option className={styles.card} value="sw">
+              <option value="sw">
                 Suaíli
               </option>
-              <option className={styles.card} value="ss">
+              <option value="ss">
                 Swati
               </option>
-              <option className={styles.card} value="sv">
+              <option value="sv">
                 Sueco
               </option>
-              <option className={styles.card} value="tl">
+              <option value="tl">
                 Tagalo
               </option>
-              <option className={styles.card} value="ty">
+              <option value="ty">
                 Taitiano
               </option>
-              <option className={styles.card} value="tg">
+              <option value="tg">
                 Tadjique
               </option>
-              <option className={styles.card} value="ta">
+              <option value="ta">
                 Tâmil
               </option>
-              <option className={styles.card} value="tt">
+              <option value="tt">
                 Tártaro
               </option>
-              <option className={styles.card} value="te">
+              <option value="te">
                 Telugu
               </option>
-              <option className={styles.card} value="th">
+              <option value="th">
                 Tailandês
               </option>
-              <option className={styles.card} value="bo">
+              <option value="bo">
                 Tibetano
               </option>
-              <option className={styles.card} value="ti">
+              <option value="ti">
                 Tigrinya
               </option>
-              <option className={styles.card} value="to">
+              <option value="to">
                 Tonga
               </option>
-              <option className={styles.card} value="ts">
+              <option value="ts">
                 Tsonga
               </option>
-              <option className={styles.card} value="tn">
+              <option value="tn">
                 Tswana
               </option>
-              <option className={styles.card} value="tr">
+              <option value="tr">
                 Turco
               </option>
-              <option className={styles.card} value="tk">
+              <option value="tk">
                 Turcomano
               </option>
-              <option className={styles.card} value="tw">
+              <option value="tw">
                 Twi
               </option>
-              <option className={styles.card} value="ug">
+              <option value="ug">
                 Uigur
               </option>
-              <option className={styles.card} value="uk">
+              <option value="uk">
                 Ucraniano
               </option>
-              <option className={styles.card} value="ur">
+              <option value="ur">
                 Urdu
               </option>
-              <option className={styles.card} value="uz">
+              <option value="uz">
                 Uzbeque
               </option>
-              <option className={styles.card} value="ve">
+              <option value="ve">
                 Venda
               </option>
-              <option className={styles.card} value="vi">
+              <option value="vi">
                 Vietnamita
               </option>
-              <option className={styles.card} value="vo">
+              <option value="vo">
                 Volapük
               </option>
-              <option className={styles.card} value="cy">
+              <option value="cy">
                 Valão
               </option>
-              <option className={styles.card} value="cy">
+              <option value="cy">
                 Galês
               </option>
-              <option className={styles.card} value="wo">
+              <option value="wo">
                 Wolof
               </option>
-              <option className={styles.card} value="xh">
+              <option value="xh">
                 Xhosa
               </option>
-              <option className={styles.card} value="yi">
+              <option value="yi">
                 Iídiche
               </option>
-              <option className={styles.card} value="yo">
+              <option value="yo">
                 Iorubá
               </option>
-              <option className={styles.card} value="za">
+              <option value="za">
                 Zhuang
               </option>
-              <option className={styles.card} value="zu">
+              <option value="zu">
                 Zulu
               </option>
-            </select>
-          </label>
+
+      </Select>
+    </FormControl>
+
+    
           <br />
-          <label type="text">
-            Ano Inicial:
-            <input
-              className={styles.card}
-              type="number"
-              min={1800}
-              max={2022}
-              value={searchMovieReleaseDateFrom}
-              onChange={(event) =>
-                setSearchMovieReleaseDateFrom(event.target.value)
-              }
-            ></input>
-          </label>
-          <label type="text">
-            Ano Final:
-            <input
-              className={styles.card}
-              type="number"
-              min={1801}
-              max={2023}
-              value={searchMovieReleaseDateTo}
-              onChange={(event) =>
-                setSearchMovieReleaseDateTo(event.target.value)
-              }
-            ></input>
-          </label>
+          <FormControl>
+      <FormLabel>Ano Inicial:</FormLabel>
+      <Input
+        type="number"
+        min={1800}
+        max={2022}
+        value={searchMovieReleaseDateFrom}
+        onChange={(event) =>
+          setSearchMovieReleaseDateFrom(event.target.value)
+        }
+      />
+    </FormControl>
+    <FormControl>
+      <FormLabel>Ano Final:</FormLabel>
+      <Input
+        type="number"
+        min={1801}
+        max={2023}
+        value={searchMovieReleaseDateTo}
+        onChange={(event) => setSearchMovieReleaseDateTo(event.target.value)}
+      />
+    </FormControl>
           <br />
-          <button className={styles.button} onClick={apiCall}>
-            Verificar
-          </button>
+          <Button
+                size="lg"
+                colorScheme="purple"
+                mt="24px"
+                onClick={apiCall}
+              >
+                Verificar
+              </Button>
+    </VStack>
+    </Center>
+
+    </ChakraProvider>
+   
+   
           <br />
+       
+       
+
+
+
+
+
           <br />
           {!searchMovies ? (
             <div>
@@ -760,7 +755,7 @@ export default function Discovery() {
           ) : (
             ""
           )}
-        </h2>
+        
 
         <span className={styles.spantext}>
           {isLoading ? <div>Carregando...</div> : " "}
@@ -821,7 +816,12 @@ export default function Discovery() {
                 </span>
                 <br />
                 {/* <span className={styles.spantext}>MovieID: {search.id}</span> */}
-                <Link href="/moviepage">
+                <Link
+                  href={{
+                    pathname: "/movie-page",
+                    query: { movieId: search.id },
+                  }}
+                >
                   <a className={styles.button}>Detalhes</a>
                 </Link>
                 <br />

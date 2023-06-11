@@ -99,79 +99,6 @@ export default function Home() {
         <meta name="description" content="movies,tvshows"></meta>
       </Head>
       <br />
-      {/* <div className={styles.container}>
-        <div>
-          <div
-            className={`${styles.card_image_home} bg-color`}
-            style={{ "--my-color": "#B4E1FF" }}
-          >
-            <Link href="/searchmovies">
-              <a>
-                <h2> Descubra Filmes</h2>
-              </a>
-            </Link>
-          </div>
-        </div>
-        <br />
-        <div>
-          <div
-            className={`${styles.card_image_home} bg-color`}
-            style={{ "--my-color": "#b0b4ff" }}
-          >
-            <Link href="/searchmoviesbycountry">
-              <a>
-                <h2> Filmes Por Língua</h2>
-              </a>
-            </Link>
-          </div>
-        </div>
-        <br />
-        <div>
-          <div
-            className={`${styles.card_image_home} bg-color`}
-            style={{ "--my-color": "#ab87ff" }}
-          >
-            <Link href="/watchtoday">
-              <a>
-                <h2> O que Assistir Hoje?</h2>
-              </a>
-            </Link>
-          </div>
-        </div>
-        <br />
-        <div>
-          <div
-            className={`${styles.card_image_home} bg-color`}
-            style={{ "--my-color": "#b0b4ff" }}
-          >
-            <Link href="/searchtvshows">
-              <a>
-                <h2> Descubra Séries</h2>
-              </a>
-            </Link>
-          </div>
-        </div>
-        <br />
-        <div>
-          <div
-            className={`${styles.card_image_home} bg-color`}
-            style={{ "--my-color": "#f0c1d2" }}
-          >
-            <Link href="/searchfree">
-              <a>
-                <h2>Busca Livre</h2>
-              </a>
-            </Link>
-          </div>
-        </div>
-        <br />
-        <br />
-        <br />
-      </div> */}
-
-      {/* <Container>
-        <CarouselLinks />
-      </Container> */}
 
       <div>
         <br />
@@ -185,9 +112,6 @@ export default function Home() {
             </h3>
           </div>
           <h2 className={styles.label}>
-            {/* <button className={styles.button} onClick={apiCall}>
-              Verificar
-            </button> */}
             <br />
             <span className={styles.spantext}>
               {isLoading ? <div>Carregando...</div> : " "}
@@ -246,7 +170,7 @@ export default function Home() {
                   <br />
                   <Link
                     href={{
-                      pathname: "/moviepage",
+                      pathname: "/movie-page",
                       query: { movieId: search.id },
                     }}
                   >
@@ -317,7 +241,7 @@ export default function Home() {
                 <br />
                 <Link
                   href={{
-                    pathname: "/tvshowpage",
+                    pathname: "/tvshow-page",
                     query: { tvShowId: searchtv.id },
                   }}
                 >

@@ -3,7 +3,8 @@ import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
-import { ChakraProvider, Progress } from "@chakra-ui/react";
+import { ChakraProvider, Progress,  Table, Tbody, Tr, Td, TableContainer } from "@chakra-ui/react";
+
 
 const MoviePage = () => {
   const router = useRouter();
@@ -145,70 +146,85 @@ const MoviePage = () => {
         <br />
 
         {/* Tabela aqui para baixo */}
+        <div style={{ maxWidth: "480px", margin: "0 auto", wordBreak: "break-word" }}>
+<ChakraProvider>
+<TableContainer>
 
-        <table className={styles.tableMain}>
-          <tr>
-            <td className={styles.table}>Título em Português:</td>
-            <td className={styles.table}>{data.portugueseTitle}</td>
-          </tr>
-          <tr></tr>
-          <tr>
-            <td className={styles.table}>Overview:</td>
-            <td className={styles.table}>
-              {" "}
-              {data.overview ? data.overview : "Sem infos"}
-            </td>
-          </tr>
+<Table size="sm">
 
-          <tr>
-            <td className={styles.table}>Generos:</td>
-            <td className={styles.table}>{data.gender}</td>
-          </tr>
+  <Tbody>
+    <Tr>
+      <Td>Título em Português:</Td>
+      <Td>{data.portugueseTitle}</Td>
+    </Tr>
 
-          <tr>
-            <td className={styles.table}>Nº de votos:</td>
-            <td className={styles.table}>{data.ratingCount}</td>
-          </tr>
-          <tr>
-            <td className={styles.table}>Nota:</td>
-            <td className={styles.table}>{data.average}</td>
-          </tr>
-          <tr>
-            <td className={styles.table}>Popularidade:</td>
-            <td className={styles.table}>{data.popularity}</td>
-          </tr>
-          <tr>
-            <td className={styles.table}>Primeiro Episódio no Ar:</td>
-            <td className={styles.table}>
-              {data.firstEpisodeToAir
-                ? format(new Date(data.firstEpisodeToAir), " dd/MM/yyyy")
-                : ""}
-            </td>
-          </tr>
-          <tr>
-            <td className={styles.table}>Último Episódio no Ar:</td>
-            <td className={styles.table}>
-              {data.lastEpisodeToAir !== undefined &&
-              data.lastEpisodeToAir !== null
-                ? typeof data.lastEpisodeToAir === "string"
-                  ? data.lastEpisodeToAir
-                  : format(new Date(data.lastEpisodeToAir), "dd/MM/yyyy")
-                : "Ainda No Ar"}
-            </td>
-          </tr>
-          <tr>
-            <td className={styles.table}>Última Temporada No Ar:</td>
-            <td className={styles.table}>{data.lastSeasonToAir}º</td>
-          </tr>
-          <tr>
-            <td className={styles.table}>Streamings Brasil:</td>
-            <td className={styles.table}>{data.providersBR}</td>
-          </tr>
-          <tr>
-            <td className={styles.table}>Streamings EUA:</td>
-            <td className={styles.table}>{data.providersUS}</td>
-          </tr>
-        </table>
+    <Tr>
+      <Td>Overview:</Td>
+      <Td>
+        {data.overview ? data.overview : "Sem infos"}
+      </Td>
+    </Tr>
+
+    <Tr>
+      <Td>Gêneros:</Td>
+      <Td>{data.gender}</Td>
+    </Tr>
+
+    <Tr>
+      <Td>Nº de votos:</Td>
+      <Td>{data.ratingCount}</Td>
+    </Tr>
+
+    <Tr>
+      <Td>Nota:</Td>
+      <Td>{data.average}</Td>
+    </Tr>
+
+    <Tr>
+      <Td>Popularidade:</Td>
+      <Td>{data.popularity}</Td>
+    </Tr>
+
+    <Tr>
+      <Td>Primeiro Episódio no Ar:</Td>
+      <Td>
+        {data.firstEpisodeToAir
+          ? format(new Date(data.firstEpisodeToAir), " dd/MM/yyyy")
+          : ""}
+      </Td>
+    </Tr>
+
+    <Tr>
+      <Td>Último Episódio no Ar:</Td>
+      <Td>
+        {data.lastEpisodeToAir !== undefined &&
+        data.lastEpisodeToAir !== null
+          ? typeof data.lastEpisodeToAir === "string"
+            ? data.lastEpisodeToAir
+            : format(new Date(data.lastEpisodeToAir), "dd/MM/yyyy")
+          : "Ainda No Ar"}
+      </Td>
+    </Tr>
+
+    <Tr>
+      <Td>Última Temporada No Ar:</Td>
+      <Td>{data.lastSeasonToAir}º</Td>
+    </Tr>
+
+    <Tr>
+      <Td>Streamings Brasil:</Td>
+      <Td>{data.providersBR}</Td>
+    </Tr>
+
+    <Tr>
+      <Td>Streamings EUA:</Td>
+      <Td>{data.providersUS}</Td>
+    </Tr>
+  </Tbody>
+</Table>
+</TableContainer>
+</ChakraProvider>
+</div>
       </div>
     </>
   );
