@@ -254,7 +254,7 @@ export default function Discovery() {
                 <Link
                   href={{
                     pathname: "/tvshow-page",
-                    query: { tvshowId: search.id },
+                    query: { tvShowId: search.id },
                   }}
                 >
                   <a className={styles.button}>Detalhes</a>
