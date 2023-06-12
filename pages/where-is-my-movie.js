@@ -66,7 +66,7 @@ const MoviePage = () => {
   const providers = `AD,AE,AL,AO,AR,AT,AU,BA,BE,BF,BG,BH,BO,BR,BZ,CA,CD,CH,CI,CL,CM,CO,CR,CV,CZ,DE,DK,DO,DZ,EC,EE,EG,ES,FI,FR,GB,GG,GH,GI,GT,HN,HR,HU,ID,IE,IL,IN,IQ,IT,JO,JP,KE,KR,KW,LB,LT,LU,LV,LY,MA,MG,MK,ML,MU,MW,MX,MY,MZ,NE,NG,NI,NL,NO,NZ,OM,PA,PE,PH,PL,PT,PY,QA,RO,RS,RU,SA,SE,SG,SI,SK,SV,TD,TH,TN,TR,TZ,UA,UG,US,UY,VE,YE,ZA,ZM,ZW`.split(",");
 
   const apiCall = () => {
-    setMovieSearchQuery(null)
+    // setMovieSearchQuery(null)
     Clean();
     const url = `https://api.themoviedb.org/3/search/movie?query=${movieSearchQuery}&include_adult=false&language=pt-BR&page=1`;
     setIsLoading(true);
@@ -203,7 +203,7 @@ const MoviePage = () => {
           Pesquise o Filme que Você Deseja Encontrar nos Streamings
         </Heading>
         <spna>
-          A busca irá trazer onde seu filme está dispnível no mundo
+          A busca irá trazer onde seu filme está disponível no mundo
         </spna>
         <br/>
         <br/>
