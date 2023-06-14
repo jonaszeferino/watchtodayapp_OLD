@@ -199,12 +199,12 @@ const MoviePage = () => {
   return (
     <>
       <ChakraProvider>
-        <Heading as="h1" size="xl" mb={4}>
-          Pesquise o Filme que Você Deseja Encontrar nos Streamings
-        </Heading>
-        <spna>
-          A busca irá trazer onde seu filme está disponível no mundo
-        </spna>
+
+
+      <div className={styles.top}>
+          <h3 className={styles.title}>Onde Está Meu Filme?</h3>
+          <span>Verifique em qual lugar do mundo seu filme está disponível</span>
+        </div>
         <br/>
         <br/>
         <br/>

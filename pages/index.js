@@ -4,8 +4,9 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 import ErrorPage from "./error-page";
-import CarouselLinks from "../components/carrossel";
 import { ChakraProvider, Progress, Container } from "@chakra-ui/react";
+import { FaFilm } from 'react-icons/fa';
+
 
 export default function Home() {
   let [movieId, setMovieId] = useState();
@@ -104,13 +105,15 @@ export default function Home() {
         <br />
         <br />
         <div>
-          <div className={styles.top}>
-            <h3 className={styles.title}>
-              Filmes Destaques da Semana
-              <br />
-              <span>...</span>
-            </h3>
-          </div>
+        <div className={styles.top}>
+  <h3 className={styles.title}>
+    Filmes Destaques da Semana
+    <br />
+    <span>...</span>
+    
+    
+  </h3>
+</div>
           <h2 className={styles.label}>
             <br />
             <span className={styles.spantext}>

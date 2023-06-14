@@ -85,6 +85,9 @@ export default function Discovery() {
         <div className={styles.top}>
           <h3 className={styles.title}>Filmes por Língua</h3>
         </div>
+        <br/>
+        <br/>
+        <br/>
 
    <ChakraProvider>
     <Center>
