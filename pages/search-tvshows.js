@@ -103,6 +103,8 @@ export default function Discovery() {
       <div>
         <div className={styles.top}>
           <h3 className={styles.title}> Séries - Programas de TV</h3>
+          <span>Escolha os filtros baixo, e clique em Verificar para uma consulta de acordo com o seu desejo!
+</span>
         </div>
 <ChakraProvider>
   <Center>
@@ -111,7 +113,9 @@ export default function Discovery() {
   
 
   <FormControl>
+  <br/>
     <FormLabel>Ordem:</FormLabel>
+    
     <Select
       name="select"
       value={searchRatingSort}
@@ -296,8 +300,8 @@ export default function Discovery() {
 
         {!totalResults ? (
           <span>
-            Escolha os filtros acima, e clique em Verificar para uma consulta de
-            acordo com o seu desejo!
+            {/* Escolha os filtros acima, e clique em Verificar para uma consulta de
+            acordo com o seu desejo! */}
           </span>
         ) : (
           ""

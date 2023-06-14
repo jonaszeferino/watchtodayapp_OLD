@@ -11,7 +11,7 @@ export default function Navbar() {
       </li>
       <li>
         <Link href="/watch-today">
-          <a>| O que Assistir Hoje?</a>
+          <a>| O que Ver Hoje?</a>
         </Link>
         <ul></ul>
       </li>

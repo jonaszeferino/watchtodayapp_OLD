@@ -185,10 +185,16 @@ export default function Movieapi() {
         <div style={{ maxWidth: "480px", margin: "0 auto" }}>
           <ChakraProvider>
             <Box maxW="32rem">
-              <Heading mb={4}>Que filme Assistir hoje?</Heading>
+
+            <div className={styles.top}>
+          <h3 className={styles.title}> O que ver hoje?</h3>
+          <span>                Clique e veja as possibilidades até que um seja do seu agrado!
+ </span>
+        </div>
+              {/* <Heading mb={4}>Que filme Assistir hoje?</Heading>
               <Text fontSize="xl">
                 Clique e veja as possibilidades até que um seja do seu agrado!
-              </Text>
+              </Text> */}
               <Button
                 size="lg"
                 colorScheme="purple"

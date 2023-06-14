@@ -99,11 +99,10 @@ export default function Home() {
         <meta name="keywords" content="movies,tvshows,"></meta>
         <meta name="description" content="movies,tvshows"></meta>
       </Head>
-      <br />
+ 
 
       <div>
-        <br />
-        <br />
+    
         <div>
         <div className={styles.top}>
   <h3 className={styles.title}>

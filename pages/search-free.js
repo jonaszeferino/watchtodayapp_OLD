@@ -85,13 +85,15 @@ export default function Discovery() {
         <ChakraProvider>
           <Center>
             <Box>
-              <Text as="h2" className={styles.label}>
+              {/* <Text as="h2" >
                 Procure Por Texto
-              </Text>
+              </Text> */}
+              <br/>
               <Input
-                className={styles.top}
+                // className={styles.top}
                 required={true}
                 type="search"
+                placeholder="Digite o texto aqui"
                 value={searchText}
                 onChange={(event) => setSearchText(event.target.value)}
               />
