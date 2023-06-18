@@ -102,7 +102,7 @@ export default function Movieapi() {
     poster = "https://image.tmdb.org/t/p/original" + movieData.image;
   }
 
-  let destino = `/moviepage?movieId=${movieData.movieId}`;
+  let destino = `/movie-page?movieId=${movieData.movieId}`;
 
   function getProgressColor(progressValue) {
     if (progressValue >= 0.1 && progressValue <= 3.999) {
