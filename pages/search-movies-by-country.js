@@ -84,6 +84,7 @@ export default function Discovery() {
       <div>
         <div className={styles.top}>
           <h3 className={styles.title}>Filmes por Língua</h3>
+          <span>Escolha a língua, o ano, a quantidade de votos, e ordene os resultados</span>
         </div>
         <br/>
         <br/>

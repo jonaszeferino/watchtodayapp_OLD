@@ -114,6 +114,8 @@ export default function Discovery() {
       <div>
         <div className={styles.top}>
           <h3 className={styles.title}> Descubra Filmes</h3>
+          <span>Escolha os filtros abaixo, e ordene a consulta de
+            acordo com o seu desejo! </span>
         </div>
 
         <h2 className={styles.label}>
@@ -392,11 +394,11 @@ export default function Discovery() {
 
         {!totalResults ? (
           <span className={styles.spantext}>
-            Escolha os filtros acima, e clique em Verificar para uma consulta de
+            {/* Escolha os filtros acima, e clique em Verificar para uma consulta de
             acordo com o seu desejo! Escolha as Opções:
             <ul>Ordem das Notas</ul>
             <ul>Número de Avaliações</ul>
-            <ul>Ano de lançamento</ul>
+            <ul>Ano de lançamento</ul> */}
           </span>
         ) : (
           ""
