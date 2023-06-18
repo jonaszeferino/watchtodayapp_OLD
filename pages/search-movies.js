@@ -35,6 +35,17 @@ export default function Discovery() {
   let [isError, setError] = useState(false);
   let [isLoading, setIsLoading] = useState(false);
 
+  // estado pra amarzenar os filtros utilizados
+
+  const [searchFilters, setSearchFilters] = useState({
+    ratingSort: "vote_average.desc",
+    voteCount: 5000,
+    releaseDateFrom: 1800,
+    releaseDateTo: 2023,
+  });
+
+
+
   let urlString =
     "https://api.themoviedb.org/3/discover/movie?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR&include_adult=false&include_video=false&vote_count.gte=" +
     searchVoteCount +
