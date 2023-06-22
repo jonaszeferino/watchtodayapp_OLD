@@ -136,28 +136,38 @@ const MoviePage = () => {
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-          <span>
-            <span>
-              {poster != null ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  className={styles.card_image_big}
-                  src={poster}
-                  alt="poster"
-                  width="480"
-                  height="720"
-                />
-              ) : (
-                <Image
-                  className={styles.card_image_big}
-                  src="/callback.png"
-                  alt="poster"
-                  width="480"
-                  height="720"
-                />
-              )}
-            </span>
-          </span>
+<span>
+  <span>
+    {poster != null ? (
+      <img
+        className={styles.card_image_big}
+        src={poster}
+        alt="poster"
+        width="480"
+        height="720"
+        style={{
+          objectFit: 'contain',
+          maxHeight: '100%',
+          maxWidth: '100%',
+        }}
+      />
+    ) : (
+      <Image
+        className={styles.card_image_big}
+        src="/callback.png"
+        alt="poster"
+        width="480"
+        height="720"
+        style={{
+          objectFit: 'contain',
+          maxHeight: '100%',
+          maxWidth: '100%',
+        }}
+      />
+    )}
+  </span>
+</span>
+
         )}
       </div>
       {/* Tabela aqui para baixo */}

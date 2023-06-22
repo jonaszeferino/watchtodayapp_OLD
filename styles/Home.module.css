@@ -292,8 +292,10 @@
 }
 
 .card_image_big {
+  margin: 10px;
+    object-fit: contain;
+
   display: inline-block;
-  margin: 0 10px;
   align-items: center;
   appearance: none;
   background-color: #fcfcfd;
@@ -306,8 +308,8 @@
   cursor: pointer;
   display: inline-flex;
   font-family: "JetBrains Mono", monospace;
-  height: 720px;
-  width: 480px;
+  /* height: 720px;
+  width: 480px; */
   justify-content: center;
   line-height: 1;
   list-style: none;
