@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import ErrorPage from "./error-page";
 import Image from "next/image";
@@ -85,12 +86,9 @@ export default function Discovery() {
         <ChakraProvider>
           <Center>
             <Box>
-              {/* <Text as="h2" >
-                Procure Por Texto
-              </Text> */}
-              <br/>
+              <br />
               <Input
-                // className={styles.top}
+                
                 required={true}
                 type="search"
                 placeholder="Digite o texto aqui"
@@ -102,7 +100,9 @@ export default function Discovery() {
                 size="lg"
                 colorScheme="purple"
                 mt="24px"
-                onClick={apiCall}
+                onClick={() => {
+                  apiCall();
+                }}
               >
                 Verificar
               </Button>
@@ -123,7 +123,7 @@ export default function Discovery() {
             {searchMovies.map((search) => (
               <div key={search.id}>
                 <span className={styles.spantext}>
-                  Nome/Titulo:{" "}
+                  {search.media_type === "person" ? ( <span>Nome: </span> ) : <span>Título: </span> }
                   {search.media_type === "person"
                     ? search.name
                     : search.media_type === "movie"
@@ -132,7 +132,10 @@ export default function Discovery() {
                     ? search.name
                     : "N/A"}
                 </span>
+
                 <br />
+                {search.media_type != "person" ? (
+
                 <span className={styles.spantext}>
                   {search.poster_path != null ? (
                     <span className={styles.spantext}>
@@ -160,6 +163,76 @@ export default function Discovery() {
                   )}
                   <br />
                 </span>
+                                 ) : null}
+
+             
+                {search.media_type === "person" ? (
+                <span className={styles.spantext}>
+                  {search.profile_path != null ? (
+                    <span className={styles.spantext}>
+                      <Image
+                        className={styles.card_image}
+                        src={
+                          "https://image.tmdb.org/t/p/original" +
+                          search.profile_path
+                        }
+                        alt="poster"
+                        width="240"
+                        height="360"
+                      />{" "}
+                    </span>
+                  ) : (
+                    <span className={styles.spantext}>
+                      <Image
+                        className={styles.card_image}
+                        src="/callback.png"
+                        alt="poster"
+                        width="240"
+                        height="360"
+                      />
+                    </span>
+                  )}
+                  <br />
+                </span> 
+                 ) : null}
+
+
+                <br />
+
+                {search.media_type === "person" ? (
+                  <Link
+                    href={{
+                      pathname: "/person-page",
+                      // query: { movieId: search.id },
+                    }}
+                  >
+                    <a className={styles.button}>Detalhes Person</a>
+                  </Link>
+                ) : null}
+
+                {search.media_type === "movie" ? (
+                  <Link
+                    href={{
+                      pathname: "/movie-page",
+                      // query: { movieId: search.id },
+                    }}
+                  >
+                    <a className={styles.button}>Detalhes Movie</a>
+                  </Link>
+                ) : null}
+
+                {search.media_type === "tv" ? (
+                  <Link
+                    href={{
+                      pathname: "/tvshow-page",
+                      // query: { movieId: search.id },
+                    }}
+                  >
+                    <a className={styles.button}>Detalhes TV</a>
+                  </Link>
+                ) : null}
+
+                <br />
                 <br />
               </div>
             ))}

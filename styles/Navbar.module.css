@@ -1,8 +1,5 @@
-@media only screen and (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: center;
-  }
+
+ @media only screen and (max-width: 768px) {
 
   .navbar li {
     width: 100%;
@@ -19,14 +16,13 @@
     margin-bottom: 10px;
   }
 }
-/*Como estava dia 28/03/23*/
+
 .navbar {
   list-style-type: none;
   font-family: "JetBrains Mono", monospace;
   font-size: large;
   display: flex;
-  /* background-image: linear-gradient(to right, #311150, #ab87ff); */
- background-image: linear-gradient(to right, #311150, #141315); 
+  background-image: linear-gradient(to right, #311150, #141315); 
   padding: 40px 20px;
   margin-top: 0%;
   text-align: center;
@@ -68,3 +64,4 @@
 }
 
 /*Teste*/
+

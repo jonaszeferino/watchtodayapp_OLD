@@ -5,6 +5,8 @@ import { format } from "date-fns";
 import { useRouter } from "next/router";
 import TranslationComponent from "../components/translateComponent";
 import TranslationComponentCountryName from "../components/translateComponentCountryName";
+import { SearchIcon } from '@chakra-ui/icons';
+
 import {
   ChakraProvider,
   Center,
@@ -237,18 +239,21 @@ const MoviePage = () => {
             wordBreak: "break-word",
           }}
         >
-          <InputGroup>
-            <Input
-              placeholder="Digite o termo de pesquisa"
-              value={movieSearchQuery}
-              onChange={(e) => setMovieSearchQuery(e.target.value)}
-            />
-            <InputRightElement width="auto">
-              <Button colorScheme="purple" onClick={apiCall}>
-                Pesquisar
-              </Button>
-            </InputRightElement>
-          </InputGroup>
+        <InputGroup>
+  <Input
+    placeholder="Digite o termo de pesquisa"
+    value={movieSearchQuery}
+    onChange={(e) => setMovieSearchQuery(e.target.value)}
+  />
+
+  <InputRightElement width="auto">
+  <SearchIcon color="black" margin={3} />
+
+    <Button colorScheme="purple" onClick={apiCall}>
+      Pesquisar
+    </Button>
+  </InputRightElement>
+</InputGroup>
           <Text>
             {totals === 0 ? (
               <>

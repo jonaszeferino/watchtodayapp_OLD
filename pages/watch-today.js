@@ -185,12 +185,13 @@ export default function Movieapi() {
         <div style={{ maxWidth: "480px", margin: "0 auto" }}>
           <ChakraProvider>
             <Box maxW="32rem">
-
-            <div className={styles.top}>
-          <h3 className={styles.title}> O que ver hoje?</h3>
-          <span>                Clique e veja as possibilidades até que um seja do seu agrado!
- </span>
-        </div>
+              <div className={styles.top}>
+                <h3 className={styles.title}> O que ver hoje?</h3>
+                <span>
+                  {" "}
+                  Clique e veja as possibilidades até que um seja do seu agrado!
+                </span>
+              </div>
               {/* <Heading mb={4}>Que filme Assistir hoje?</Heading>
               <Text fontSize="xl">
                 Clique e veja as possibilidades até que um seja do seu agrado!
@@ -210,10 +211,9 @@ export default function Movieapi() {
         <br />
 
         <br />
-  
+
         {isLoading ? <Progress size="xs" isIndeterminate /> : null}
 
-        
         <br />
         {isError === true || movieData.adult === true ? (
           <ErrorPage message={`- Filme Deletado`}></ErrorPage>
@@ -229,28 +229,32 @@ export default function Movieapi() {
                     >{`${movieData.originalTitle}`}</span>
                   ) : (
                     <ChakraProvider>
-                      <Alert
-                        status="success"
-                        variant="subtle"
-                        flexDirection="column"
-                        alignItems="center"
-                        justifyContent="center"
-                        textAlign="center"
-                        height="250px"
-                        weight="100px"
-                        fontSize="12px"
-                      >
-                        <AlertIcon boxSize="40px" mr={0} />
-                        <AlertTitle mt={4} mb={1} fontSize="lg">
-                          Como Funciona!
-                        </AlertTitle>
-                        <AlertDescription maxWidth="sm">
-                          O algoritmo seleciona um ID de filme aleatoriamente a
-                          partir de uma base de mais de 560 mil filmes. Caso o
-                          ID do filme selecionado tenha sido deletado, basta
-                          clicar novamente para gerar um novo ID. Have Fun!
-                        </AlertDescription>
-                      </Alert>
+                      <Box bg="green.100" p={4}>
+                        <Alert
+                          margin="20px"
+                          status="success"
+                          variant="subtle"
+                          flexDirection="column"
+                          alignItems="center"
+                          justifyContent="center"
+                          textAlign="center"
+                          fontSize="12px"
+                        >
+                          <AlertIcon boxSize="50px" mr={2} />
+                          <AlertTitle mt={4} mb={1} fontSize="lg">
+                            Como Funciona!
+                          </AlertTitle>
+                          <AlertDescription
+                            maxWidth="xl"
+                            sx={{ backgroundColor: "transparent", padding: 0 }}
+                          >
+                            O algoritmo seleciona um ID de filme aleatoriamente
+                            a partir de uma base de mais de 560 mil filmes. Caso
+                            o ID do filme selecionado tenha sido deletado, basta
+                            clicar novamente para gerar um novo ID. Have Fun!
+                          </AlertDescription>
+                        </Alert>
+                      </Box>
                     </ChakraProvider>
                   )}
                 </span>

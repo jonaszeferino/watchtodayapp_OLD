@@ -1,6 +1,5 @@
 .footer {
   display: flex;
-  /* background-image: linear-gradient(to right, #311150, #ab87ff); */
   background-image: linear-gradient(to right, #311150, #141315); 
   background-size: cover;
   background-position: center;
@@ -16,4 +15,8 @@
   font-size: 1rem; /* Ou outro tamanho de fonte que você preferir */
   margin: 0;
 }
-
+.socialIcons {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Opcional: Adiciona um espaçamento entre os ícones */
+}
