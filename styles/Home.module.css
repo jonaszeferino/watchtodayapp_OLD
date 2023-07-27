@@ -693,14 +693,14 @@
 
 
 .top {
-  background-image: url('/titulo_teste2.png'); /* A URL está relacionada à pasta "public" */
+  background-image: url('/teste_preto.png'); /* A URL está relacionada à pasta "public" */
   background-size: cover; /* Ajusta a imagem para cobrir todo o elemento */
   background-repeat: no-repeat; /* Evita repetições da imagem */
   background-position: center center; /* Centraliza a imagem no elemento */
   margin: auto;
   padding: 1rem;
-  width: 800px;
-  height: 200px;
+  /* width: 800px;
+  height: 200px; */
   text-align: center;
   align-items: center;
   color: #000000;
