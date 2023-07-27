@@ -693,17 +693,26 @@
 
 
 .top {
+  background-image: url('/teste_preto.png'); /* A URL está relacionada à pasta "public" */
+  background-size: cover; /* Ajusta a imagem para cobrir todo o elemento */
+  background-repeat: no-repeat; /* Evita repetições da imagem */
+  background-position: center center; /* Centraliza a imagem no elemento */
   margin: auto;
   padding: 1rem;
   text-align: center;
   align-items: center;
   color: #fff;
-  background-color: #663399;
+  
+  /* background-color: #663399; */
   text-decoration: none;
   border: 1px solid #eaeaea;
   border-radius: 10px;
   box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
     rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+
+    border-width: 4px;
+    border-style: solid;
+    border-color: #000; 
 }
 
 .title a {
