@@ -104,9 +104,11 @@ export default function Home() {
       <div>
     
         <div>
+        <h3 className={styles.title}> Filmes Destaques da Semana</h3>
         <div className={styles.top}>
+        
   <h3 className={styles.title}>
-    Filmes Destaques da Semana
+    
     <br />
     <span>...</span>
     
@@ -185,10 +187,10 @@ export default function Home() {
             </div>
           )}
         </div>
-
+<h3 className={styles.title}> Series Destaques da Semana</h3>
         <div className={styles.top}>
           <h3 className={styles.title}>
-            Series Destaques da Semana
+            {/* Series Destaques da Semana */}
             <br />
             <span>...</span>
           </h3>
