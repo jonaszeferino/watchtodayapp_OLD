@@ -125,8 +125,8 @@ export default function Discovery() {
       <div>
         <div className={styles.top}>
           <h3 className={styles.title}> Descubra Filmes</h3>
-          <span><p>Escolha os filtros abaixo, e ordene a consulta de
-            acordo com o seu desejo!</p> </span>
+          {/* <span><p>Escolha os filtros abaixo, e ordene a consulta de
+            acordo com o seu desejo!</p> </span> */}
         </div>
 
         <h2 className={styles.label}>

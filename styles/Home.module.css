@@ -693,27 +693,35 @@
 
 
 .top {
-  background-image: url('/teste_preto.png'); /* A URL está relacionada à pasta "public" */
+  background-image: url('/titulo_teste2.png'); /* A URL está relacionada à pasta "public" */
   background-size: cover; /* Ajusta a imagem para cobrir todo o elemento */
   background-repeat: no-repeat; /* Evita repetições da imagem */
   background-position: center center; /* Centraliza a imagem no elemento */
   margin: auto;
   padding: 1rem;
+  width: 800px;
+  height: 200px;
   text-align: center;
   align-items: center;
-  color: #fff;
+  color: #000000;
   
   /* background-color: #663399; */
   text-decoration: none;
-  border: 1px solid #eaeaea;
+  border: 3px solid #000000;
   border-radius: 10px;
   box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
     rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+    text-shadow: -2px -2px 0 #f0ecec, 2px -2px 0 #f2ebeb, -2px 2px 0 #eee7e7, 2px 2px 0 #ede3e3;
 
-    border-width: 4px;
-    border-style: solid;
-    border-color: #000; 
+
+    
 }
+
+/* .top p {
+  /* Adiciona um contorno (border) ao texto dentro da div */
+  /* border: 2px solid #000;
+  padding: 5px; 
+} */
 
 .title a {
   color: #0070f3;
