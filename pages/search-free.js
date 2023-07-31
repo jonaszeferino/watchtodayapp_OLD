@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import ErrorPage from "./error-page";
@@ -15,9 +16,15 @@ import {
 } from "@chakra-ui/react";
 
 export default function Discovery() {
+  const router = useRouter();
+  const { query } = router.query;
+
   let [movieId, setMovieId] = useState();
   let [searchMovies, setSearchMovies] = useState([]);
-  let [searchText, setSearchText] = useState("");
+  let [searchText, setSearchText] = useState(query || ""); // Initialize with the value from the query parameter if available
+
+  console.log(query);
+
   //paginação
   let [page, setPage] = useState(1);
   let [searchMovieTotalPages, setSearchMovieTotalPages] = useState("");
@@ -27,11 +34,20 @@ export default function Discovery() {
   let [isError, setError] = useState(false);
   let [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    if (query) {
+      apiCall(page); // Fetch data if the query parameter is present
+    }
+  }, []);
+
   const apiCall = (currentPage) => {
     setIsLoading(true);
     setError(false);
 
-    const url = `https://api.themoviedb.org/3/search/multi?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR&query=${searchText}&include_adult=false&page=1`;
+    const url = `https://api.themoviedb.org/3/search/multi?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR&query=${searchText}&include_adult=false&page=${currentPage}`;
+
+    console.log(url);
+
     fetch(url, {
       headers: new Headers({
         "Content-Type": "application/json",
@@ -45,26 +61,24 @@ export default function Discovery() {
           throw new Error("Dados Incorretos");
         }
       })
-      .then(
-        (result) => (
-          setSearchMovies(result.results),
-          setSearchMovieTotalPages(result.total_pages),
-          setSearchMovieRealPage(result.page),
-          setSearchMovieTotalResults(result.total_results),
-          setPage(result.page),
-          setIsLoading(false)
-        )
-      )
+      .then((result) => {
+        setSearchMovies(result.results);
+        setSearchMovieTotalPages(result.total_pages);
+        setSearchMovieRealPage(result.page);
+        setSearchMovieTotalResults(result.total_results);
+        setPage(result.page);
+        setIsLoading(false);
+        // setSearchText("");
+      })
       .catch((error) => setError(true));
-    setIsLoading(false);
   };
 
-  const nextPage = (event) => {
-    setPage(page + 1), apiCall(page + 1);
+  const nextPage = () => {
+    setPage((prevPage) => prevPage + 1);
   };
-
-  const previousPage = (event) => {
-    setPage(page - 1), apiCall(page - 1);
+  
+  const previousPage = () => {
+    setPage((prevPage) => prevPage - 1);
   };
 
   let totalPages = searchMovieTotalPages;
@@ -87,24 +101,27 @@ export default function Discovery() {
           <Center>
             <Box>
               <br />
-              <Input
+
+              <Text>Termo de Busca: <strong>{searchText}</strong></Text>
+              <br/>
+              {/* <Input
                 required={true}
                 type="search"
                 placeholder="Digite o texto aqui"
                 value={searchText}
                 onChange={(event) => setSearchText(event.target.value)}
-              />
+              /> */}
 
-              <Button
+              {/* <Button
                 size="lg"
                 colorScheme="purple"
                 mt="24px"
                 onClick={() => {
-                  apiCall();
+                  apiCall(page); // Pass the current value of page here
                 }}
               >
                 Verificar
-              </Button>
+              </Button> */}
 
               <Box>
                 <Text className={styles.spantext}>
@@ -137,8 +154,8 @@ export default function Discovery() {
                 </span>
                 <br />
                 {search.media_type === "person" ? (
-                <span> Posição: {search.known_for_department}</span>
-                ) : (null)}
+                  <span> Posição: {search.known_for_department}</span>
+                ) : null}
 
                 <br />
                 {search.media_type != "person" ? (
@@ -200,7 +217,6 @@ export default function Discovery() {
                     <br />
                   </span>
                 ) : null}
-
 
                 {search.media_type === "person" ? (
                   <Link

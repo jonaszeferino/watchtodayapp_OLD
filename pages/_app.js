@@ -1,3 +1,4 @@
+// _app.js
 import MainContainer from "../components/MainContainer";
 import "../styles/globals.css";
 

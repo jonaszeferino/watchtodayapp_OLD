@@ -1,6 +1,4 @@
-
- @media only screen and (max-width: 768px) {
-
+@media only screen and (max-width: 768px) {
   .navbar li {
     width: 100%;
     text-align: center;
@@ -22,16 +20,17 @@
   font-family: "JetBrains Mono", monospace;
   font-size: large;
   display: flex;
-  background-image: linear-gradient(to right, #311150, #141315); 
+  background-image: linear-gradient(to right, #f5e9ff, #ded8e2);
   padding: 40px 20px;
   margin-top: 0%;
   text-align: center;
   justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add the shadow effect here */
 }
 
 .navbar a {
   list-style-type: none;
-  color: whitesmoke;
+  color: rgb(24, 22, 22);
   margin-right: 1em;
   text-decoration: none;
   transition: 0.3s;
@@ -40,7 +39,7 @@
 
 .navbar a:hover {
   list-style-type: none;
-  color: rgb(147, 121, 205);
+  color: rgb(130, 130, 130);
   text-align: center;
 }
 
@@ -56,12 +55,17 @@
     text-align: center;
     height: auto;
     padding: 10px 0;
+    position: relative;
   }
 
-  .navbar li:last-child {
-    border-bottom: 1px solid white;
+  .navbar li::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 70%;
+    height: 1px;
+    background-color: rgb(200, 197, 197);
+    transform: translateX(-50%);
   }
 }
-
-/*Teste*/
-
