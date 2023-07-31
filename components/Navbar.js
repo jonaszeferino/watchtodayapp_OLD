@@ -66,9 +66,11 @@ export default function Navbar({ isLoading }) {
       </InputGroup>
 
       <Link href={`/search-free?query=${searchText}`} passHref>
-        <Button as="a" size="lg" colorScheme="purple" mt="24px">
-          Pesquisar
-        </Button>
+      <Button as="a" size="lg" bg="white" color="black" borderColor="gray" borderWidth="1px" mt="24px">
+  Pesquisar
+</Button>
+
+
       </Link>
     </Flex>
 

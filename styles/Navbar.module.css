@@ -20,7 +20,7 @@
   font-family: "JetBrains Mono", monospace;
   font-size: large;
   display: flex;
-  background-image: linear-gradient(to right, #f5e9ff, #ded8e2);
+  background-image: linear-gradient(to right, #ffffff, #ffffff);
   padding: 40px 20px;
   margin-top: 0%;
   text-align: center;
@@ -39,7 +39,7 @@
 
 .navbar a:hover {
   list-style-type: none;
-  color: rgb(130, 130, 130);
+  color: rgb(206, 206, 206);
   text-align: center;
 }
 
