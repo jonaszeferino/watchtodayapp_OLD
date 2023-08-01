@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import ErrorPage from "./error-page";
 import { ChakraProvider, Progress, Container } from "@chakra-ui/react";
 import { FaFilm } from 'react-icons/fa';
+// import SearchBar from "../components/SearchBar";
+
 
 
 export default function Home() {
@@ -99,7 +101,8 @@ export default function Home() {
         <meta name="keywords" content="movies,tvshows,"></meta>
         <meta name="description" content="movies,tvshows"></meta>
       </Head>
- 
+      {/* <SearchBar isLoading={isLoading} /> */}
+
 
       <div>
     

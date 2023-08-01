@@ -4,6 +4,9 @@ import { useState } from "react";
 import { Box, Button, Input, Spinner, Text, ChakraProvider, InputGroup, InputRightElement, Flex } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router"; // Importe o hook useRouter
+import SearchBar from "./SearchBar";
+
+
 
 export default function Navbar({ isLoading }) {
   const [searchText, setSearchText] = useState("");
@@ -43,43 +46,12 @@ export default function Navbar({ isLoading }) {
           </Link>
         </li>
       </ul>
+      <SearchBar isLoading={isLoading} />
 
 
       <div style={{ maxWidth: "600px", margin: "0 auto" }}>
-  <ChakraProvider>
-    <Flex alignItems="center" width="100%" flex="1">
-      <InputGroup flex="1" marginRight="0"> {/* Adicione o marginRight aqui */}
-        <Input
-          required={true}
-          size="lg" 
-          mt="24px"
-          type="search"
-          placeholder="Filmes, Series, Pessoas"
-          value={searchText}
-          onChange={(event) => setSearchText(event.target.value)}
-          pr="4.5rem" // Adicione o padding right para acomodar o ícone de lupa
-        />
-        <InputRightElement width="auto"    size="lg" 
-          mt="24px" pointerEvents="none">
-          <SearchIcon color="gray.300" margin={3} />
-        </InputRightElement>
-      </InputGroup>
+ 
 
-      <Link href={`/search-free?query=${searchText}`} passHref>
-      <Button as="a" size="lg" bg="white" color="black" borderColor="gray" borderWidth="1px" mt="24px">
-  Pesquisar
-</Button>
-
-
-      </Link>
-    </Flex>
-
-    <Box>
-      <Text className={styles.spantext}>
-        {isLoading ? <Spinner /> : " "}
-      </Text>
-    </Box>
-  </ChakraProvider>
 </div>
 
 

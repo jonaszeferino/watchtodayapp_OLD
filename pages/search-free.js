@@ -14,6 +14,8 @@ import {
   ChakraProvider,
   Center,
 } from "@chakra-ui/react";
+// import SearchBar from "../components/SearchBar";
+
 
 export default function Discovery() {
   const router = useRouter();
@@ -34,11 +36,24 @@ export default function Discovery() {
   let [isError, setError] = useState(false);
   let [isLoading, setIsLoading] = useState(false);
 
+  // useEffect(() => {
+  //   if (query) {
+  //     apiCall(page); 
+  //   }
+  // }, []);
+
   useEffect(() => {
-    if (query) {
-      apiCall(page); // Fetch data if the query parameter is present
+    setSearchText(query || "");
+  }, [query]);
+ // Faz a chamada à API quando o valor da searchText mudar
+
+useEffect(() => {
+    if (searchText) {
+      apiCall(page); // Fetch data if searchText is not empty
     }
-  }, []);
+  }, [searchText, page]);
+  
+
 
   const apiCall = (currentPage) => {
     setIsLoading(true);
@@ -92,6 +107,9 @@ export default function Discovery() {
         <meta name="keywords" content="movies,watch,review"></meta>
         <meta name="description" content="encontre tudo de nba aqui"></meta>
       </Head>
+
+      {/* <SearchBar isLoading={isLoading} /> */}
+<br/>
       <div>
         <div className={styles.top}>
           <h3 className={styles.title}> Busca Livre</h3>
@@ -101,6 +119,8 @@ export default function Discovery() {
           <Center>
             <Box>
               <br />
+
+
 
               <Text>Termo de Busca: <strong>{searchText}</strong></Text>
               <br/>
