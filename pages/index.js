@@ -9,7 +9,6 @@ import { FaFilm } from 'react-icons/fa';
 // import SearchBar from "../components/SearchBar";
 
 
-
 export default function Home() {
   let [movieId, setMovieId] = useState();
   let [searchMovies, setSearchMovies] = useState([]);

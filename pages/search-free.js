@@ -16,7 +16,6 @@ import {
 } from "@chakra-ui/react";
 // import SearchBar from "../components/SearchBar";
 
-
 export default function Discovery() {
   const router = useRouter();
   const { query } = router.query;
@@ -38,22 +37,19 @@ export default function Discovery() {
 
   // useEffect(() => {
   //   if (query) {
-  //     apiCall(page); 
+  //     apiCall(page);
   //   }
   // }, []);
 
   useEffect(() => {
     setSearchText(query || "");
   }, [query]);
- // Faz a chamada à API quando o valor da searchText mudar
 
-useEffect(() => {
+  useEffect(() => {
     if (searchText) {
-      apiCall(page); // Fetch data if searchText is not empty
+      apiCall(page);
     }
   }, [searchText, page]);
-  
-
 
   const apiCall = (currentPage) => {
     setIsLoading(true);
@@ -91,7 +87,7 @@ useEffect(() => {
   const nextPage = () => {
     setPage((prevPage) => prevPage + 1);
   };
-  
+
   const previousPage = () => {
     setPage((prevPage) => prevPage - 1);
   };
@@ -109,7 +105,7 @@ useEffect(() => {
       </Head>
 
       {/* <SearchBar isLoading={isLoading} /> */}
-<br/>
+      <br />
       <div>
         <div className={styles.top}>
           <h3 className={styles.title}> Busca Livre</h3>
@@ -120,10 +116,10 @@ useEffect(() => {
             <Box>
               <br />
 
-
-
-              <Text>Termo de Busca: <strong>{searchText}</strong></Text>
-              <br/>
+              <Text>
+                Termo de Busca: <strong>{searchText}</strong>
+              </Text>
+              <br />
               {/* <Input
                 required={true}
                 type="search"
@@ -250,25 +246,25 @@ useEffect(() => {
                 ) : null}
 
                 {search.media_type === "movie" ? (
-                  <Link
-                    href={{
-                      pathname: "/movie-page",
-                      // query: { movieId: search.id },
-                    }}
-                  >
-                    <a className={styles.button}>Detalhes Movie</a>
-                  </Link>
+                      <Link
+                      href={{
+                        pathname: "/movie-page",
+                        query: { movieId: search.id },
+                      }}
+                    >
+                      <a className={styles.button}>Detalhes</a>
+                    </Link>
                 ) : null}
 
                 {search.media_type === "tv" ? (
-                  <Link
-                    href={{
-                      pathname: "/tvshow-page",
-                      // query: { movieId: search.id },
-                    }}
-                  >
-                    <a className={styles.button}>Detalhes TV</a>
-                  </Link>
+              <Link
+              href={{
+                pathname: "/tvshow-page",
+                query: { tvShowId: search.id },
+              }}
+            >
+              <a className={styles.button}>Detalhes</a>
+            </Link>
                 ) : null}
 
                 <br />
