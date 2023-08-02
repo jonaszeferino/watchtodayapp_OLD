@@ -11,7 +11,9 @@ export default function Navbar({ isLoading }) {
   const router = useRouter();
 
   return (
+ 
     <>
+    
       <ul className={styles.navbar}>
         <li>
           <Link href="/">
@@ -44,10 +46,8 @@ export default function Navbar({ isLoading }) {
           </Link>
         </li>
         <br />
-        
       </ul>
       <SearchBar isLoading={isLoading} />
-
 
       <div style={{ maxWidth: "600px", margin: "0 auto" }}></div>
     </>
