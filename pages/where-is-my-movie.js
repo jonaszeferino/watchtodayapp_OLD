@@ -241,7 +241,7 @@ const MoviePage = () => {
         >
         <InputGroup>
   <Input
-    placeholder="Digite o termo de pesquisa"
+    placeholder="Digite o nome do filme"
     value={movieSearchQuery}
     onChange={(e) => setMovieSearchQuery(e.target.value)}
   />
