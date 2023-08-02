@@ -662,8 +662,7 @@
 } */
 .card_image_home:hover {
   /* código com box-shadow aumentado */
-  box-shadow: rgba(45, 35, 66, 0.4) 0 8px 16px,
-    rgba(45, 35, 66, 0.3) 0 14px 28px -6px, #d6d6e7 0 -6px 0 inset;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 8px 16px,rgba(45, 35, 66, 0.3) 0 14px 28px -6px, #d6d6e7 0 -6px 0 inset;
   transform: translateY(-4px);
 }
 
@@ -692,36 +691,25 @@
 } */
 
 
-.top {
-  background-image: url('/teste_cinza.png');
-  background-size: cover; /* Ajusta a imagem para cobrir todo o elemento */
-  background-repeat: no-repeat; /* Evita repetições da imagem */
-  background-position: center center; /* Centraliza a imagem no elemento */
+/* .top {
+  /* background-image: url('/teste_cinza.png'); */
+  /* background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   margin: auto;
   padding: 1rem;
-  /* width: 800px;
-  height: 200px; */
+ 
   text-align: center;
   align-items: center;
   color: #000000;
-  
-  /* background-color: #663399; */
+   
   text-decoration: none;
   border: 3px solid #000000;
   border-radius: 10px;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
-    text-shadow: -2px -2px 0 #f0ecec, 2px -2px 0 #f2ebeb, -2px 2px 0 #eee7e7, 2px 2px 0 #ede3e3;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  text-shadow: -2px -2px 0 #f0ecec, 2px -2px 0 #f2ebeb, -2px 2px 0 #eee7e7, 2px 2px 0 #ede3e3;
 
-
-    
-}
-
-/* .top p {
-  /* Adiciona um contorno (border) ao texto dentro da div */
-  /* border: 2px solid #000;
-  padding: 5px; 
-} */
+}  */
 
 .title a {
   color: #0070f3;
@@ -755,9 +743,73 @@
 .icon {
   vertical-align: middle;
   margin-left: 0.5rem;
-  
-    
 }
+
+@media only screen and (max-width: 768px) {
+  .top li {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .top li:last-child {
+    border-bottom: none;
+  }
+
+  .top a {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
+.top {
+  list-style-type: none;
+  font-family: "JetBrains Mono", monospace;
+  font-size: large;
+  display: flex;
+  background-image: linear-gradient(to right, #ffffff, #ffffff);
+  padding: 40px 20px;
+  margin-top: 0%;
+  text-align: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add the shadow effect here */
+}
+
+
+
+.top a:hover {
+  list-style-type: none;
+  color: rgb(206, 206, 206);
+  text-align: center;
+}
+
+@media (max-width: 100%) {
+  .top {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .top li {
+    display: block;
+    border: none;
+    text-align: center;
+    height: auto;
+    padding: 10px 0;
+    position: relative;
+  }
+
+  .top li::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 70%;
+    height: 1px;
+    background-color: rgb(200, 197, 197);
+    transform: translateX(-50%);
+  }
+}
+
 
 
 

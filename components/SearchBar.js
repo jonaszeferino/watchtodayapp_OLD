@@ -27,7 +27,7 @@ const SearchBar = ({ isLoading }) => {
           <InputGroup flex="1" marginRight="0">
             <Input
               required={true}
-              size="lg"
+              size="md"
               bg="white"
               color="black"
               borderColor="gray"
@@ -45,7 +45,7 @@ const SearchBar = ({ isLoading }) => {
           </InputGroup>
 
           <Link href={`/search-free?query=${searchText}`} passHref>
-            <Button as="a" size="lg" bg="white" color="black" borderColor="gray" borderWidth="1px" mt="24px">
+            <Button as="a" size="md" bg="white" color="black" borderColor="gray" borderWidth="1px" mt="24px">
               Pesquisar
             </Button>
           </Link>

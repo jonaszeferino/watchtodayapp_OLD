@@ -103,8 +103,7 @@ export default function Discovery() {
       <div>
         <div className={styles.top}>
           <h3 className={styles.title}> Séries - Programas de TV</h3>
-          <span>Escolha os filtros baixo, e clique em Verificar para uma consulta de acordo com o seu desejo!
-</span>
+          {/* <span>Escolha os filtros baixo, e clique em Verificar para uma consulta de acordo com o seu desejo!</span> */}
         </div>
 <ChakraProvider>
   <Center>

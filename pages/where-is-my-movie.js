@@ -225,9 +225,9 @@ const MoviePage = () => {
       <ChakraProvider>
         <div className={styles.top}>
           <h3 className={styles.title}>Onde Está Meu Filme?</h3>
-          <span>
+          {/* <span>
             Verifique em qual lugar do mundo seu filme está disponível
-          </span>
+          </span> */}
         </div>
         <br />
         <br />

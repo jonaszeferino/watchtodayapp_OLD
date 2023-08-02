@@ -1,17 +1,7 @@
 import Link from "next/link";
 import styles from "../styles/Navbar.module.css";
 import { useState } from "react";
-import {
-  Box,
-  Button,
-  Input,
-  Spinner,
-  Text,
-  ChakraProvider,
-  InputGroup,
-  InputRightElement,
-  Flex,
-} from "@chakra-ui/react";
+
 import { SearchIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router"; // Importe o hook useRouter
 import SearchBar from "./SearchBar";
@@ -53,8 +43,11 @@ export default function Navbar({ isLoading }) {
             <a>| Onde Está Meu Filme? |</a>
           </Link>
         </li>
+        <br />
+        
       </ul>
       <SearchBar isLoading={isLoading} />
+
 
       <div style={{ maxWidth: "600px", margin: "0 auto" }}></div>
     </>

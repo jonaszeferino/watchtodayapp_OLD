@@ -247,8 +247,6 @@ export default function Discovery() {
           )}
           <span className={styles.spantext}>
             {isLoading ? (
-
-              
               <ChakraProvider>
                 <Progress size="xs" isIndeterminate />{" "}
               </ChakraProvider>
@@ -307,7 +305,6 @@ export default function Discovery() {
                   )}
                   <br />
                 </span>
-                {/* <span className={styles.spantext}>Movie Id: {search.id}</span>{" "} */}
                 <span className={styles.spantext}>
                   Média: {search.vote_average} - Nº de Votos:{" "}
                   {search.vote_count}
@@ -405,11 +402,7 @@ export default function Discovery() {
 
         {!totalResults ? (
           <span className={styles.spantext}>
-            {/* Escolha os filtros acima, e clique em Verificar para uma consulta de
-            acordo com o seu desejo! Escolha as Opções:
-            <ul>Ordem das Notas</ul>
-            <ul>Número de Avaliações</ul>
-            <ul>Ano de lançamento</ul> */}
+            
           </span>
         ) : (
           ""

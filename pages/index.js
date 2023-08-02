@@ -5,9 +5,7 @@ import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 import ErrorPage from "./error-page";
 import { ChakraProvider, Progress, Container } from "@chakra-ui/react";
-import { FaFilm } from 'react-icons/fa';
-// import SearchBar from "../components/SearchBar";
-
+import { FaFilm } from "react-icons/fa";
 
 export default function Home() {
   let [movieId, setMovieId] = useState();
@@ -102,21 +100,16 @@ export default function Home() {
       </Head>
       {/* <SearchBar isLoading={isLoading} /> */}
 
-
       <div>
-    
         <div>
-        <h3 className={styles.title}> Filmes Destaques da Semana</h3>
-        <div className={styles.top}>
-        
-  <h3 className={styles.title}>
-    
-    <br />
-    <span>...</span>
-    
-    
-  </h3>
-</div>
+          <div className={styles.top}>
+            <h3 className={styles.title}> Filmes Destaques da Semana</h3>
+
+            <h3 className={styles.title}>
+              <br />
+              <span></span>
+            </h3>
+          </div>
           <h2 className={styles.label}>
             <br />
             <span className={styles.spantext}>
@@ -189,12 +182,11 @@ export default function Home() {
             </div>
           )}
         </div>
-<h3 className={styles.title}> Series Destaques da Semana</h3>
         <div className={styles.top}>
           <h3 className={styles.title}>
-            {/* Series Destaques da Semana */}
-            <br />
-            <span>...</span>
+          <h3 className={styles.title}> Series Destaques da Semana</h3>
+
+            <span></span>
           </h3>
         </div>
         <div className={styles.grid}>

@@ -179,9 +179,7 @@ export default function Movieapi() {
       </Head>
 
       <div>
-        {/* <div className={styles.top}>
-          <h3 className={styles.title}>Que filme Assistir Hoje?</h3>
-        </div> */}
+   
         <div style={{ maxWidth: "480px", margin: "0 auto" }}>
           <ChakraProvider>
             <Box maxW="32rem">
@@ -192,14 +190,17 @@ export default function Movieapi() {
                   Clique e veja as possibilidades até que um seja do seu agrado!
                 </span>
               </div>
-              {/* <Heading mb={4}>Que filme Assistir hoje?</Heading>
-              <Text fontSize="xl">
-                Clique e veja as possibilidades até que um seja do seu agrado!
-              </Text> */}
+        
               <Button
-                size="lg"
-                colorScheme="purple"
-                mt="24px"
+              size="md"
+              bg="white"
+              color="black"
+              borderColor="gray"
+              borderWidth="1px"
+              mt="24px"
+                
+                
+                
                 onClick={apiCall}
               >
                 Verificar
@@ -208,9 +209,7 @@ export default function Movieapi() {
           </ChakraProvider>
         </div>
 
-        <br />
-
-        <br />
+        
 
         {isLoading ? <Progress size="xs" isIndeterminate /> : null}
 
@@ -229,7 +228,7 @@ export default function Movieapi() {
                     >{`${movieData.originalTitle}`}</span>
                   ) : (
                     <ChakraProvider>
-                      <Box bg="green.100" p={4}>
+                      {/* <Box bg="green.100" p={4}>
                         <Alert
                           margin="20px"
                           status="success"
@@ -254,7 +253,7 @@ export default function Movieapi() {
                             clicar novamente para gerar um novo ID. Have Fun!
                           </AlertDescription>
                         </Alert>
-                      </Box>
+                      </Box> */}
                     </ChakraProvider>
                   )}
                 </span>
