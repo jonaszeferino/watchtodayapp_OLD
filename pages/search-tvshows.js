@@ -15,8 +15,8 @@ import {
   Spinner,
   Text,
   ChakraProvider,
-  VStack, Center
-
+  VStack,
+  Center,
 } from "@chakra-ui/react";
 import { CacheProvider } from "@emotion/react";
 
@@ -105,104 +105,106 @@ export default function Discovery() {
           <h3 className={styles.title}> Séries - Programas de TV</h3>
           {/* <span>Escolha os filtros baixo, e clique em Verificar para uma consulta de acordo com o seu desejo!</span> */}
         </div>
-<ChakraProvider>
-  <Center>
-    <VStack>
- <Box>
-  
+        <ChakraProvider>
+          <Center>
+            <VStack>
+              <Box>
+                <FormControl>
+                  <br />
+                  <FormLabel>Ordem:</FormLabel>
 
-  <FormControl>
-  <br/>
-    <FormLabel>Ordem:</FormLabel>
-    
-    <Select
-      name="select"
-      value={searchRatingSort}
-      onChange={(event) => setSearchRatingSort(event.target.value)}
-    >
-      <option value="vote_average.asc">Da Pior Para Melhor Nota</option>
-      <option value="vote_average.desc">Da Melhor Para Pior Nota</option>
-    </Select>
-  </FormControl>
+                  <Select
+                    name="select"
+                    value={searchRatingSort}
+                    onChange={(event) =>
+                      setSearchRatingSort(event.target.value)
+                    }
+                  >
+                    <option value="vote_average.asc">
+                      Da Pior Para Melhor Nota
+                    </option>
+                    <option value="vote_average.desc">
+                      Da Melhor Para Pior Nota
+                    </option>
+                  </Select>
+                </FormControl>
 
-  <FormControl>
-    <FormLabel>Nº de Votos:</FormLabel>
-    <Select
-      name="select"
-      type="number"
-      value={searchVoteCount}
-      onChange={(event) => setSearchVoteCount(event.target.value)}
-    >
-      <option value="0">Mais de 0 votos</option>
-      <option value="50">Mais de 50 votos</option>
-      <option value="100">Mais de 100 votos</option>
-      <option value="200">Mais de 200 votos</option>
-      <option value="500">Mais de 500 votos</option>
-      <option value="1000">Mais de 1000 votos</option>
-      <option value="5000">Mais de 5000 votos</option>
-    </Select>
-  </FormControl>
+                <FormControl>
+                  <FormLabel>Nº de Votos:</FormLabel>
+                  <Select
+                    name="select"
+                    type="number"
+                    value={searchVoteCount}
+                    onChange={(event) => setSearchVoteCount(event.target.value)}
+                  >
+                    <option value="0">Mais de 0 votos</option>
+                    <option value="50">Mais de 50 votos</option>
+                    <option value="100">Mais de 100 votos</option>
+                    <option value="200">Mais de 200 votos</option>
+                    <option value="500">Mais de 500 votos</option>
+                    <option value="1000">Mais de 1000 votos</option>
+                    <option value="5000">Mais de 5000 votos</option>
+                  </Select>
+                </FormControl>
 
-  <FormControl>
-    <FormLabel>Tipo de Série:</FormLabel>
-    <Select
-      name="select"
-      value={searchTvType}
-      onChange={(event) => setSearchTvType(event.target.value)}
-    >
-      <option value="">Todos Tipos</option>
-      <option value="0">Documentário</option>
-      <option value="1">Notícias</option>
-      <option value="2">Mini Séries</option>
-      <option value="3">Realities</option>
-      <option value="4">Roteirizadas</option>
-      <option value="5">Talk Show</option>
-      <option value="6">Videos</option>
-    </Select>
-  </FormControl>
+                <FormControl>
+                  <FormLabel>Tipo de Série:</FormLabel>
+                  <Select
+                    name="select"
+                    value={searchTvType}
+                    onChange={(event) => setSearchTvType(event.target.value)}
+                  >
+                    <option value="">Todos Tipos</option>
+                    <option value="0">Documentário</option>
+                    <option value="1">Notícias</option>
+                    <option value="2">Mini Séries</option>
+                    <option value="3">Realities</option>
+                    <option value="4">Roteirizadas</option>
+                    <option value="5">Talk Show</option>
+                    <option value="6">Videos</option>
+                  </Select>
+                </FormControl>
 
-  <FormControl>
-    <FormLabel>Ano Inicial:</FormLabel>
-    <Input
-      type="number"
-      min={1800}
-      max={2022}
-      value={searchMovieReleaseDateFrom}
-      onChange={(event) =>
-        setSearchMovieReleaseDateFrom(event.target.value)
-      }
-    />
-  </FormControl>
+                <FormControl>
+                  <FormLabel>Ano Inicial:</FormLabel>
+                  <Input
+                    type="number"
+                    min={1800}
+                    max={2022}
+                    value={searchMovieReleaseDateFrom}
+                    onChange={(event) =>
+                      setSearchMovieReleaseDateFrom(event.target.value)
+                    }
+                  />
+                </FormControl>
 
-  <FormControl>
-    <FormLabel>Ano Final:</FormLabel>
-    <Input
-      type="number"
-      min={1800}
-      max={2023}
-      value={searchMovieReleaseDateTo}
-      onChange={(event) =>
-        setSearchMovieReleaseDateTo(event.target.value)
-      }
-    />
-  </FormControl>
+                <FormControl>
+                  <FormLabel>Ano Final:</FormLabel>
+                  <Input
+                    type="number"
+                    min={1800}
+                    max={2023}
+                    value={searchMovieReleaseDateTo}
+                    onChange={(event) =>
+                      setSearchMovieReleaseDateTo(event.target.value)
+                    }
+                  />
+                </FormControl>
 
-  <Button
-                size="lg"
-                colorScheme="purple"
-                mt="24px"
-                onClick={apiCall}
-              >
-                Verificar
-              </Button>
+                <Button
+                  size="lg"
+                  colorScheme="purple"
+                  mt="24px"
+                  onClick={apiCall}
+                >
+                  Verificar
+                </Button>
 
-  <Box>{isLoading ? <Spinner /> : null}</Box>
-</Box>
-</VStack>
-</Center>
-
-</ChakraProvider>
-
+                <Box>{isLoading ? <Spinner /> : null}</Box>
+              </Box>
+            </VStack>
+          </Center>
+        </ChakraProvider>
 
         {isError === true ? (
           <ErrorPage message={`Verifique as Credenciais`}></ErrorPage>

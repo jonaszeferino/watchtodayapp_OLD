@@ -3,9 +3,6 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaAppStore, FaGooglePlay } from 'r
 import { SiThemoviedatabase } from "react-icons/si";
 
 
-
-
-
 export default function Footer() {
   return (
     <footer className={styles.footer}>

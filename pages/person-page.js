@@ -1,39 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import ErrorPage from "./error-page";
+import { useRouter } from "next/router";
+import {
+  ChakraProvider,
+  Button,
+  TableContainer,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Td,
+  Tbody,
+} from "@chakra-ui/react";
 import Image from "next/image";
+import TranslateProfile from "../components/TranslateProfile"
+import TranslationComponentCountryName from "../components/translateComponentCountryName";
 
 export default function Personapi() {
-  const [personName, setPersonName] = useState();
-  const [personId, setPersonId] = useState();
-  const [personArea, setPersonArea] = useState();
-  const [personImage, setPersonImage] = useState("/callbackImage.png");
-  const [personReview, setPersonReview] = useState();
-  const [personImdb, setPersonImdb] = useState();
-
+  const router = useRouter();
+  const personIdRecive = router.query.personId;
+  const [personRecive, setPersonRecive] = useState({});
   const [isError, setError] = useState(false);
 
-  const personImageLet = personImage
-    ? `https://image.tmdb.org/t/p/original${personImage}`
-    : "/callbackImage.png";
+  console.log();
 
-  const translations = {
-    Acting: "Atuação",
-    Directing: "Direção",
-    Writing: "Roteiro",
-    Production: "Produção",
-    Camera: "Fotografia",
-    Art: "Arte",
-    Editing: "Edição",
-    Sound: "Música",
-  };
+  useEffect(() => {
+    apiCall();
+  }, [personIdRecive]);
 
   const apiCall = () => {
-    if (!personId) {
+    if (!personIdRecive) {
       return;
     }
-
-    const url = `https://api.themoviedb.org/3/person/${personId}?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`;
+    const url = `https://api.themoviedb.org/3/person/${personIdRecive}?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`;
 
     fetch(url, {})
       .then((response) => {
@@ -45,97 +45,92 @@ export default function Personapi() {
           throw console.log("Erro 1");
         }
       })
-      .then(
-        (result) => (
-          setPersonName(result.name),
-          setPersonId(result.id),
-          setPersonImdb(result.imdb_id),
-          setPersonArea(result.known_for_department),
-          setPersonImage(result.profile_path),
-          setPersonReview(result.biography)
-        )
-      )
+      .then((result) => setPersonRecive(result))
       .catch((error) => setError(true));
   };
 
+  console.log(personRecive);
+  console.log(personRecive.profile_path);
   return (
     <div>
-      <label>
-        Procure Por Texto
-        <input
-          className={styles.card}
-          required={true}
-          type="text"
-          value={personId}
-          onChange={(event) => setPersonId(event.target.value)}
-        />
-      </label>
-
-      <button onClick={apiCall}>Verificar</button>
-
       {isError === true ? (
         <ErrorPage message={"Erro ao carregar a página"} />
       ) : (
         <div>
-          <h3 className={styles.title}>
-            {personName && (
-              <div>
-                <h3 className={styles.title}>{personName}</h3>
-                ...
-              </div>
-            )}
-          </h3>
+          <h3 className={styles.title}></h3>
+
           <span>
-            {personImageLet != null ? (
-              <span>
-                {" "}
-                <Image
-                  src={"https://image.tmdb.org/t/p/original" + personImageLet}
-                  alt="poster"
-                  width="240"
-                  height="360"
-                />{" "}
-              </span>
+            {personRecive.profile_path != null ? (
+              <img
+                className={styles.card_image_big}
+                src={
+                  "https://image.tmdb.org/t/p/original" +
+                  personRecive.profile_path
+                }
+                alt="poster"
+                width="480"
+                height="720"
+                style={{
+                  objectFit: "contain",
+                  maxHeight: "100%",
+                  maxWidth: "100%",
+                }}
+              />
             ) : (
-              <span>
-                {" "}
-                <Image
-                  src="/callback.png"
-                  alt="poster"
-                  width="240"
-                  height="360"
-                />{" "}
-              </span>
+              <Image
+                className={styles.card_image_big}
+                src="/callback.png"
+                alt="poster"
+                width="480"
+                height="720"
+                style={{
+                  objectFit: "contain",
+                  maxHeight: "100%",
+                  maxWidth: "100%",
+                }}
+              />
             )}
-            <br />
           </span>
 
-          <table className={styles.table}>
-            <tbody>
-              <tr className={styles.tr}>
-                <td className={styles.td}>Nome</td>
-                <td className={styles.td} />
-                <td className={styles.td}>{personName}</td>
-              </tr>
-              <tr className={styles.tr}>
-                <td className={styles.td}>IMDb ID</td>
-                <td className={styles.td} />
-                <td className={styles.td}>{personImdb}</td>
-              </tr>
-              <tr className={styles.tr}>
-                <td className={styles.td}>Biografia</td>
-                <td className={styles.td} />
-                <td className={styles.td}>{personReview}</td>
-              </tr>
-              <tr className={styles.tr}>
-                <td className={styles.td}>Area</td>
-                <td className={styles.td} />
-                <td className={styles.td}>
-                  {translations[personArea] || personArea}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <ChakraProvider>
+            <TableContainer>
+              <Table size="sm">
+                <Thead>
+                  <Tr>
+                    <Th>Nome:</Th>
+                    <Td>{personRecive.name}</Td>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Th>Conhecido por: </Th>
+                    <Td>
+                      <TranslateProfile
+                        text={personRecive.known_for_department}
+                        language="pt"
+                      />
+                    </Td>
+                    <Tr />
+                  </Tr>
+
+                  <Tr>
+                    <Th>Biografia</Th>
+                    <Td>{personRecive.biography}</Td>
+                  </Tr>
+
+                  <Tr>
+                    <Th>Nascimento</Th>
+                    <Td>{personRecive.place_of_birth}</Td>
+                  </Tr>
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </ChakraProvider>
+          <ChakraProvider>
+            <Button size="lg" colorScheme="purple" mt="24px" onClick={apiCall}>
+              Verificar
+            </Button>
+          </ChakraProvider>
           <br />
         </div>
       )}

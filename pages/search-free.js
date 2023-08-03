@@ -13,8 +13,15 @@ import {
   Text,
   ChakraProvider,
   Center,
+  Tag,
+  TagLabel,
+  TagLeftIcon,
+  TagRightIcon,
+  TagCloseButton,
+  HStack,
+  Tooltip,
 } from "@chakra-ui/react";
-// import SearchBar from "../components/SearchBar";
+import TranslateProfile from "../components/TranslateProfile";
 
 export default function Discovery() {
   const router = useRouter();
@@ -22,7 +29,7 @@ export default function Discovery() {
 
   let [movieId, setMovieId] = useState();
   let [searchMovies, setSearchMovies] = useState([]);
-  let [searchText, setSearchText] = useState(query || ""); // Initialize with the value from the query parameter if available
+  let [searchText, setSearchText] = useState(query || "");
 
   console.log(query);
 
@@ -35,11 +42,14 @@ export default function Discovery() {
   let [isError, setError] = useState(false);
   let [isLoading, setIsLoading] = useState(false);
 
-  // useEffect(() => {
-  //   if (query) {
-  //     apiCall(page);
-  //   }
-  // }, []);
+  //mostragem de filtros
+  let [showMovies, setShowMovies] = useState(true);
+  let [showTvShows, setShowTvShows] = useState(true);
+  let [showPerson, setShowPerson] = useState(true);
+
+  console.log(showMovies);
+  console.log(showTvShows);
+  console.log(showPerson);
 
   useEffect(() => {
     setSearchText(query || "");
@@ -56,8 +66,6 @@ export default function Discovery() {
     setError(false);
 
     const url = `https://api.themoviedb.org/3/search/multi?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR&query=${searchText}&include_adult=false&page=${currentPage}`;
-
-    console.log(url);
 
     fetch(url, {
       headers: new Headers({
@@ -79,7 +87,6 @@ export default function Discovery() {
         setSearchMovieTotalResults(result.total_results);
         setPage(result.page);
         setIsLoading(false);
-        // setSearchText("");
       })
       .catch((error) => setError(true));
   };
@@ -96,6 +103,18 @@ export default function Discovery() {
   let currentPage = searchMovieRealPage;
   let totalResults = searchMovieTotalResults;
 
+  const handleMoviesClick = () => {
+    setShowMovies(!showMovies); // Inverte o valor do estado showMovies
+  };
+
+  const handleTvShowsClick = () => {
+    setShowTvShows(!showTvShows); // Inverte o valor do estado showTvShows
+  };
+
+  const handlePersonClick = () => {
+    setShowPerson(!showPerson); // Inverte o valor do estado showPerson
+  };
+
   return (
     <>
       <Head>
@@ -104,14 +123,43 @@ export default function Discovery() {
         <meta name="description" content="encontre tudo de nba aqui"></meta>
       </Head>
 
-      {/* <SearchBar isLoading={isLoading} /> */}
       <br />
       <div>
         <div className={styles.top}>
           <h3 className={styles.title}> Busca Livre</h3>
-          <span>Procure, Pessoas, Séries, Filmes</span>
         </div>
+        <br />
         <ChakraProvider>
+          <Center>
+            <HStack spacing={6}>
+              <Tooltip label="Habilita/Desabilita Filmes">
+                <Button
+                  colorScheme={showMovies ? "blue" : "gray"}
+                  onClick={handleMoviesClick}
+                >
+                  Filmes
+                </Button>
+              </Tooltip>
+
+              <Tooltip label="Habilita/Desabilita Séries">
+                <Button
+                  colorScheme={showTvShows ? "green" : "gray"}
+                  onClick={handleTvShowsClick}
+                >
+                  Séries
+                </Button>
+              </Tooltip>
+
+              <Tooltip label="Habilita/Desabilita Pessoas">
+                <Button
+                  colorScheme={showPerson ? "yellow" : "gray"}
+                  onClick={handlePersonClick}
+                >
+                  Pessoas
+                </Button>
+              </Tooltip>
+            </HStack>
+          </Center>
           <Center>
             <Box>
               <br />
@@ -120,24 +168,6 @@ export default function Discovery() {
                 Termo de Busca: <strong>{searchText}</strong>
               </Text>
               <br />
-              {/* <Input
-                required={true}
-                type="search"
-                placeholder="Digite o texto aqui"
-                value={searchText}
-                onChange={(event) => setSearchText(event.target.value)}
-              /> */}
-
-              {/* <Button
-                size="lg"
-                colorScheme="purple"
-                mt="24px"
-                onClick={() => {
-                  apiCall(page); // Pass the current value of page here
-                }}
-              >
-                Verificar
-              </Button> */}
 
               <Box>
                 <Text className={styles.spantext}>
@@ -155,26 +185,31 @@ export default function Discovery() {
             {searchMovies.map((search) => (
               <div key={search.id}>
                 <span className={styles.spantext}>
-                  {search.media_type === "person" ? (
-                    <span>Nome: </span>
+                  {showPerson && search.media_type === "person" ? (
+                    <span></span>
                   ) : (
-                    <span>Título: </span>
+                    <span></span>
                   )}
-                  {search.media_type === "person"
+                  {search.media_type === "person" && showPerson
                     ? search.name
-                    : search.media_type === "movie"
+                    : search.media_type === "movie" && showMovies
                     ? search.title
-                    : search.media_type === "tv"
-                    ? search.name
-                    : "N/A"}
+                    : search.media_type === "tv" && showTvShows
+                    ? search.name 
+                    : ""}
                 </span>
                 <br />
-                {search.media_type === "person" ? (
-                  <span> Posição: {search.known_for_department}</span>
+                {showPerson && search.media_type === "person" ? (
+                  <span>
+                    Posição:{" "}
+                    <TranslateProfile
+                      text={search.known_for_department}
+                      language={"pt"}
+                    />
+                  </span>
                 ) : null}
-
                 <br />
-                {search.media_type != "person" ? (
+                {showTvShows && search.media_type == "tv" ? (
                   <span className={styles.spantext}>
                     {search.poster_path != null ? (
                       <span className={styles.spantext}>
@@ -204,7 +239,37 @@ export default function Discovery() {
                   </span>
                 ) : null}
 
-                {search.media_type === "person" ? (
+                {showMovies && search.media_type == "movie" ? (
+                  <span className={styles.spantext}>
+                    {search.poster_path != null ? (
+                      <span className={styles.spantext}>
+                        <Image
+                          className={styles.card_image}
+                          src={
+                            "https://image.tmdb.org/t/p/original" +
+                            search.poster_path
+                          }
+                          alt="poster"
+                          width="240"
+                          height="360"
+                        />{" "}
+                      </span>
+                    ) : (
+                      <span className={styles.spantext}>
+                        <Image
+                          className={styles.card_image}
+                          src="/callback.png"
+                          alt="poster"
+                          width="240"
+                          height="360"
+                        />
+                      </span>
+                    )}
+                    <br />
+                  </span>
+                ) : null}
+
+                {showPerson && search.media_type === "person" ? (
                   <span className={styles.spantext}>
                     {search.profile_path != null ? (
                       <span className={styles.spantext}>
@@ -234,37 +299,37 @@ export default function Discovery() {
                   </span>
                 ) : null}
 
-                {search.media_type === "person" ? (
+                {showPerson && search.media_type === "person" ? (
                   <Link
                     href={{
                       pathname: "/person-page",
-                      // query: { movieId: search.id },
+                      query: { personId: search.id },
                     }}
                   >
-                    <a className={styles.button}>Detalhes Person</a>
+                    <a className={styles.button}>Detalhes</a>
                   </Link>
                 ) : null}
 
-                {search.media_type === "movie" ? (
-                      <Link
-                      href={{
-                        pathname: "/movie-page",
-                        query: { movieId: search.id },
-                      }}
-                    >
-                      <a className={styles.button}>Detalhes</a>
-                    </Link>
+                {showMovies && search.media_type === "movie" ? (
+                  <Link
+                    href={{
+                      pathname: "/movie-page",
+                      query: { movieId: search.id },
+                    }}
+                  >
+                    <a className={styles.button}>Detalhes</a>
+                  </Link>
                 ) : null}
 
-                {search.media_type === "tv" ? (
-              <Link
-              href={{
-                pathname: "/tvshow-page",
-                query: { tvShowId: search.id },
-              }}
-            >
-              <a className={styles.button}>Detalhes</a>
-            </Link>
+                {showTvShows && search.media_type === "tv" ? (
+                  <Link
+                    href={{
+                      pathname: "/tvshow-page",
+                      query: { tvShowId: search.id },
+                    }}
+                  >
+                    <a className={styles.button}>Detalhes</a>
+                  </Link>
                 ) : null}
 
                 <br />
