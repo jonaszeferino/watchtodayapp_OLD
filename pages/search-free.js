@@ -195,7 +195,7 @@ export default function Discovery() {
                     : search.media_type === "movie" && showMovies
                     ? search.title
                     : search.media_type === "tv" && showTvShows
-                    ? search.name 
+                    ? search.name
                     : ""}
                 </span>
                 <br />
