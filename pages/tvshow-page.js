@@ -3,8 +3,15 @@ import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
-import { ChakraProvider, Progress,  Table, Tbody, Tr, Td, TableContainer } from "@chakra-ui/react";
-
+import {
+  ChakraProvider,
+  Progress,
+  Table,
+  Tbody,
+  Tr,
+  Td,
+  TableContainer,
+} from "@chakra-ui/react";
 
 const MoviePage = () => {
   const router = useRouter();
@@ -12,6 +19,11 @@ const MoviePage = () => {
   const [movieIdRequest, setMovieIdRequest] = useState();
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [dataTvShows, setDataTvShows] = useState({});
+  const [error, setError] = useState("");
+  const [status, setStatus] = useState();
+
+  console.log(error);
 
   useEffect(() => {
     let showId;
@@ -97,6 +109,33 @@ const MoviePage = () => {
     }
   }
 
+  const CallDataTvShows = () => {
+    if (!tvShowId) {
+      return;
+    }
+    const url = `https://api.themoviedb.org/3/tv/${tvShowId}?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`;
+
+    console.log(tvShowId);
+    console.log(url);
+
+    fetch(url, {})
+      .then((response) => {
+        if (response.status === 200) {
+          setError(false);
+          return response.json();
+        } else {
+          setError(true);
+          throw console.log("Erro 1");
+        }
+      })
+      .then((result) => {
+        const { seasons, created_by } = result;
+        setDataTvShows({ seasons, created_by });
+        setStatus(result.status);
+      })
+      .catch((error) => setError(true));
+  };
+
   return (
     <>
       {" "}
@@ -146,85 +185,148 @@ const MoviePage = () => {
         <br />
 
         {/* Tabela aqui para baixo */}
-        <div style={{ maxWidth: "480px", margin: "0 auto", wordBreak: "break-word" }}>
-<ChakraProvider>
-<TableContainer>
+        <div
+          style={{
+            maxWidth: "480px",
+            margin: "0 auto",
+            wordBreak: "break-word",
+          }}
+        >
+          <ChakraProvider>
+            <TableContainer>
+              <Table size="sm">
+                <Tbody>
+                  <Tr>
+                    <Td>Título em Português:</Td>
+                    <Td>{data.portugueseTitle}</Td>
+                  </Tr>
 
-<Table size="sm">
+                  <Tr>
+                    <Td>Overview:</Td>
+                    <Td>{data.overview ? data.overview : "Sem infos"}</Td>
+                  </Tr>
 
-  <Tbody>
-    <Tr>
-      <Td>Título em Português:</Td>
-      <Td>{data.portugueseTitle}</Td>
-    </Tr>
+                  <Tr>
+                    <Td>Gêneros:</Td>
+                    <Td>{data.gender}</Td>
+                  </Tr>
 
-    <Tr>
-      <Td>Overview:</Td>
-      <Td>
-        {data.overview ? data.overview : "Sem infos"}
-      </Td>
-    </Tr>
+                  <Tr>
+                    <Td>Nº de votos:</Td>
+                    <Td>{data.ratingCount}</Td>
+                  </Tr>
 
-    <Tr>
-      <Td>Gêneros:</Td>
-      <Td>{data.gender}</Td>
-    </Tr>
+                  <Tr>
+                    <Td>Nota:</Td>
+                    <Td>{data.average}</Td>
+                  </Tr>
 
-    <Tr>
-      <Td>Nº de votos:</Td>
-      <Td>{data.ratingCount}</Td>
-    </Tr>
+                  <Tr>
+                    <Td>Popularidade:</Td>
+                    <Td>{data.popularity}</Td>
+                  </Tr>
 
-    <Tr>
-      <Td>Nota:</Td>
-      <Td>{data.average}</Td>
-    </Tr>
+                  <Tr>
+                    <Td>Primeiro Episódio no Ar:</Td>
+                    <Td>
+                      {data.firstEpisodeToAir
+                        ? format(new Date(data.firstEpisodeToAir), "dd/MM/yyyy")
+                        : ""}
+                    </Td>
+                  </Tr>
 
-    <Tr>
-      <Td>Popularidade:</Td>
-      <Td>{data.popularity}</Td>
-    </Tr>
+                  <Tr>
+                    <Td>Último Episódio no Ar:</Td>
+                    <Td>
+                      {data.lastEpisodeToAir !== undefined &&
+                      data.lastEpisodeToAir !== null
+                        ? typeof data.lastEpisodeToAir === "string"
+                          ? format(
+                              new Date(data.lastEpisodeToAir),
+                              "dd/MM/yyyy"
+                            )
+                          : format(data.lastEpisodeToAir, "dd/MM/yyyy")
+                        : "Ainda No Ar"}
+                    </Td>
+                  </Tr>
 
-    <Tr>
-      <Td>Primeiro Episódio no Ar:</Td>
-      <Td>
-        {data.firstEpisodeToAir
-          ? format(new Date(data.firstEpisodeToAir), "dd/MM/yyyy")
-          : ""}
-      </Td>
-    </Tr>
+                  <Tr>
+                    <Td>Última Temporada No Ar:</Td>
+                    <Td>{data.lastSeasonToAir}º</Td>
+                  </Tr>
 
-    <Tr>
-  <Td>Último Episódio no Ar:</Td>
-  <Td>
-    {data.lastEpisodeToAir !== undefined && data.lastEpisodeToAir !== null
-      ? typeof data.lastEpisodeToAir === "string"
-        ? format(new Date(data.lastEpisodeToAir), "dd/MM/yyyy")
-        : format(data.lastEpisodeToAir, "dd/MM/yyyy")
-      : "Ainda No Ar"}
-  </Td>
-</Tr>
+                  <Tr>
+                    <Td>Streamings Brasil:</Td>
+                    <Td>{data.providersBR}</Td>
+                  </Tr>
 
-    <Tr>
-      <Td>Última Temporada No Ar:</Td>
-      <Td>{data.lastSeasonToAir}º</Td>
-    </Tr>
+                  <Tr>
+                    <Td>Streamings EUA:</Td>
+                    <Td>{data.providersUS}</Td>
+                  </Tr>
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </ChakraProvider>
+          <br/>
 
-    <Tr>
-      <Td>Streamings Brasil:</Td>
-      <Td>{data.providersBR}</Td>
-    </Tr>
-
-    <Tr>
-      <Td>Streamings EUA:</Td>
-      <Td>{data.providersUS}</Td>
-    </Tr>
-  </Tbody>
-</Table>
-</TableContainer>
-</ChakraProvider>
-</div>
+          <button onClick={CallDataTvShows} className={styles.button}>
+            Detalhes
+          </button>
+          <br/>
+        </div>
       </div>
+      <br/>
+      {dataTvShows ? (
+        <span>
+          Status da Serie:{" "}
+          {status === "Returning Series"
+            ? "Em andamento"
+            : status === "Ended"
+            ? "Encerrada"
+            : status === "In Production"
+            ? "Em produção"
+            : status === "Canceled"
+            ? "Cancelada"
+            : status === "Pilot"
+            ? "Em fase piloto"
+            : status === "To Be Determined"
+            ? "A ser determinado"
+            : "Desconhecido"}
+        </span>
+      ) : null}
+      <ChakraProvider>
+        <div className={styles.grid}>
+          {dataTvShows.seasons &&
+            dataTvShows.seasons.map((work) => (
+              <div key={work.id} className={styles.gridItem}>
+                <br />
+                <span>
+                  T{work.season_number} - Nome: {work.name}
+                </span>
+                <br />
+                <span>Nº de Episódios: {work.episode_count}</span>
+                <br />
+                <br />
+                <img
+                  className={styles.card_image}
+                  src={
+                    work.poster_path
+                      ? "https://image.tmdb.org/t/p/original" + work.poster_path
+                      : "/callback.png"
+                  }
+                  alt="poster"
+                  width="240"
+                  height="360"
+                />
+                <br />{" "}
+                <div>
+                  <br />
+                </div>
+              </div>
+            ))}
+        </div>
+      </ChakraProvider>
     </>
   );
 };

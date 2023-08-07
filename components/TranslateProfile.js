@@ -22,7 +22,7 @@ const languageDictionary = {
   Writer: { pt: "Escritor(a)" },
   Story: { pt: "História" },
   "Original Music Composer": { pt: "Compositor(a) Original" },
-  Characters: { pt: "Personagens" },
+  Characters: { pt: "Preparador(a) de Elenco" },
   Herself: { pt: "Ela Mesmo" },
   Himself: { pt: "Ele Mesmo" },
   "Upset Girl": { pt: "Garota Triste" },
@@ -132,6 +132,8 @@ const languageDictionary = {
   },
   "Self - Presenter": { pt: "Apresentador(a)" },
   Songs: { pt: "Musicas" },
+ "Special Guest Director": {pt: "Diretor(a) Convidado(a) Especial"},
+
 };
 
 const TranslateProfile = ({ text, language }) => {
