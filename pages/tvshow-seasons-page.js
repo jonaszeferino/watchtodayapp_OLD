@@ -87,22 +87,42 @@ const MoviePage = () => {
                       <Text fontSize="xl" fontWeight="semibold">
                         {episode.crew && episode.crew.length > 0 && (
                           <>
-                            {episode.crew[0] &&
-                              episode.crew[0].job &&
-                              episode.crew[0].name && (
-                                <>
-                                  {episode.crew[0].job}: {episode.crew[0].name}
-                                  <br />
-                                </>
-                              )}
-                            {episode.crew[1] &&
-                              episode.crew[1].job &&
-                              episode.crew[1].name && (
-                                <>
-                                  {episode.crew[1].job}: {episode.crew[1].name}
-                                  <br />
-                                </>
-                              )}
+                            {episode.crew.find(
+                              (member) => member.job === "Writer"
+                            ) && (
+                              <>
+                                {
+                                  episode.crew.find(
+                                    (member) => member.job === "Writer"
+                                  ).job
+                                }
+                                :{" "}
+                                {
+                                  episode.crew.find(
+                                    (member) => member.job === "Writer"
+                                  ).name
+                                }
+                                <br />
+                              </>
+                            )}
+                            {episode.crew.find(
+                              (member) => member.job === "Director"
+                            ) && (
+                              <>
+                                {
+                                  episode.crew.find(
+                                    (member) => member.job === "Director"
+                                  ).job
+                                }
+                                :{" "}
+                                {
+                                  episode.crew.find(
+                                    (member) => member.job === "Director"
+                                  ).name
+                                }
+                                <br />
+                              </>
+                            )}
                           </>
                         )}
                       </Text>
