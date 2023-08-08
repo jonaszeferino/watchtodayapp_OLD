@@ -81,8 +81,32 @@ const MoviePage = () => {
                   >
                     <Box my="6" textAlign="center">
                       <Text fontSize="xl" fontWeight="semibold">
-                        {episode.name} E{episode.episode_number}
+                        {episode.name} - T{tvShowSeasonId} E
+                        {episode.episode_number}
                       </Text>
+                      <Text fontSize="xl" fontWeight="semibold">
+                        {episode.crew && episode.crew.length > 0 && (
+                          <>
+                            {episode.crew[0] &&
+                              episode.crew[0].job &&
+                              episode.crew[0].name && (
+                                <>
+                                  {episode.crew[0].job}: {episode.crew[0].name}
+                                  <br />
+                                </>
+                              )}
+                            {episode.crew[1] &&
+                              episode.crew[1].job &&
+                              episode.crew[1].name && (
+                                <>
+                                  {episode.crew[1].job}: {episode.crew[1].name}
+                                  <br />
+                                </>
+                              )}
+                          </>
+                        )}
+                      </Text>
+
                       <Box
                         width="100%"
                         mx="auto"

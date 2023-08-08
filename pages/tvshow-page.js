@@ -45,13 +45,6 @@ const MoviePage = () => {
       .then(([dataMovies, dataProviders]) => {
         setData({
           firstEpisodeToAir: dataMovies.first_air_date,
-
-          lastEpisodeToAir:
-            dataMovies.last_episode_to_air?.air_date ?? "Ainda no Ar",
-
-          lastSeasonToAir:
-            dataMovies.last_episode_to_air?.season_number ?? "Ainda no Ar",
-
           tvShowName: dataMovies.name,
           poster_path: dataMovies.poster_path,
           overview: dataMovies.overview,
@@ -238,22 +231,6 @@ const MoviePage = () => {
                         : ""}
                     </Td>
                   </Tr>
-
-                  <Tr>
-                    <Td>Último Episódio no Ar:</Td>
-                    <Td>
-                      {data.lastEpisodeToAir !== undefined &&
-                      data.lastEpisodeToAir !== null
-                        ? typeof data.lastEpisodeToAir === "string"
-                          ? format(
-                              new Date(data.lastEpisodeToAir),
-                              "dd/MM/yyyy"
-                            )
-                          : format(data.lastEpisodeToAir, "dd/MM/yyyy")
-                        : "Ainda No Ar"}
-                    </Td>
-                  </Tr>
-
                   <Tr>
                     <Td>Última Temporada No Ar:</Td>
                     <Td>{data.lastSeasonToAir}º</Td>
