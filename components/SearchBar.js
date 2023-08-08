@@ -320,6 +320,7 @@ const SearchBar = ({ isLoading }) => {
               placeholder="Filmes, Series, Pessoas"
               value={searchText}
               onChange={handleInputChange}
+              onBlur={() => setTermosSugeridos([])} // Limpar sugestões quando o cursor sair
               pr="4.5rem"
             />
             <InputRightElement

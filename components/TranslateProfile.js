@@ -19,7 +19,7 @@ const languageDictionary = {
   Producer: { pt: "Produção" },
   "Executive Producer": { pt: "Produção Executiva" },
   Screenplay: { pt: "Roteiro" },
-  Writer: { pt: "Escritor(a)" },
+  Writer: { pt: "Roteiro" },
   Story: { pt: "História" },
   "Original Music Composer": { pt: "Compositor(a) Original" },
   Characters: { pt: "Preparador(a) de Elenco" },

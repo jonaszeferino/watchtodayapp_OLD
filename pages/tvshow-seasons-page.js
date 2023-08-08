@@ -16,6 +16,8 @@ import {
   TableContainer,
   Image,
 } from "@chakra-ui/react";
+import TranslateProfile from "../components/TranslateProfile";
+
 
 const MoviePage = () => {
   const router = useRouter();
@@ -147,7 +149,11 @@ const MoviePage = () => {
                                         )
                                         .map((writer, index) => (
                                           <div key={`writer-${index}`}>
-                                            {writer.job}: {writer.name}
+                                            {TranslateProfile({
+                                              text: "Writer",
+                                              language: "pt",
+                                            })}
+                                            : {writer.name}
                                           </div>
                                         ))}
                                       {episode.crew
@@ -156,7 +162,11 @@ const MoviePage = () => {
                                         )
                                         .map((director, index) => (
                                           <div key={`director-${index}`}>
-                                            {director.job}: {director.name}
+                                            {TranslateProfile({
+                                              text: "Director",
+                                              language: "pt",
+                                            })}
+                                            : {director.name}
                                           </div>
                                         ))}
                                     </>
