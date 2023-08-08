@@ -231,10 +231,6 @@ const MoviePage = () => {
                         : ""}
                     </Td>
                   </Tr>
-                  <Tr>
-                    <Td>Última Temporada No Ar:</Td>
-                    <Td>{data.lastSeasonToAir}º</Td>
-                  </Tr>
 
                   <Tr>
                     <Td>Streamings Brasil:</Td>
@@ -252,7 +248,7 @@ const MoviePage = () => {
           <br />
 
           <button onClick={CallDataTvShows} className={styles.button}>
-           Temporadas
+            Temporadas
           </button>
           <br />
         </div>
@@ -279,44 +275,48 @@ const MoviePage = () => {
       <ChakraProvider>
         <div className={styles.grid}>
           {dataTvShows.seasons &&
-            dataTvShows.seasons.map((work) => (
-              <div key={work.id} className={styles.gridItem}>
-                <br />
-                <span>
-                  T{work.season_number} - Nome: {work.name}
-                </span>
-                <br />
-                <span>Nº de Episódios: {work.episode_count}</span>
-                <br />
-                <br />
-                <img
-                  className={styles.card_image}
-                  src={
-                    work.poster_path
-                      ? "https://image.tmdb.org/t/p/original" + work.poster_path
-                      : "/callback.png"
-                  }
-                  alt="poster"
-                  width="240"
-                  height="360"
-                />
-                <br />{" "}
-                <div>
-                  <Link
-                    href={{
-                      pathname: "/tvshow-seasons-page",
-                      query: {
-                        tvShowId: tvShowId,
-                        tvShowSeasonId: work.season_number,
-                      },
-                    }}
-                  >
-                    <a className={styles.button}>Episódios</a>
-                  </Link>
-                  <br />
-                </div>
-              </div>
-            ))}
+            dataTvShows.seasons.map(
+              (work) =>
+                work.season_number !== 0 ? (
+                  <div key={work.id} className={styles.gridItem}>
+                    <br />
+                    <span>
+                      T{work.season_number} - Nome: {work.name}
+                    </span>
+                    <br />
+                    <span>Nº de Episódios: {work.episode_count}</span>
+                    <br />
+                    <br />
+                    <img
+                      className={styles.card_image}
+                      src={
+                        work.poster_path
+                          ? "https://image.tmdb.org/t/p/original" +
+                            work.poster_path
+                          : "/callback.png"
+                      }
+                      alt="poster"
+                      width="240"
+                      height="360"
+                    />
+                    <br />
+                    <div>
+                      <Link
+                        href={{
+                          pathname: "/tvshow-seasons-page",
+                          query: {
+                            tvShowId: tvShowId,
+                            tvShowSeasonId: work.season_number,
+                          },
+                        }}
+                      >
+                        <a className={styles.button}>Episódios</a>
+                      </Link>
+                      <br />
+                    </div>
+                  </div>
+                ) : null // Renderiza nulo se season_number for igual a 0
+            )}
         </div>
       </ChakraProvider>
     </>
