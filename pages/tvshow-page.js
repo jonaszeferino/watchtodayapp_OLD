@@ -252,7 +252,7 @@ const MoviePage = () => {
           <br />
 
           <button onClick={CallDataTvShows} className={styles.button}>
-            Detalhes
+           Temporadas
           </button>
           <br />
         </div>
@@ -311,7 +311,7 @@ const MoviePage = () => {
                       },
                     }}
                   >
-                    <a className={styles.button}>Detalhes</a>
+                    <a className={styles.button}>Episódios</a>
                   </Link>
                   <br />
                 </div>

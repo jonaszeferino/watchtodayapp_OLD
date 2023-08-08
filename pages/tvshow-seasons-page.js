@@ -84,48 +84,6 @@ const MoviePage = () => {
                         {episode.name} - T{tvShowSeasonId} E
                         {episode.episode_number}
                       </Text>
-                      <Text fontSize="xl" fontWeight="semibold">
-                        {episode.crew && episode.crew.length > 0 && (
-                          <>
-                            {episode.crew.find(
-                              (member) => member.job === "Writer"
-                            ) && (
-                              <>
-                                {
-                                  episode.crew.find(
-                                    (member) => member.job === "Writer"
-                                  ).job
-                                }
-                                :{" "}
-                                {
-                                  episode.crew.find(
-                                    (member) => member.job === "Writer"
-                                  ).name
-                                }
-                                <br />
-                              </>
-                            )}
-                            {episode.crew.find(
-                              (member) => member.job === "Director"
-                            ) && (
-                              <>
-                                {
-                                  episode.crew.find(
-                                    (member) => member.job === "Director"
-                                  ).job
-                                }
-                                :{" "}
-                                {
-                                  episode.crew.find(
-                                    (member) => member.job === "Director"
-                                  ).name
-                                }
-                                <br />
-                              </>
-                            )}
-                          </>
-                        )}
-                      </Text>
 
                       <Box
                         width="100%"
@@ -176,6 +134,34 @@ const MoviePage = () => {
                               <Tr>
                                 <Td>Nota Média:</Td>
                                 <Td>{episode.vote_average}</Td>
+                              </Tr>
+
+                              <Tr>
+                                <Td>Direção e Roteiro</Td>
+                                <Td>
+                                  {episode.crew && episode.crew.length > 0 && (
+                                    <>
+                                      {episode.crew
+                                        .filter(
+                                          (member) => member.job === "Writer"
+                                        )
+                                        .map((writer, index) => (
+                                          <div key={`writer-${index}`}>
+                                            {writer.job}: {writer.name}
+                                          </div>
+                                        ))}
+                                      {episode.crew
+                                        .filter(
+                                          (member) => member.job === "Director"
+                                        )
+                                        .map((director, index) => (
+                                          <div key={`director-${index}`}>
+                                            {director.job}: {director.name}
+                                          </div>
+                                        ))}
+                                    </>
+                                  )}
+                                </Td>
                               </Tr>
                             </Tbody>
                           </Table>
