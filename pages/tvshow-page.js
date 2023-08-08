@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import Link from "next/link";
+
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import { format } from "date-fns";
@@ -22,6 +24,7 @@ const MoviePage = () => {
   const [dataTvShows, setDataTvShows] = useState({});
   const [error, setError] = useState("");
   const [status, setStatus] = useState();
+  const [tvShowSeasonId, setTvShowSeasonId] = useState();
 
   console.log(error);
 
@@ -132,6 +135,7 @@ const MoviePage = () => {
         const { seasons, created_by } = result;
         setDataTvShows({ seasons, created_by });
         setStatus(result.status);
+        setTvShowSeasonId(result.season_number);
       })
       .catch((error) => setError(true));
   };
@@ -268,15 +272,15 @@ const MoviePage = () => {
               </Table>
             </TableContainer>
           </ChakraProvider>
-          <br/>
+          <br />
 
           <button onClick={CallDataTvShows} className={styles.button}>
             Detalhes
           </button>
-          <br/>
+          <br />
         </div>
       </div>
-      <br/>
+      <br />
       {dataTvShows ? (
         <span>
           Status da Serie:{" "}
@@ -321,6 +325,17 @@ const MoviePage = () => {
                 />
                 <br />{" "}
                 <div>
+                  <Link
+                    href={{
+                      pathname: "/tvshow-seasons-page",
+                      query: {
+                        tvShowId: tvShowId,
+                        tvShowSeasonId: work.season_number,
+                      },
+                    }}
+                  >
+                    <a className={styles.button}>Detalhes</a>
+                  </Link>
                   <br />
                 </div>
               </div>
