@@ -278,7 +278,7 @@ const SearchBar = ({ isLoading }) => {
   function buscarTermosSemelhantes(entrada) {
     const resultados = stringSimilarity.findBestMatch(entrada, listaDeTermos);
     const termosSugeridos = resultados.ratings
-      .filter((resultado) => resultado.rating > 0.3) // Defina um limite para considerar sugestões
+      .filter((resultado) => resultado.rating > 0.4) // Defina um limite para considerar sugestões
       .map((resultado) => resultado.target);
 
     return termosSugeridos;
