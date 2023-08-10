@@ -64,6 +64,8 @@ export default function Movieapi() {
     setError(false);
     setLikeDisable(false);
     setLikeThanks(false);
+    setIsRatingSubmitted(false);
+    setStarValue(0);
 
     console.log("Movie ID: " + randomMovieId);
 
@@ -434,7 +436,7 @@ export default function Movieapi() {
                       value={starValue}
                       disabled={isRatingSubmitted}
                     />
-                    <br/>
+                    <br />
                     <Button
                       onClick={handleRatingSubmit}
                       disabled={isRatingSubmitted}
@@ -443,7 +445,30 @@ export default function Movieapi() {
                     </Button>
                     {isRatingSubmitted && <p>Avaliação enviada com sucesso!</p>}
                   </div>
-                  {/* <button
+                </span>
+              )}
+
+              <br />
+
+              {likeThanks && <span>Obrigado pela Resposta!! 😀 </span>}
+
+              <br />
+              {movieData.portugueseTitle && (
+                <button onClick={apiCall} className={styles.button}>
+                  Verificar Novo
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+//Old Button:
+
+/* <button
                     onClick={() => {
                       handleLike(1);
                       setLikeDisable(true);
@@ -477,27 +502,4 @@ export default function Movieapi() {
                     disabled={isLikeDisabled}
                   >
                     Indiferente
-                  </button> */}
-                </span>
-              )}
-
-              <br />
-              <br />
-
-              {likeThanks && <span>Obrigado pela Resposta!! 😀 </span>}
-
-              <br />
-
-              <br />
-              {movieData.portugueseTitle && (
-                <button onClick={apiCall} className={styles.button}>
-                  Verificar Novo
-                </button>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-    </>
-  );
-}
+                  </button> */
