@@ -4,6 +4,7 @@ import ErrorPage from "./error-page";
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
+import { Rate } from "antd";
 
 import TranslationComponent from "../components/translateComponent";
 import TranslationComponentCountryName from "../components/translateComponentCountryName";
@@ -41,6 +42,11 @@ export default function Movieapi() {
   const [isLikeDisabled, setLikeDisable] = useState(false);
   const [likeThanks, setLikeThanks] = useState(false);
   const [dateNow, setDatenow] = useState(new Date());
+
+  const [starValue, setStarValue] = useState(0); // Estado para armazenar o valor das estrelas
+  const [isRatingSubmitted, setIsRatingSubmitted] = useState(false); // Estado para controlar se a avaliação foi enviada
+
+  console.log(starValue);
 
   useEffect(() => {
     if (isError) {
@@ -165,6 +171,18 @@ export default function Movieapi() {
     insertMovieData(updatedMovieDataInsert);
   };
 
+  // Estrelas:
+
+  const handleRateChange = (value) => {
+    setStarValue(value); // Atualiza o estado com o novo valor das estrelas
+  };
+
+  const handleRatingSubmit = () => {
+    // AColar aqui a chamada na api para enviar o valor das estrelas ao banco de dados
+
+    setIsRatingSubmitted(true);
+  };
+
   console.log(isLikeDisabled, "like");
 
   return (
@@ -179,7 +197,6 @@ export default function Movieapi() {
       </Head>
 
       <div>
-   
         <div style={{ maxWidth: "480px", margin: "0 auto" }}>
           <ChakraProvider>
             <Box maxW="32rem">
@@ -190,17 +207,14 @@ export default function Movieapi() {
                   Clique e veja as possibilidades até que um seja do seu agrado!
                 </span>
               </div>
-        
+
               <Button
-              size="md"
-              bg="white"
-              color="black"
-              borderColor="gray"
-              borderWidth="1px"
-              mt="24px"
-                
-                
-                
+                size="md"
+                bg="white"
+                color="black"
+                borderColor="gray"
+                borderWidth="1px"
+                mt="24px"
                 onClick={apiCall}
               >
                 Verificar
@@ -208,8 +222,6 @@ export default function Movieapi() {
             </Box>
           </ChakraProvider>
         </div>
-
-        
 
         {isLoading ? <Progress size="xs" isIndeterminate /> : null}
 
@@ -415,7 +427,23 @@ export default function Movieapi() {
               <br />
               {movieData.portugueseTitle && (
                 <span>
-                  <button
+                  <div>
+                    <h1>Avalie Essa Dica:</h1>
+                    <Rate
+                      onChange={handleRateChange}
+                      value={starValue}
+                      disabled={isRatingSubmitted}
+                    />
+                    <br/>
+                    <Button
+                      onClick={handleRatingSubmit}
+                      disabled={isRatingSubmitted}
+                    >
+                      Enviar Avaliação
+                    </Button>
+                    {isRatingSubmitted && <p>Avaliação enviada com sucesso!</p>}
+                  </div>
+                  {/* <button
                     onClick={() => {
                       handleLike(1);
                       setLikeDisable(true);
@@ -449,12 +477,13 @@ export default function Movieapi() {
                     disabled={isLikeDisabled}
                   >
                     Indiferente
-                  </button>
+                  </button> */}
                 </span>
               )}
 
               <br />
               <br />
+
               {likeThanks && <span>Obrigado pela Resposta!! 😀 </span>}
 
               <br />

@@ -15,9 +15,9 @@ import {
   Tbody,
   TableContainer,
   Image,
+  Button,
 } from "@chakra-ui/react";
 import TranslateProfile from "../components/TranslateProfile";
-
 
 const MoviePage = () => {
   const router = useRouter();
@@ -25,6 +25,30 @@ const MoviePage = () => {
   const [dataTvShows, setDataTvShows] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+
+  //Botão para levar novamente ao top
+  const [showBackToTopButton, setShowBackToTopButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowBackToTopButton(true);
+      } else {
+        setShowBackToTopButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+//ate aqui o codigo para o botao de scroll
 
   console.log(tvShowId);
   console.log(tvShowSeasonId);
@@ -186,6 +210,20 @@ const MoviePage = () => {
                 </Text>
               )}
             </div>
+            {/* ... (your existing JSX) */}
+
+            {/* Back to top button */}
+            {showBackToTopButton && (
+              <Button
+                onClick={scrollToTop}
+                position="fixed"
+                bottom="20px"
+                right="20px"
+                zIndex="999"
+              >
+                Voltar para o topo
+              </Button>
+            )}
           </Box>
         </Center>
       </ChakraProvider>

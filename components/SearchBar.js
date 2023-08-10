@@ -19,7 +19,6 @@ import {
 import { SearchIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import styles from "../styles/Navbar.module.css";
 import stringSimilarity from "string-similarity"; // Importe a biblioteca
 
 const SearchBar = ({ isLoading }) => {
