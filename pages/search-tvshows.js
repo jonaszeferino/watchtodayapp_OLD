@@ -17,6 +17,7 @@ import {
   ChakraProvider,
   VStack,
   Center,
+  Flex,
 } from "@chakra-ui/react";
 import { CacheProvider } from "@emotion/react";
 
@@ -36,25 +37,33 @@ export default function Discovery() {
 
   let [isError, setError] = useState(false);
   let [isLoading, setIsLoading] = useState(false);
-  let [searchTvType, setSearchTvType] = useState(null);
+  let [searchTvType, setSearchTvType] = useState("");
 
   let urlString =
     "https://api.themoviedb.org/3/discover/tv?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR&include_adult=false&include_video=false&vote_count.gte=" +
     searchVoteCount +
     "&vote_count.lte=10000000&sort_by=" +
     searchRatingSort +
-    "&air_date.lte.gte=" +
+    "&first_air_date.gte=" +
     searchMovieReleaseDateFrom +
-    "&air_date.lte.lte=" +
-    searchMovieReleaseDateTo +
-    "&with_type=" +
-    searchTvType;
+    "&first_air_date.lte=" +
+    searchMovieReleaseDateTo;
+
+  if (searchTvType !== "") {
+    urlString += "&with_type=" + searchTvType;
+  }
 
   const apiCall = (currentPage) => {
+    if (currentPage === "" || isNaN(currentPage)) {
+      currentPage = 1;
+    } else {
+      currentPage = parseInt(currentPage);
+    }
     const url = urlString + "&page=" + currentPage;
     setIsLoading(true);
 
-    console.log(url + " o que chamou");
+    console.log(url);
+
     fetch(url, {
       headers: new Headers({
         "Content-Type": "application/json",
@@ -93,6 +102,24 @@ export default function Discovery() {
   let currentPage = searchMovieRealPage;
   let totalResults = searchMovieTotalResults;
 
+  // Controlar o ano menor que o ano final
+
+  const handleFromChange = (event) => {
+    const selectedFromYear = parseInt(event.target.value);
+    if (selectedFromYear > searchMovieReleaseDateTo) {
+      setSearchMovieReleaseDateTo(selectedFromYear);
+    }
+    setSearchMovieReleaseDateFrom(selectedFromYear);
+  };
+
+  const handleToChange = (event) => {
+    const selectedToYear = parseInt(event.target.value);
+    if (selectedToYear < searchMovieReleaseDateFrom) {
+      setSearchMovieReleaseDateFrom(selectedToYear);
+    }
+    setSearchMovieReleaseDateTo(selectedToYear);
+  };
+
   return (
     <>
       <Head>
@@ -106,106 +133,87 @@ export default function Discovery() {
           {/* <span>Escolha os filtros baixo, e clique em Verificar para uma consulta de acordo com o seu desejo!</span> */}
         </div>
         <ChakraProvider>
-          <Center>
-            <VStack>
-              <Box>
-                <FormControl>
-                  <br />
-                  <FormLabel>Ordem:</FormLabel>
+          <VStack spacing={4} width="100%" padding="20px">
+            <FormControl>
+              <FormLabel>Ordem:</FormLabel>
+              <Select
+                value={searchRatingSort}
+                onChange={(event) => setSearchRatingSort(event.target.value)}
+              >
+                <option value="vote_average.asc">
+                  Da Pior Para Melhor Nota
+                </option>
+                <option value="vote_average.desc">
+                  Da Melhor Para Pior Nota
+                </option>
+              </Select>
+            </FormControl>
 
-                  <Select
-                    name="select"
-                    value={searchRatingSort}
-                    onChange={(event) =>
-                      setSearchRatingSort(event.target.value)
-                    }
-                  >
-                    <option value="vote_average.asc">
-                      Da Pior Para Melhor Nota
-                    </option>
-                    <option value="vote_average.desc">
-                      Da Melhor Para Pior Nota
-                    </option>
-                  </Select>
-                </FormControl>
+            <FormControl>
+              <FormLabel>Nº de Votos:</FormLabel>
+              <Select
+                value={searchVoteCount}
+                onChange={(event) => setSearchVoteCount(event.target.value)}
+              >
+                <option value="0">Mais de 0 votos</option>
+                <option value="50">Mais de 50 votos</option>
+                <option value="100">Mais de 100 votos</option>
+                <option value="200">Mais de 200 votos</option>
+                <option value="500">Mais de 500 votos</option>
+                <option value="1000">Mais de 1000 votos</option>
+                <option value="5000">Mais de 5000 votos</option>
+              </Select>
+            </FormControl>
 
-                <FormControl>
-                  <FormLabel>Nº de Votos:</FormLabel>
-                  <Select
-                    name="select"
-                    type="number"
-                    value={searchVoteCount}
-                    onChange={(event) => setSearchVoteCount(event.target.value)}
-                  >
-                    <option value="0">Mais de 0 votos</option>
-                    <option value="50">Mais de 50 votos</option>
-                    <option value="100">Mais de 100 votos</option>
-                    <option value="200">Mais de 200 votos</option>
-                    <option value="500">Mais de 500 votos</option>
-                    <option value="1000">Mais de 1000 votos</option>
-                    <option value="5000">Mais de 5000 votos</option>
-                  </Select>
-                </FormControl>
-
-                <FormControl>
-                  <FormLabel>Tipo de Série:</FormLabel>
-                  <Select
-                    name="select"
-                    value={searchTvType}
-                    onChange={(event) => setSearchTvType(event.target.value)}
-                  >
-                    <option value="">Todos Tipos</option>
-                    <option value="0">Documentário</option>
-                    <option value="1">Notícias</option>
-                    <option value="2">Mini Séries</option>
-                    <option value="3">Realities</option>
-                    <option value="4">Roteirizadas</option>
-                    <option value="5">Talk Show</option>
-                    <option value="6">Videos</option>
-                  </Select>
-                </FormControl>
-
-                <FormControl>
-                  <FormLabel>Ano Inicial:</FormLabel>
-                  <Input
-                    type="number"
-                    min={1800}
-                    max={2022}
-                    value={searchMovieReleaseDateFrom}
-                    onChange={(event) =>
-                      setSearchMovieReleaseDateFrom(event.target.value)
-                    }
-                  />
-                </FormControl>
-
-                <FormControl>
-                  <FormLabel>Ano Final:</FormLabel>
-                  <Input
-                    type="number"
-                    min={1800}
-                    max={2023}
-                    value={searchMovieReleaseDateTo}
-                    onChange={(event) =>
-                      setSearchMovieReleaseDateTo(event.target.value)
-                    }
-                  />
-                </FormControl>
-
-                <Button
-                  size="lg"
-                  colorScheme="purple"
-                  mt="24px"
-                  onClick={apiCall}
+            <FormControl>
+              <FormLabel>Tipo de Série:</FormLabel>
+              <Select
+                value={searchTvType}
+                onChange={(event) => setSearchTvType(event.target.value)}
+              >
+                <option value="">Todos Tipos</option>
+                <option value="0">Documentário</option>
+                <option value="1">Notícias</option>
+                <option value="2">Mini Séries</option>
+                <option value="3">Realities</option>
+                <option value="4">Roteirizadas</option>
+                <option value="5">Talk Show</option>
+                <option value="6">Videos</option>
+              </Select>
+            </FormControl>
+            <FormControl>
+              <FormLabel>Ano Inicial e Final:</FormLabel>
+              <Flex align="center">
+                <Select
+                  value={searchMovieReleaseDateFrom}
+                  onChange={handleFromChange}
                 >
-                  Verificar
-                </Button>
+                  {Array.from({ length: 2024 - 1900 + 1 }, (_, index) => (
+                    <option key={index} value={1900 + index}>
+                      {1900 + index}
+                    </option>
+                  ))}
+                </Select>
+                <Box w="20px" />
+                <Select
+                  value={searchMovieReleaseDateTo}
+                  onChange={handleToChange}
+                >
+                  {Array.from({ length: 2024 - 1900 + 1 }, (_, index) => (
+                    <option key={index} value={1900 + index}>
+                      {1900 + index}
+                    </option>
+                  ))}
+                </Select>
+              </Flex>
+            </FormControl>
+            <Button size="lg" colorScheme="purple" onClick={apiCall}>
+              Verificar
+            </Button>
 
-                <Box>{isLoading ? <Spinner /> : null}</Box>
-              </Box>
-            </VStack>
-          </Center>
+            {isLoading && <Spinner />}
+          </VStack>
         </ChakraProvider>
-
         {isError === true ? (
           <ErrorPage message={`Verifique as Credenciais`}></ErrorPage>
         ) : (

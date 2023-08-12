@@ -431,10 +431,12 @@ export default function Movieapi() {
                 <span>
                   <div>
                     <h1>Avalie Essa Dica:</h1>
+
                     <Rate
                       onChange={handleRateChange}
                       value={starValue}
                       disabled={isRatingSubmitted}
+                      count={10} 
                     />
                     <br />
                     <Button
