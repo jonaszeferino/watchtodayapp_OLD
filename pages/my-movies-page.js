@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { supabase } from "../utils/supabase"; // Importe a instância do Supabase
 import {
   ChakraProvider,
   TableContainer,
