@@ -245,7 +245,7 @@ const MoviePage = () => {
                                 query: { personId: director.id },
                               }}
                             >
-                              <a>Ver trabalhos de direção</a>
+                              <a style={{ color: "blue"}}>Ver trabalhos</a>
                             </Link>
                           </li>
                         ))}
