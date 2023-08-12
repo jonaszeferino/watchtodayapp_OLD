@@ -35,12 +35,21 @@ const MoviePage = () => {
       fetch(
         `https://api.themoviedb.org/3/movie/${movieIdRequest}/watch/providers?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c`
       ),
+      fetch(
+        `https://api.themoviedb.org/3/movie/${movieIdRequest}/credits?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`
+      ),
     ])
-      .then(([resMovie, resProviders]) =>
-        Promise.all([resMovie.json(), resProviders.json()])
+      .then(([resMovie, resProviders, resCredits]) =>
+        Promise.all([resMovie.json(), resProviders.json(), resCredits.json()])
       )
-      .then(([dataMovies, dataProviders]) => {
+      .then(([dataMovies, dataProviders, resCredits]) => {
+        console.log(resCredits.crew);
+        const directors = resCredits.crew && resCredits.crew.filter(
+          (member) => member.job === "Director"
+        );
+
         setData({
+          directors: directors && directors.length > 0 ? directors : null,
           budget: dataMovies.budget,
           originalTitle: dataMovies.original_title,
           portugueseTitle: dataMovies.title,
@@ -136,38 +145,37 @@ const MoviePage = () => {
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-<span>
-  <span>
-    {poster != null ? (
-      <img
-        className={styles.card_image_big}
-        src={poster}
-        alt="poster"
-        width="480"
-        height="720"
-        style={{
-          objectFit: 'contain',
-          maxHeight: '100%',
-          maxWidth: '100%',
-        }}
-      />
-    ) : (
-      <Image
-        className={styles.card_image_big}
-        src="/callback.png"
-        alt="poster"
-        width="480"
-        height="720"
-        style={{
-          objectFit: 'contain',
-          maxHeight: '100%',
-          maxWidth: '100%',
-        }}
-      />
-    )}
-  </span>
-</span>
-
+          <span>
+            <span>
+              {poster != null ? (
+                <img
+                  className={styles.card_image_big}
+                  src={poster}
+                  alt="poster"
+                  width="480"
+                  height="720"
+                  style={{
+                    objectFit: "contain",
+                    maxHeight: "100%",
+                    maxWidth: "100%",
+                  }}
+                />
+              ) : (
+                <Image
+                  className={styles.card_image_big}
+                  src="/callback.png"
+                  alt="poster"
+                  width="480"
+                  height="720"
+                  style={{
+                    objectFit: "contain",
+                    maxHeight: "100%",
+                    maxWidth: "100%",
+                  }}
+                />
+              )}
+            </span>
+          </span>
         )}
       </div>
       {/* Tabela aqui para baixo */}
@@ -216,6 +224,21 @@ const MoviePage = () => {
                     {data.overview ? data.overview : "Sem infos"}
                   </Td>
                 </Tr>
+                <Tr>
+                  <Th>Direção</Th>
+                  <Td>
+                    {data.directors ? (
+                      <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                        {data.directors.map((director, index) => (
+                          <li key={index}>{director.name}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      "Sem informações"
+                    )}
+                  </Td>
+                </Tr>
+
                 <Tr>
                   <Th>Número de votos</Th>
                   <Td>{data.ratingCount}</Td>
