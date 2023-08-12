@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
+import Link from "next/link";
+
 import Image from "next/image";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
@@ -21,6 +23,7 @@ import {
 
 const MoviePage = () => {
   const router = useRouter();
+  const { query } = router.query;
   const movieId = router.query.movieId;
   const [movieIdRequest, setMovieIdRequest] = useState();
   const [data, setData] = useState({});
@@ -43,10 +46,14 @@ const MoviePage = () => {
         Promise.all([resMovie.json(), resProviders.json(), resCredits.json()])
       )
       .then(([dataMovies, dataProviders, resCredits]) => {
-        console.log(resCredits.crew);
-        const directors = resCredits.crew && resCredits.crew.filter(
-          (member) => member.job === "Director"
-        );
+        const directors = resCredits.crew
+          .filter((member) => member.job === "Director")
+          .map((director) => {
+            return {
+              id: director.id,
+              name: director.name,
+            };
+          });
 
         setData({
           directors: directors && directors.length > 0 ? directors : null,
@@ -230,7 +237,17 @@ const MoviePage = () => {
                     {data.directors ? (
                       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                         {data.directors.map((director, index) => (
-                          <li key={index}>{director.name}</li>
+                          <li key={index}>
+                            {director.name}{" "}
+                            <Link
+                              href={{
+                                pathname: "/person-page",
+                                query: { personId: director.id },
+                              }}
+                            >
+                              <a>Ver trabalhos de direção</a>
+                            </Link>
+                          </li>
                         ))}
                       </ul>
                     ) : (
@@ -293,7 +310,7 @@ const MoviePage = () => {
 
                 <Tr>
                   <Th>Streamings EUA</Th>
-                  <Td>{data.providerUS}</Td>
+                  <Td>{data.providersUS}</Td>
                 </Tr>
               </Tbody>
             </Table>
