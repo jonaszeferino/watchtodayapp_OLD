@@ -102,24 +102,6 @@ export default function Discovery() {
   let currentPage = searchMovieRealPage;
   let totalResults = searchMovieTotalResults;
 
-  // Controlar o ano menor que o ano final
-
-  const handleFromChange = (event) => {
-    const selectedFromYear = parseInt(event.target.value);
-    if (selectedFromYear > searchMovieReleaseDateTo) {
-      setSearchMovieReleaseDateTo(selectedFromYear);
-    }
-    setSearchMovieReleaseDateFrom(selectedFromYear);
-  };
-
-  const handleToChange = (event) => {
-    const selectedToYear = parseInt(event.target.value);
-    if (selectedToYear < searchMovieReleaseDateFrom) {
-      setSearchMovieReleaseDateFrom(selectedToYear);
-    }
-    setSearchMovieReleaseDateTo(selectedToYear);
-  };
-
   return (
     <>
       <Head>

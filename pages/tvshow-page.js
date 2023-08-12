@@ -24,7 +24,9 @@ const MoviePage = () => {
   const [dataTvShows, setDataTvShows] = useState({});
   const [error, setError] = useState("");
   const [status, setStatus] = useState();
+  const [showStatus, setShowStatus] = useState(false);
   const [tvShowSeasonId, setTvShowSeasonId] = useState();
+  
 
   console.log(error);
 
@@ -106,6 +108,7 @@ const MoviePage = () => {
   }
 
   const CallDataTvShows = () => {
+    setShowStatus(true)
     if (!tvShowId) {
       return;
     }
@@ -254,7 +257,7 @@ const MoviePage = () => {
         </div>
       </div>
       <br />
-      {dataTvShows ? (
+      {showStatus ? (
         <span>
           Status da Serie:{" "}
           {status === "Returning Series"

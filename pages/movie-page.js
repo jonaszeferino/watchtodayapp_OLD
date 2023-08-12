@@ -46,6 +46,11 @@ const MoviePage = () => {
         Promise.all([resMovie.json(), resProviders.json(), resCredits.json()])
       )
       .then(([dataMovies, dataProviders, resCredits]) => {
+        if (!Array.isArray(resCredits.crew) || resCredits.crew.length === 0) {
+          console.log("Erro: Dados de créditos inválidos");
+          return;
+        }
+
         const directors = resCredits.crew
           .filter((member) => member.job === "Director")
           .map((director) => {
@@ -245,7 +250,7 @@ const MoviePage = () => {
                                 query: { personId: director.id },
                               }}
                             >
-                              <a style={{ color: "blue"}}>Ver trabalhos</a>
+                              <a style={{ color: "blue" }}>Ver trabalhos</a>
                             </Link>
                           </li>
                         ))}
