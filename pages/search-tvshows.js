@@ -45,9 +45,9 @@ export default function Discovery() {
     "&vote_count.lte=10000000&sort_by=" +
     searchRatingSort +
     "&first_air_date.gte=" +
-    searchMovieReleaseDateFrom +
+    (searchMovieReleaseDateFrom + 1) +
     "&first_air_date.lte=" +
-    searchMovieReleaseDateTo;
+    (searchMovieReleaseDateTo + 1);
 
   if (searchTvType !== "") {
     urlString += "&with_type=" + searchTvType;
