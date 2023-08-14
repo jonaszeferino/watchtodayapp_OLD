@@ -16,7 +16,11 @@ import {
   TableContainer,
   Image,
   Button,
+  Icon,
+  Flex,
 } from "@chakra-ui/react";
+import { FaArrowUp } from "react-icons/fa"; // Importando o ícone de seta para cima
+
 import TranslateProfile from "../components/TranslateProfile";
 
 const MoviePage = () => {
@@ -48,7 +52,6 @@ const MoviePage = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-//ate aqui o codigo para o botao de scroll
 
   console.log(tvShowId);
   console.log(tvShowSeasonId);
@@ -214,15 +217,27 @@ const MoviePage = () => {
 
             {/* Back to top button */}
             {showBackToTopButton && (
-              <Button
+              <IconButton
                 onClick={scrollToTop}
                 position="fixed"
-                bottom="20px"
-                right="20px"
-                zIndex="999"
+                bottom="120px"
+                right="40px"
+                zIndex="9999"
+                borderRadius="full"
+                aria-label="Voltar para o topo"
+                bg="transparent"
               >
-                Voltar para o topo
-              </Button>
+                <span
+                  style={{
+                    border: "2px solid black",
+                    borderRadius: "50%",
+                    padding: "2px",
+                    display: "inline-block",
+                  }}
+                >
+                  <BiSolidUpArrow size={30} color="black" />
+                </span>
+              </IconButton>
             )}
           </Box>
         </Center>

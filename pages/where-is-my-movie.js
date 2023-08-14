@@ -5,12 +5,12 @@ import { format } from "date-fns";
 import { useRouter } from "next/router";
 import TranslationComponent from "../components/translateComponent";
 import TranslationComponentCountryName from "../components/translateComponentCountryName";
-import { SearchIcon } from '@chakra-ui/icons';
+import { SearchIcon } from "@chakra-ui/icons";
+import { BiSolidUpArrow } from "react-icons/bi";
 
 import {
   ChakraProvider,
   Center,
-  Progress,
   Table,
   Thead,
   Tbody,
@@ -18,20 +18,16 @@ import {
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Button,
-  Select,
   Stack,
   Input,
-  UnorderedList,
-  ListItem,
   Box,
   Checkbox,
-  Heading,
   InputGroup,
   InputRightElement,
   Text,
+  IconButton
 } from "@chakra-ui/react";
 
 import Providers from "../components/countries";
@@ -55,6 +51,28 @@ const MoviePage = () => {
   const [movieSearchQuery, setMovieSearchQuery] = useState("");
   const [movieResultSearchMovie, setResultSearchMovie] = useState([]);
   const [error, setError] = useState("");
+
+  const [showBackToTopButton, setShowBackToTopButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowBackToTopButton(true);
+      } else {
+        setShowBackToTopButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const Clean = () => {
     setIsLoading(true);
@@ -239,21 +257,21 @@ const MoviePage = () => {
             wordBreak: "break-word",
           }}
         >
-        <InputGroup>
-  <Input
-    placeholder="Digite o nome do filme"
-    value={movieSearchQuery}
-    onChange={(e) => setMovieSearchQuery(e.target.value)}
-  />
+          <InputGroup>
+            <Input
+              placeholder="Digite o nome do filme"
+              value={movieSearchQuery}
+              onChange={(e) => setMovieSearchQuery(e.target.value)}
+            />
 
-  <InputRightElement width="auto">
-  <SearchIcon color="black" margin={3} />
+            <InputRightElement width="auto">
+              <SearchIcon color="black" margin={3} />
 
-    <Button colorScheme="purple" onClick={apiCall}>
-      Pesquisar
-    </Button>
-  </InputRightElement>
-</InputGroup>
+              <Button colorScheme="purple" onClick={apiCall}>
+                Pesquisar
+              </Button>
+            </InputRightElement>
+          </InputGroup>
           <Text>
             {totals === 0 ? (
               <>
@@ -5229,6 +5247,29 @@ const MoviePage = () => {
           </ChakraProvider>
         )}
         <div />
+        {showBackToTopButton && (
+          <IconButton
+            onClick={scrollToTop}
+            position="fixed"
+            bottom="120px"
+            right="40px"
+            zIndex="9999"
+            borderRadius="full"
+            aria-label="Voltar para o topo"
+            bg="transparent"
+          >
+            <span
+              style={{
+                border: "2px solid black",
+                borderRadius: "50%",
+                padding: "2px",
+                display: "inline-block",
+              }}
+            >
+              <BiSolidUpArrow size={30} color="black" />
+            </span>
+          </IconButton>
+        )}
       </div>
     </>
   );

@@ -19,7 +19,10 @@ import {
   FormControl,
   Flex,
   Box,
+  IconButton
 } from "@chakra-ui/react";
+import { BiSolidUpArrow } from "react-icons/bi";
+
 
 export default function Discovery() {
   let [movieId, setMovieId] = useState();
@@ -37,6 +40,28 @@ export default function Discovery() {
   // erro e loading
   let [isError, setError] = useState(false);
   let [isLoading, setIsLoading] = useState(false);
+
+  const [showBackToTopButton, setShowBackToTopButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowBackToTopButton(true);
+      } else {
+        setShowBackToTopButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   // estado pra amarzenar os filtros utilizados
 
@@ -646,6 +671,30 @@ export default function Discovery() {
         )}
 
         {!totalResults ? <span className={styles.spantext}></span> : ""}
+
+        {showBackToTopButton && (
+          <IconButton
+            onClick={scrollToTop}
+            position="fixed"
+            bottom="120px"
+            right="40px"
+            zIndex="9999"
+            borderRadius="full"
+            aria-label="Voltar para o topo"
+            bg="transparent"
+          >
+            <span
+              style={{
+                border: "2px solid black",
+                borderRadius: "50%",
+                padding: "2px",
+                display: "inline-block",
+              }}
+            >
+              <BiSolidUpArrow size={30} color="black" />
+            </span>
+          </IconButton>
+        )}
       </div>
     </>
   );

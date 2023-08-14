@@ -5,7 +5,7 @@ import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 import { Rate } from "antd";
-
+import { BiSolidUpArrow } from "react-icons/bi";
 import TranslationComponent from "../components/translateComponent";
 import TranslationComponentCountryName from "../components/translateComponentCountryName";
 import {
@@ -19,18 +19,15 @@ import {
   Td,
   TableContainer,
   Box,
-  Heading,
-  Text,
+
   Button,
-  AlertDescription,
-  AlertTitle,
-  AlertIcon,
-  Alert,
+
   Tab,
   Tabs,
   TabList,
   TabPanels,
   TabPanel,
+  IconButton
 } from "@chakra-ui/react";
 
 export default function Movieapi() {
@@ -45,6 +42,28 @@ export default function Movieapi() {
 
   const [starValue, setStarValue] = useState(0); // Estado para armazenar o valor das estrelas
   const [isRatingSubmitted, setIsRatingSubmitted] = useState(false); // Estado para controlar se a avaliação foi enviada
+
+  const [showBackToTopButton, setShowBackToTopButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowBackToTopButton(true);
+      } else {
+        setShowBackToTopButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   console.log(starValue);
 
@@ -436,7 +455,7 @@ export default function Movieapi() {
                       onChange={handleRateChange}
                       value={starValue}
                       disabled={isRatingSubmitted}
-                      count={10} 
+                      count={10}
                     />
                     <br />
                     <Button
@@ -453,6 +472,30 @@ export default function Movieapi() {
               <br />
 
               {likeThanks && <span>Obrigado pela Resposta!! 😀 </span>}
+
+              {showBackToTopButton && (
+                <IconButton
+                  onClick={scrollToTop}
+                  position="fixed"
+                  bottom="120px"
+                  right="40px"
+                  zIndex="9999"
+                  borderRadius="full"
+                  aria-label="Voltar para o topo"
+                  bg="transparent"
+                >
+                  <span
+                    style={{
+                      border: "2px solid black",
+                      borderRadius: "50%",
+                      padding: "2px",
+                      display: "inline-block",
+                    }}
+                  >
+                    <BiSolidUpArrow size={30} color="black" />
+                  </span>
+                </IconButton>
+              )}
 
               <br />
               {movieData.portugueseTitle && (

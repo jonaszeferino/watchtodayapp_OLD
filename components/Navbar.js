@@ -27,14 +27,14 @@ export default function Navbar({ isLoading }) {
         </li>
         <li>
           <Link href="/search-movies">
-            <a>| Descobrir Filmes Por Nota</a>
+            <a>| Descobrir Filmes</a>
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link href="/search-movies-by-country">
             <a>| Filmes Por Língua</a>
           </Link>
-        </li>
+        </li> */}
         <li>
           <Link href="/search-tvshows">
             <a>| Busca de Séries</a>
