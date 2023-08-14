@@ -15,13 +15,13 @@ import {
   Tbody,
   TableContainer,
   Image,
-  Button,
-  Icon,
-  Flex,
+  IconButton
 } from "@chakra-ui/react";
 import { FaArrowUp } from "react-icons/fa"; // Importando o ícone de seta para cima
-
 import TranslateProfile from "../components/TranslateProfile";
+import useBackToTopButton from "../components/backToTopButtonLogic";
+import BackToTopButton from "../components/backToTopButton";
+
 
 const MoviePage = () => {
   const router = useRouter();
@@ -29,32 +29,8 @@ const MoviePage = () => {
   const [dataTvShows, setDataTvShows] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
-
   //Botão para levar novamente ao top
-  const [showBackToTopButton, setShowBackToTopButton] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowBackToTopButton(true);
-      } else {
-        setShowBackToTopButton(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  console.log(tvShowId);
-  console.log(tvShowSeasonId);
+  const { showBackToTopButton, scrollToTop } = useBackToTopButton(); // tranformado num hook
 
   useEffect(() => {
     if (tvShowId && tvShowSeasonId) {
@@ -213,32 +189,9 @@ const MoviePage = () => {
                 </Text>
               )}
             </div>
-            {/* ... (your existing JSX) */}
 
-            {/* Back to top button */}
-            {showBackToTopButton && (
-              <IconButton
-                onClick={scrollToTop}
-                position="fixed"
-                bottom="120px"
-                right="40px"
-                zIndex="9999"
-                borderRadius="full"
-                aria-label="Voltar para o topo"
-                bg="transparent"
-              >
-                <span
-                  style={{
-                    border: "2px solid black",
-                    borderRadius: "50%",
-                    padding: "2px",
-                    display: "inline-block",
-                  }}
-                >
-                  <BiSolidUpArrow size={30} color="black" />
-                </span>
-              </IconButton>
-            )}
+            {showBackToTopButton && <BackToTopButton onClick={scrollToTop} />}
+
           </Box>
         </Center>
       </ChakraProvider>

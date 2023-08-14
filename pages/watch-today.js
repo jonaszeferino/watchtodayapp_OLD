@@ -19,9 +19,7 @@ import {
   Td,
   TableContainer,
   Box,
-
-  Button,
-
+Button,
   Tab,
   Tabs,
   TabList,
@@ -29,6 +27,9 @@ import {
   TabPanel,
   IconButton
 } from "@chakra-ui/react";
+import useBackToTopButton from "../components/backToTopButtonLogic";
+import BackToTopButton from "../components/backToTopButton";
+
 
 export default function Movieapi() {
   const [movieData, setMovieData] = useState({});
@@ -43,29 +44,9 @@ export default function Movieapi() {
   const [starValue, setStarValue] = useState(0); // Estado para armazenar o valor das estrelas
   const [isRatingSubmitted, setIsRatingSubmitted] = useState(false); // Estado para controlar se a avaliação foi enviada
 
-  const [showBackToTopButton, setShowBackToTopButton] = useState(false);
+  const { showBackToTopButton, scrollToTop } = useBackToTopButton(); // tranformado num hook
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowBackToTopButton(true);
-      } else {
-        setShowBackToTopButton(false);
-      }
-    };
 
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  console.log(starValue);
 
   useEffect(() => {
     if (isError) {
@@ -473,29 +454,8 @@ export default function Movieapi() {
 
               {likeThanks && <span>Obrigado pela Resposta!! 😀 </span>}
 
-              {showBackToTopButton && (
-                <IconButton
-                  onClick={scrollToTop}
-                  position="fixed"
-                  bottom="120px"
-                  right="40px"
-                  zIndex="9999"
-                  borderRadius="full"
-                  aria-label="Voltar para o topo"
-                  bg="transparent"
-                >
-                  <span
-                    style={{
-                      border: "2px solid black",
-                      borderRadius: "50%",
-                      padding: "2px",
-                      display: "inline-block",
-                    }}
-                  >
-                    <BiSolidUpArrow size={30} color="black" />
-                  </span>
-                </IconButton>
-              )}
+              {showBackToTopButton && <BackToTopButton onClick={scrollToTop} />}
+
 
               <br />
               {movieData.portugueseTitle && (
@@ -511,40 +471,3 @@ export default function Movieapi() {
   );
 }
 
-//Old Button:
-
-/* <button
-                    onClick={() => {
-                      handleLike(1);
-                      setLikeDisable(true);
-                      setLikeThanks(true);
-                    }}
-                    className={styles.button_green}
-                    disabled={isLikeDisabled}
-                  >
-                    Gostei
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      handleLike(2);
-                      setLikeDisable(true);
-                      setLikeThanks(true);
-                    }}
-                    className={styles.button_red}
-                    disabled={isLikeDisabled}
-                  >
-                    Não Gostei
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      handleLike(3);
-                      setLikeDisable(true);
-                      setLikeThanks(true);
-                    }}
-                    className={styles.button_yellow}
-                    disabled={isLikeDisabled}
-                  >
-                    Indiferente
-                  </button> */

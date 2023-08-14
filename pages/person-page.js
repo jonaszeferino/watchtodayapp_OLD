@@ -20,6 +20,9 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import TranslateProfile from "../components/TranslateProfile";
+import useBackToTopButton from "../components/backToTopButtonLogic";
+import BackToTopButton from "../components/backToTopButton";
+
 
 export default function Personapi() {
   const router = useRouter();
@@ -27,6 +30,8 @@ export default function Personapi() {
   const [personRecive, setPersonRecive] = useState({});
   const [isError, setError] = useState(false);
   const [dataPerson, setDataPerson] = useState({});
+  const { showBackToTopButton, scrollToTop } = useBackToTopButton(); 
+
 
   console.log();
 
@@ -317,6 +322,8 @@ export default function Personapi() {
           <br />
         </div>
       )}
+              {showBackToTopButton && <BackToTopButton onClick={scrollToTop} />}
+
     </div>
   );
 }

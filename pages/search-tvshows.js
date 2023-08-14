@@ -5,7 +5,6 @@ import { format } from "date-fns";
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
-
 import { BiSolidUpArrow } from "react-icons/bi";
 
 import {
@@ -24,7 +23,8 @@ import {
   Icon,
   IconButton,
 } from "@chakra-ui/react";
-
+import useBackToTopButton from "../components/backToTopButtonLogic";
+import BackToTopButton from "../components/backToTopButton";
 
 export default function Discovery() {
   let [searchMovies, setSearchMovies] = useState([]);
@@ -44,7 +44,7 @@ export default function Discovery() {
   let [isLoading, setIsLoading] = useState(false);
   let [searchTvType, setSearchTvType] = useState("");
 
-  const [showBackToTopButton, setShowBackToTopButton] = useState(false);
+  const { showBackToTopButton, scrollToTop } = useBackToTopButton(); // tranformado num hook
 
   let urlString =
     "https://api.themoviedb.org/3/discover/tv?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR&include_adult=false&include_video=false&vote_count.gte=" +
@@ -108,26 +108,6 @@ export default function Discovery() {
   let totalPages = searchMovieTotalPages;
   let currentPage = searchMovieRealPage;
   let totalResults = searchMovieTotalResults;
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 250) {
-        setShowBackToTopButton(true);
-      } else {
-        setShowBackToTopButton(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   const handleFromChange = (event) => {
     setSearchMovieReleaseDateFrom(parseInt(event.target.value));
@@ -333,29 +313,7 @@ export default function Discovery() {
           ""
         )}
 
-        {showBackToTopButton && (
-          <IconButton
-            onClick={scrollToTop}
-            position="fixed"
-            bottom="120px"
-            right="40px"
-            zIndex="9999"
-            borderRadius="full"
-            aria-label="Voltar para o topo"
-            bg="transparent"
-          >
-            <span
-              style={{
-                border: "2px solid black",
-                borderRadius: "50%",
-                padding: "2px",
-                display: "inline-block",
-              }}
-            >
-              <BiSolidUpArrow size={30} color="black" />
-            </span>
-          </IconButton>
-        )}
+        {showBackToTopButton && <BackToTopButton onClick={scrollToTop} />}
       </div>
     </>
   );

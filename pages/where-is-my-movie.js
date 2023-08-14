@@ -7,7 +7,6 @@ import TranslationComponent from "../components/translateComponent";
 import TranslationComponentCountryName from "../components/translateComponentCountryName";
 import { SearchIcon } from "@chakra-ui/icons";
 import { BiSolidUpArrow } from "react-icons/bi";
-
 import {
   ChakraProvider,
   Center,
@@ -27,9 +26,10 @@ import {
   InputGroup,
   InputRightElement,
   Text,
-  IconButton
+  IconButton,
 } from "@chakra-ui/react";
-
+import useBackToTopButton from "../components/backToTopButtonLogic";
+import BackToTopButton from "../components/backToTopButton";
 import Providers from "../components/countries";
 
 const MoviePage = () => {
@@ -52,27 +52,7 @@ const MoviePage = () => {
   const [movieResultSearchMovie, setResultSearchMovie] = useState([]);
   const [error, setError] = useState("");
 
-  const [showBackToTopButton, setShowBackToTopButton] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowBackToTopButton(true);
-      } else {
-        setShowBackToTopButton(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const { showBackToTopButton, scrollToTop } = useBackToTopButton(); // tranformado num hook
 
   const Clean = () => {
     setIsLoading(true);
@@ -5247,29 +5227,7 @@ const MoviePage = () => {
           </ChakraProvider>
         )}
         <div />
-        {showBackToTopButton && (
-          <IconButton
-            onClick={scrollToTop}
-            position="fixed"
-            bottom="120px"
-            right="40px"
-            zIndex="9999"
-            borderRadius="full"
-            aria-label="Voltar para o topo"
-            bg="transparent"
-          >
-            <span
-              style={{
-                border: "2px solid black",
-                borderRadius: "50%",
-                padding: "2px",
-                display: "inline-block",
-              }}
-            >
-              <BiSolidUpArrow size={30} color="black" />
-            </span>
-          </IconButton>
-        )}
+        {showBackToTopButton && <BackToTopButton onClick={scrollToTop} />}
       </div>
     </>
   );

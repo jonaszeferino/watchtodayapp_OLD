@@ -22,6 +22,9 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import TranslateProfile from "../components/TranslateProfile";
+import useBackToTopButton from "../components/backToTopButtonLogic";
+import BackToTopButton from "../components/backToTopButton";
+
 
 export default function Discovery() {
   const router = useRouter();
@@ -30,6 +33,7 @@ export default function Discovery() {
   let [movieId, setMovieId] = useState();
   let [searchMovies, setSearchMovies] = useState([]);
   let [searchText, setSearchText] = useState(query || "");
+  const { showBackToTopButton, scrollToTop } = useBackToTopButton(); 
 
   console.log(query);
 
@@ -367,6 +371,8 @@ export default function Discovery() {
             Total Resultados: {totalResults}
           </span>{" "}
         </span>
+        {showBackToTopButton && <BackToTopButton onClick={scrollToTop} />}
+
       </div>
     </>
   );

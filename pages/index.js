@@ -4,14 +4,10 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 import ErrorPage from "./error-page";
-import {
-  ChakraProvider,
-  Progress,
-  Container,
-  IconButton,
-} from "@chakra-ui/react";
-import { FaFilm } from "react-icons/fa";
+import { ChakraProvider, Progress } from "@chakra-ui/react";
 import { BiSolidUpArrow } from "react-icons/bi";
+import useBackToTopButton from "../components/backToTopButtonLogic";
+import BackToTopButton from "../components/backToTopButton";
 
 export default function Home() {
   let [movieId, setMovieId] = useState();
@@ -21,27 +17,7 @@ export default function Home() {
   let [isLoading, setIsLoading] = useState(false);
   let [searchTv, setSearchTv] = useState([]);
 
-  const [showBackToTopButton, setShowBackToTopButton] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowBackToTopButton(true);
-      } else {
-        setShowBackToTopButton(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const { showBackToTopButton, scrollToTop } = useBackToTopButton(); // tranformado num hook
 
   const urlString =
     "https://api.themoviedb.org/3/trending/movie/week?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c";
@@ -277,30 +253,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-        {showBackToTopButton && (
-          <IconButton
-            onClick={scrollToTop}
-            position="fixed"
-            bottom="120px"
-            right="40px"
-            zIndex="9999"
-            borderRadius="full"
-            aria-label="Voltar para o topo"
-            bg="transparent"
-          >
-            <span
-              style={{
-                border: "2px solid black",
-                borderRadius: "50%",
-                padding: "2px",
-                display: "inline-block",
-              }}
-            >
-              <BiSolidUpArrow size={30} color="black" />
-            </span>
-          </IconButton>
-        )}
-        Í
+        {showBackToTopButton && <BackToTopButton onClick={scrollToTop} />}
       </div>
     </div>
   );

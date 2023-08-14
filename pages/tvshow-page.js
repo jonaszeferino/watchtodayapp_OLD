@@ -14,6 +14,9 @@ import {
   Td,
   TableContainer,
 } from "@chakra-ui/react";
+import useBackToTopButton from "../components/backToTopButtonLogic";
+import BackToTopButton from "../components/backToTopButton";
+
 
 const MoviePage = () => {
   const router = useRouter();
@@ -26,6 +29,8 @@ const MoviePage = () => {
   const [status, setStatus] = useState();
   const [showStatus, setShowStatus] = useState(false);
   const [tvShowSeasonId, setTvShowSeasonId] = useState();
+  const { showBackToTopButton, scrollToTop } = useBackToTopButton(); 
+
   
 
   console.log(error);
@@ -321,6 +326,8 @@ const MoviePage = () => {
                 ) : null // Renderiza nulo se season_number for igual a 0
             )}
         </div>
+        {showBackToTopButton && <BackToTopButton onClick={scrollToTop} />}
+
       </ChakraProvider>
     </>
   );

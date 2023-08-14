@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
-
 import Image from "next/image";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
 import TranslationComponent from "../components/translateComponent";
 import TranslationComponentCountryName from "../components/translateComponentCountryName";
+import useBackToTopButton from "../components/backToTopButtonLogic";
+import BackToTopButton from "../components/backToTopButton";
+
 import {
   ChakraProvider,
   Progress,
@@ -17,7 +19,6 @@ import {
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
 
@@ -28,6 +29,7 @@ const MoviePage = () => {
   const [movieIdRequest, setMovieIdRequest] = useState();
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const { showBackToTopButton, scrollToTop } = useBackToTopButton(); 
 
   useEffect(() => {
     setMovieIdRequest(movieId);
@@ -322,6 +324,8 @@ const MoviePage = () => {
           </TableContainer>
         </ChakraProvider>
         <div />
+        {showBackToTopButton && <BackToTopButton onClick={scrollToTop} />}
+
       </div>
     </>
   );
