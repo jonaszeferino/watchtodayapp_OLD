@@ -14,13 +14,11 @@ import {
   FormControl,
   Flex,
   Box,
-  IconButton
+  IconButton,
 } from "@chakra-ui/react";
 import { BiSolidUpArrow } from "react-icons/bi";
 import useBackToTopButton from "../components/backToTopButtonLogic";
 import BackToTopButton from "../components/backToTopButton";
-
-
 
 export default function Discovery() {
   let [movieId, setMovieId] = useState();
@@ -39,7 +37,7 @@ export default function Discovery() {
   let [isError, setError] = useState(false);
   let [isLoading, setIsLoading] = useState(false);
   const { showBackToTopButton, scrollToTop } = useBackToTopButton(); // tranformado num hook
-   // estado pra amarzenar os filtros utilizados
+  // estado pra amarzenar os filtros utilizados
 
   const [searchFilters, setSearchFilters] = useState({
     ratingSort: "vote_average.desc",
@@ -673,7 +671,6 @@ export default function Discovery() {
         )}
       </div>
       {showBackToTopButton && <BackToTopButton onClick={scrollToTop} />}
-
     </>
   );
 }

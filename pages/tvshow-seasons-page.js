@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import styles from "../styles/Home.module.css";
-import { format } from "date-fns";
 import { useRouter } from "next/router";
 import {
   ChakraProvider,
-  Progress,
   Tr,
   Td,
   Box,
@@ -15,21 +12,18 @@ import {
   Tbody,
   TableContainer,
   Image,
-  IconButton
 } from "@chakra-ui/react";
-import { FaArrowUp } from "react-icons/fa"; // Importando o ícone de seta para cima
 import TranslateProfile from "../components/TranslateProfile";
 import useBackToTopButton from "../components/backToTopButtonLogic";
 import BackToTopButton from "../components/backToTopButton";
 
-
 const MoviePage = () => {
   const router = useRouter();
-  const { tvShowId, tvShowSeasonId } = router.query; // Destructure the query parameters
+  const { tvShowId, tvShowSeasonId } = router.query;
   const [dataTvShows, setDataTvShows] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
-  //Botão para levar novamente ao top
+
   const { showBackToTopButton, scrollToTop } = useBackToTopButton(); // tranformado num hook
 
   useEffect(() => {
@@ -41,25 +35,23 @@ const MoviePage = () => {
   const CallDataTvShowsDetails = () => {
     const url = `https://api.themoviedb.org/3/tv/${tvShowId}/season/${tvShowSeasonId}?api_key=dd10bb2fbc12dfb629a0cbaa3f47810c&language=pt-BR`;
 
-    console.log(url);
-
     fetch(url)
       .then((response) => {
         if (response.status === 200) {
           return response.json();
         } else if (response.status === 404) {
-          throw new Error("Temporada não encontrada"); // Personalize a mensagem de erro conforme necessário
+          throw new Error("Temporada não encontrada");
         } else {
           throw new Error("Ocorreu um erro ao buscar os dados");
         }
       })
       .then((result) => {
         setDataTvShows(result);
-        setIsLoading(false); // Set loading to false once data is fetched
+        setIsLoading(false);
       })
       .catch((error) => {
         setError(true);
-        setIsLoading(false); // Set loading to false on error as well
+        setIsLoading(false);
       });
   };
 
@@ -79,7 +71,7 @@ const MoviePage = () => {
                     key={episode.name}
                     className={styles.gridItem}
                     style={{
-                      maxWidth: "100%", // Use relative unit
+                      maxWidth: "100%",
                       margin: "0 auto",
                       wordBreak: "break-word",
                     }}
@@ -89,7 +81,6 @@ const MoviePage = () => {
                         {episode.name} - T{tvShowSeasonId} E
                         {episode.episode_number}
                       </Text>
-
                       <Box
                         width="100%"
                         mx="auto"
@@ -108,7 +99,6 @@ const MoviePage = () => {
                           height="auto"
                         />
                       </Box>
-
                       <div
                         style={{
                           maxWidth: "100%",
@@ -140,7 +130,6 @@ const MoviePage = () => {
                                 <Td>Nota Média:</Td>
                                 <Td>{episode.vote_average}</Td>
                               </Tr>
-
                               <Tr>
                                 <Td>Direção e Roteiro</Td>
                                 <Td>
@@ -189,9 +178,7 @@ const MoviePage = () => {
                 </Text>
               )}
             </div>
-
             {showBackToTopButton && <BackToTopButton onClick={scrollToTop} />}
-
           </Box>
         </Center>
       </ChakraProvider>
