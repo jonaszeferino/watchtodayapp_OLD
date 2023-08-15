@@ -380,125 +380,121 @@ export default function Discovery() {
           <h3 className={styles.title}> Descubra Filmes</h3>
         </div>
 
-        <h2 className={styles.label}>
-          <br />
-          <ChakraProvider>
-            <FormLabel htmlFor="ordenation">Ordenação do Resultado</FormLabel>
-            <Select
-              id="ordenation"
-              placeholder="Ordenação"
-              type="text"
-              isRequired={true}
-              value={searchRatingSort}
-              onChange={(event) => setSearchRatingSort(event.target.value)}
-            >
-              <option value="vote_average.asc">Da Pior Nota Para Melhor</option>
-              <option value="vote_average.desc">
-                Da Melhor Nota Para Pior
+        <br />
+        <ChakraProvider>
+          <FormLabel htmlFor="ordenation">Ordenação do Resultado</FormLabel>
+          <Select
+            id="ordenation"
+            placeholder="Ordenação"
+            type="text"
+            isRequired={true}
+            value={searchRatingSort}
+            onChange={(event) => setSearchRatingSort(event.target.value)}
+          >
+            <option value="vote_average.asc">Da Pior Nota Para Melhor</option>
+            <option value="vote_average.desc">Da Melhor Nota Para Pior</option>
+          </Select>
+        </ChakraProvider>
+
+        <br />
+        <ChakraProvider>
+          <FormLabel htmlFor="votes">Range de Votos</FormLabel>
+          <Select
+            id="votes"
+            placeholder="Número de Votos"
+            type="number"
+            isRequired={true}
+            value={searchVoteCount}
+            onChange={(event) => setSearchVoteCount(event.target.value)}
+          >
+            <option value="0">0 Votos</option>
+            <option value="50">Mais de 50</option>
+            <option value="100">Mais de 100</option>
+            <option value="200">Mais de 200</option>
+            <option value="500">Mais de 500</option>
+            <option value="1000">Mais de 1000</option>
+            <option value="5000">Mais de 5000</option>
+          </Select>
+        </ChakraProvider>
+        <br />
+        <ChakraProvider>
+          <FormControl>
+            <FormLabel>Ano Inicial e Final:</FormLabel>
+            <Flex align="center">
+              <Select value={searchMovieReleaseDateFrom}>
+                {Array.from({ length: 2024 - 1900 + 1 }, (_, index) => (
+                  <option key={index} value={1900 + index}>
+                    {1900 + index}
+                  </option>
+                ))}
+              </Select>
+              <Box w="20px" />
+              <Select value={searchMovieReleaseDateTo}>
+                {Array.from({ length: 2024 - 1900 + 1 }, (_, index) => (
+                  <option key={index} value={1900 + index}>
+                    {1900 + index}
+                  </option>
+                ))}
+              </Select>
+            </Flex>
+          </FormControl>
+        </ChakraProvider>
+
+        <br />
+        <ChakraProvider>
+          <FormLabel htmlFor="origin_country">País de Origem</FormLabel>
+          <Select
+            id="origin_country"
+            placeholder="Selecione o País"
+            value={searchFilters.with_origin_country}
+            onChange={(event) =>
+              setSearchFilters({
+                ...searchFilters,
+                with_origin_country: event.target.value,
+              })
+            }
+          >
+            {options.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
               </option>
-            </Select>
-          </ChakraProvider>
-
-          <br />
-          <ChakraProvider>
-            <FormLabel htmlFor="votes">Range de Votos</FormLabel>
-            <Select
-              id="votes"
-              placeholder="Número de Votos"
-              type="number"
-              isRequired={true}
-              value={searchVoteCount}
-              onChange={(event) => setSearchVoteCount(event.target.value)}
+            ))}
+          </Select>
+        </ChakraProvider>
+        <br />
+        <ChakraProvider>
+          <Button size="lg" colorScheme="purple" mt="24px" onClick={apiCall}>
+            Verificar
+          </Button>
+        </ChakraProvider>
+        <br />
+        {!searchMovies ? (
+          <div>
+            <button
+              onClick={previousPage}
+              disabled={page <= 1}
+              className={styles.card}
             >
-              <option value="0">0 Votos</option>
-              <option value="50">Mais de 50</option>
-              <option value="100">Mais de 100</option>
-              <option value="200">Mais de 200</option>
-              <option value="500">Mais de 500</option>
-              <option value="1000">Mais de 1000</option>
-              <option value="5000">Mais de 5000</option>
-            </Select>
-          </ChakraProvider>
-          <br />
-          <ChakraProvider>
-            <FormControl>
-              <FormLabel>Ano Inicial e Final:</FormLabel>
-              <Flex align="center">
-                <Select value={searchMovieReleaseDateFrom}>
-                  {Array.from({ length: 2024 - 1900 + 1 }, (_, index) => (
-                    <option key={index} value={1900 + index}>
-                      {1900 + index}
-                    </option>
-                  ))}
-                </Select>
-                <Box w="20px" />
-                <Select value={searchMovieReleaseDateTo}>
-                  {Array.from({ length: 2024 - 1900 + 1 }, (_, index) => (
-                    <option key={index} value={1900 + index}>
-                      {1900 + index}
-                    </option>
-                  ))}
-                </Select>
-              </Flex>
-            </FormControl>
-          </ChakraProvider>
-
-          <br />
-          <ChakraProvider>
-            <FormLabel htmlFor="origin_country">País de Origem</FormLabel>
-            <Select
-              id="origin_country"
-              placeholder="Selecione o País"
-              value={searchFilters.with_origin_country}
-              onChange={(event) =>
-                setSearchFilters({
-                  ...searchFilters,
-                  with_origin_country: event.target.value,
-                })
-              }
+              Anterior
+            </button>
+            <button
+              onClick={nextPage}
+              disabled={page >= totalPages}
+              className={styles.card}
             >
-              {options.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </Select>
-          </ChakraProvider>
-          <br />
-          <ChakraProvider>
-            <Button size="lg" colorScheme="purple" mt="24px" onClick={apiCall}>
-              Verificar
-            </Button>
-          </ChakraProvider>
-          <br />
-          {!searchMovies ? (
-            <div>
-              <button
-                onClick={previousPage}
-                disabled={page <= 1}
-                className={styles.card}
-              >
-                Anterior
-              </button>
-              <button
-                onClick={nextPage}
-                disabled={page >= totalPages}
-                className={styles.card}
-              >
-                Próxima
-              </button>
-            </div>
-          ) : (
-            ""
-          )}
-          <span className={styles.spantext}>
-            {isLoading ? (
-              <ChakraProvider>
-                <Progress size="xs" isIndeterminate />{" "}
-              </ChakraProvider>
-            ) : null}
-          </span>
-        </h2>
+              Próxima
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
+        <span className={styles.spantext}>
+          {isLoading ? (
+            <ChakraProvider>
+              <Progress size="xs" isIndeterminate />{" "}
+            </ChakraProvider>
+          ) : null}
+        </span>
 
         {isError === true ? (
           <ErrorPage message={`Verifique as Credenciais`}></ErrorPage>
@@ -645,30 +641,6 @@ export default function Discovery() {
         )}
 
         {!totalResults ? <span className={styles.spantext}></span> : ""}
-
-        {showBackToTopButton && (
-          <IconButton
-            onClick={scrollToTop}
-            position="fixed"
-            bottom="120px"
-            right="40px"
-            zIndex="9999"
-            borderRadius="full"
-            aria-label="Voltar para o topo"
-            bg="transparent"
-          >
-            <span
-              style={{
-                border: "2px solid black",
-                borderRadius: "50%",
-                padding: "2px",
-                display: "inline-block",
-              }}
-            >
-              <BiSolidUpArrow size={30} color="black" />
-            </span>
-          </IconButton>
-        )}
       </div>
       {showBackToTopButton && <BackToTopButton onClick={scrollToTop} />}
     </>
