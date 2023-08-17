@@ -398,13 +398,13 @@ export default function Discovery() {
             <img src="teste_cinza.png" alt="Image 1" style={contentStyle} />
           </div>
           <div>
-            <img src="image2.jpg" alt="Image 2" style={contentStyle} />
+            <img src="teste_preto.png" alt="Image 2" style={contentStyle} />
           </div>
           <div>
-            <img src="image3.jpg" alt="Image 3" style={contentStyle} />
+            <img src="teste_roxo.png" alt="Image 3" style={contentStyle} />
           </div>
           <div>
-            <img src="image4.jpg" alt="Image 4" style={contentStyle} />
+            <img src="teste_cinza.png" alt="Image 4" style={contentStyle} />
           </div>
         </Carousel>
 

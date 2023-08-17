@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
-
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import { format } from "date-fns";
@@ -17,7 +16,6 @@ import {
 import useBackToTopButton from "../components/backToTopButtonLogic";
 import BackToTopButton from "../components/backToTopButton";
 
-
 const MoviePage = () => {
   const router = useRouter();
   const tvShowId = router.query.tvShowId;
@@ -29,11 +27,7 @@ const MoviePage = () => {
   const [status, setStatus] = useState();
   const [showStatus, setShowStatus] = useState(false);
   const [tvShowSeasonId, setTvShowSeasonId] = useState();
-  const { showBackToTopButton, scrollToTop } = useBackToTopButton(); 
-
-  
-
-  console.log(error);
+  const { showBackToTopButton, scrollToTop } = useBackToTopButton();
 
   useEffect(() => {
     let showId;
@@ -113,7 +107,7 @@ const MoviePage = () => {
   }
 
   const CallDataTvShows = () => {
-    setShowStatus(true)
+    setShowStatus(true);
     if (!tvShowId) {
       return;
     }
@@ -205,32 +199,26 @@ const MoviePage = () => {
                     <Td>Título em Português:</Td>
                     <Td>{data.portugueseTitle}</Td>
                   </Tr>
-
                   <Tr>
                     <Td>Overview:</Td>
                     <Td>{data.overview ? data.overview : "Sem infos"}</Td>
                   </Tr>
-
                   <Tr>
                     <Td>Gêneros:</Td>
-                    <Td>{data.gender}</Td>
+                    <Td>{data.gender === "Soap" ? "Novela" : data.gender}</Td>
                   </Tr>
-
                   <Tr>
                     <Td>Nº de votos:</Td>
                     <Td>{data.ratingCount}</Td>
                   </Tr>
-
                   <Tr>
                     <Td>Nota:</Td>
                     <Td>{data.average}</Td>
                   </Tr>
-
                   <Tr>
                     <Td>Popularidade:</Td>
                     <Td>{data.popularity}</Td>
                   </Tr>
-
                   <Tr>
                     <Td>Primeiro Episódio no Ar:</Td>
                     <Td>
@@ -239,12 +227,10 @@ const MoviePage = () => {
                         : ""}
                     </Td>
                   </Tr>
-
                   <Tr>
                     <Td>Streamings Brasil:</Td>
                     <Td>{data.providersBR}</Td>
                   </Tr>
-
                   <Tr>
                     <Td>Streamings EUA:</Td>
                     <Td>{data.providersUS}</Td>
@@ -327,7 +313,6 @@ const MoviePage = () => {
             )}
         </div>
         {showBackToTopButton && <BackToTopButton onClick={scrollToTop} />}
-
       </ChakraProvider>
     </>
   );
