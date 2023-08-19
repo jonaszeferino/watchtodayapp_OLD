@@ -43,7 +43,6 @@ export default function Movieapi() {
 
   const [starValue, setStarValue] = useState(0); // Estado para armazenar o valor das estrelas
   const [isRatingSubmitted, setIsRatingSubmitted] = useState(false); // Estado para controlar se a avaliação foi enviada
-
   const { showBackToTopButton, scrollToTop } = useBackToTopButton(); // tranformado num hook
 
   useEffect(() => {
@@ -117,66 +116,41 @@ export default function Movieapi() {
     }
   }
 
-  const movieDataInsert = {
-    movie_id: movieData.movieId,
-    like_movie: like,
-    movie_name: movieData.originalTitle,
-    user_id: "1",
-    createdDate: dateNow,
-  };
-
-  const insertMovieData = (movieDataInsert) => {
-    setLike(0);
-    const url = "https://watchtodayapp.vercel.app/api/v1/insertLike";
-
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(movieDataInsert),
-    };
-
-    fetch(url, options)
-      .then((response) => {
-        if (response.ok) {
-          console.log("Dados inseridos com sucesso!", "veraqui");
-        } else {
-          console.log("Erro ao inserir dados", "veraqui");
-        }
-      })
-      .catch((error) => {
-        console.log("veraqui " + error);
+  const inserLike = async () => {
+    try {
+      const response = await fetch("/api/v1/postRateRandomMovie", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          movie_id: movieData.movieId,
+          poster_path: movieData.image,
+          original_title: movieData.originalTitle,
+          portuguese_title: movieData.portugueseTitle,
+          vote_average_by_provider: movieData.average,
+          rating_by_user: starValue,
+        }),
       });
-  };
-
-  const handleLike = (value) => {
-    console.log(value, "veraqui");
-    setLike(value);
-    setLikeDisable(false);
-
-    const updatedMovieDataInsert = {
-      ...movieDataInsert,
-      like_movie: value,
-    };
-    insertMovieData(updatedMovieDataInsert);
+      return;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // Estrelas:
   const handleRateChange = (value) => {
     setStarValue(value); // Atualiza o estado com o novo valor das estrelas
   };
-
   const handleRatingSubmit = () => {
     // AColar aqui a chamada na api para enviar o valor das estrelas ao banco de dados
-
     setIsRatingSubmitted(true);
   };
 
   const isLoadingPage =
     isError || movieData.adult || movieData.portugueseTitle === null;
   console.log(isLoadingPage);
-  
+
   return (
     <>
       <Head>
@@ -376,16 +350,11 @@ export default function Movieapi() {
                     </ChakraProvider>
                   </div>
                 )}
-                <br />
                 {movieData.portugueseTitle && (
                   <Link href={destino}>
                     <a className={styles.button}>Detalhes</a>
                   </Link>
                 )}
-                <br />
-                <br />
-                {movieData.portugueseTitle && <span>O que Achou da dica?</span>}
-                <br />
                 <br />
                 {movieData.portugueseTitle && (
                   <span>
@@ -400,7 +369,10 @@ export default function Movieapi() {
                       />
                       <br />
                       <Button
-                        onClick={handleRatingSubmit}
+                        onClick={() => {
+                          handleRatingSubmit();
+                          inserLike();
+                        }}
                         disabled={isRatingSubmitted}
                       >
                         Enviar Avaliação
@@ -416,7 +388,6 @@ export default function Movieapi() {
                 {showBackToTopButton && (
                   <BackToTopButton onClick={scrollToTop} />
                 )}
-                <br />
                 {movieData.portugueseTitle && (
                   <button onClick={apiCall} className={styles.button}>
                     Verificar Novo

@@ -9,11 +9,10 @@ export default async function handler(req, res) {
     vote_average_by_provider,
     rating_by_user,
     portuguese_title,
+    user_id
   } = req.body;
 
   let date = moment().tz("UTC-03:00").toDate();
-
-  console.log(req.body);
   const collection = client.db("moviesSeriesLikes").collection("movieLikes");
 
   try {
@@ -27,9 +26,12 @@ export default async function handler(req, res) {
         : null,
       rating_by_user: rating_by_user ? rating_by_user : null,
       like_date: date ? date : null,
+      user_id: user_id ? user_id : 9999999999
     });
 
     console.log(result);
+    //
+    
 
     res.status(200).json({ message: "Insert Like", result });
   } catch (error) {
