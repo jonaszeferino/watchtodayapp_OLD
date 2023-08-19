@@ -176,9 +176,7 @@ export default function Movieapi() {
   const isLoadingPage =
     isError || movieData.adult || movieData.portugueseTitle === null;
   console.log(isLoadingPage);
-  //
-
-  console.log(movieData.image);
+  
   return (
     <>
       <Head>

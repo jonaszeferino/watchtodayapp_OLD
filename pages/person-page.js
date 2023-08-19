@@ -23,15 +23,13 @@ import TranslateProfile from "../components/TranslateProfile";
 import useBackToTopButton from "../components/backToTopButtonLogic";
 import BackToTopButton from "../components/backToTopButton";
 
-
 export default function Personapi() {
   const router = useRouter();
   const personIdRecive = router.query.personId;
   const [personRecive, setPersonRecive] = useState({});
   const [isError, setError] = useState(false);
   const [dataPerson, setDataPerson] = useState({});
-  const { showBackToTopButton, scrollToTop } = useBackToTopButton(); 
-
+  const { showBackToTopButton, scrollToTop } = useBackToTopButton();
 
   console.log();
 
@@ -176,8 +174,6 @@ export default function Personapi() {
             Verificar Trabalhos
           </button>
           <br />
-          <br />
-
           <ChakraProvider>
             {dataPerson.cast ? (
               <>
@@ -190,7 +186,6 @@ export default function Personapi() {
               </>
             ) : null}
           </ChakraProvider>
-
           <ChakraProvider>
             <div className={styles.grid}>
               {dataPerson.cast &&
@@ -220,12 +215,10 @@ export default function Personapi() {
                       height="360"
                     />
                     <br />
-
                     <TranslateProfile
                       text={work.character ? work.character : "N/A"}
                       language={"pt"}
                     />
-
                     <div>
                       <Link
                         href={{
@@ -256,9 +249,7 @@ export default function Personapi() {
                 <Divider />
               </>
             ) : null}
-
             <br />
-
             <div className={styles.grid}>
               {dataPerson.crew &&
                 dataPerson.crew.map((workCrew) => (
@@ -322,8 +313,7 @@ export default function Personapi() {
           <br />
         </div>
       )}
-              {showBackToTopButton && <BackToTopButton onClick={scrollToTop} />}
-
+      {showBackToTopButton && <BackToTopButton onClick={scrollToTop} />}
     </div>
   );
 }

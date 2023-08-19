@@ -24,6 +24,7 @@
     "jquery": "^3.6.4",
     "materialui-pagination-component": "^1.1.12",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
     "mongodb": "^4.13.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.2.0",
