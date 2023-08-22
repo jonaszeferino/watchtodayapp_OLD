@@ -1,29 +1,23 @@
 import client from "../../../mongoConnection";
 
 export default async function handler(req, res) {
+  if (req.method !== "GET") {
+    res.status(405).json({ error: "Method Not Allowed" });
+    return;
+  }
+
   const collection = client.db("moviesSeriesLikes").collection("movieLikes");
 
   try {
-    const { user_id } = req.body; // Agora você obtém o user_id do corpo da requisição
-    const matchStage = user_id ? { user_id: user_id } : {}; // Filtro
+    const user_id = parseInt(req.query.user_id);
 
-    const pipeline = [
-      { $match: matchStage },
-      {
-        $group: {
-          _id: "$movie_id",
-          movieId: { $first: "$movie_id" }, // Renomeia _id para movieId
-          poster_path: { $first: "$poster_path" },
-          original_title: { $first: "$original_title" },
-          portuguese_title: { $first: "$portuguese_title" },
-          vote_average_by_provider: { $first: "$vote_average_by_provider" },
-          rating_by_user: { $first: "$rating_by_user" },
-          like_date: { $first: "$like_date" },
-          averageRating: { $avg: "$rating_by_user" },
-          count: { $sum: 1 },
-        },
-      },
-    ];
+    if (isNaN(user_id)) {
+      res.status(400).json({ error: "user_id must be a valid number" });
+      return;
+    }
+
+    const matchStage = user_id ? { user_id: user_id } : {};
+    const pipeline = [{ $match: matchStage }];
 
     const result = await collection.aggregate(pipeline).toArray();
 

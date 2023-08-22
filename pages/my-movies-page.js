@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import {
   ChakraProvider,
   TableContainer,
@@ -11,34 +10,91 @@ import {
   Th,
   Td,
   Checkbox,
+  Button,
+  Spinner,
+  Image,
 } from "@chakra-ui/react";
+import { Rate } from "antd";
 
 const MoviePage = () => {
-  const router = useRouter();
-  const [user, setUser] = useState(null); // Estado para armazenar informações do usuário autenticado
+  const [data, setData] = useState([]); // Inicialize o estado com um array vazio
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState(null); // Adicione o estado para armazenar o filme selecionado
+  const [valueStartDelete, setValueStartDelete] = useState(false);
+  const [valueEndDelete, setValueEndDelete] = useState(false);
+
+  console.log("selecionado:", selectedMovie);
+
+  const user_id = 9999999999;
+
+  const apiGetRates = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await fetch(
+        `/api/v1/getRateRandomMovie?user_id=${parseInt(user_id)}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const responseData = await response.json();
+      setData(responseData);
+      setIsLoading(false);
+      setValueEndDelete(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    // Verifique se o usuário está autenticado ao carregar a página
-    const session = supabase.auth.session();
-    setUser(session?.user || null);
+    apiGetRates();
+    setValueEndDelete(false);
   }, []);
 
-  // Verifique se o usuário está autenticado antes de renderizar o conteúdo da página
-  if (!user) {
-    return <p>Você não tem permissão para acessar esta página. Faça login.</p>;
-  }
-
+  const apiDeleteRates = async () => {
+    setValueStartDelete(true);
+    try {
+      const response = await fetch("/api/v1/deleteRateRandomMovie", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          movie_id: selectedMovie,
+          user_id: user_id,
+        }),
+      });
+      setValueStartDelete(false), apiGetRates();
+      setValueEndDelete(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <>
-      <ChakraProvider>
-        <div
-          style={{
-            maxWidth: "480px",
-            margin: "0 auto",
-            wordBreak: "break-word",
-          }}
-        >
+    <ChakraProvider>
+      <div
+        style={{
+          maxWidth: "1200px",
+          margin: "0 auto",
+          wordBreak: "break-word",
+        }}
+      >
+        <h1>Meus Likes</h1>
+        {valueStartDelete ? (
+          <h1>
+            "Excluindo Registro selecionado" <Spinner size="xl" />
+          </h1>
+        ) : null}
+
+        {valueEndDelete ? <h1>"Registro Deletado"</h1> : null}
+
+        {isLoading ? (
+          <Spinner size="xl" />
+        ) : (
           <TableContainer>
             <Table variant="simple">
               <TableCaption>Like Nos Filmes</TableCaption>
@@ -47,50 +103,68 @@ const MoviePage = () => {
                   <Th>Filme</Th>
                   <Th>Data</Th>
                   <Th>Nota</Th>
+                  <Th>Poster</Th>
                   <Th>
-                    Selecione
+                    <Button
+                      onClick={() => apiDeleteRates()}
+                      disabled={selectedMovie === null}
+                      colorScheme={selectedMovie !== null ? "red" : "gray"} // Set color scheme based on selectedMovie
+                    >
+                      Excluir
+                    </Button>
                   </Th>
                 </Tr>
               </Thead>
               <Tbody>
-                <Tr>
-                  <Td>Forrest Gump</Td>
-                  <Td>10/08/23</Td>
-                  <Td>5.4</Td>
-                  <Td>
-                    <Checkbox />
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td>Big Fish</Td>
-                  <Td>10/03/22</Td>
-                  <Td>3.48</Td>
-                  <Td>
-                    <Checkbox />
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td>Central do Brasil</Td>
-                  <Td>12/02/22</Td>
-                  <Td>1.3</Td>
-                  <Td>
-                    <Checkbox />
-                  </Td>
-                </Tr>
+                {data.map((movie) => (
+                  <Tr key={movie.movieId}>
+                    <Td>
+                      {movie.original_title}
+                      <br />
+                      <span>{movie.portuguese_title}</span>
+                    </Td>
+                    <Td>{new Date(movie.like_date).toLocaleDateString()}</Td>
+                    <Td>
+                      <Rate
+                        onChange={(rating) => {}}
+                        value={movie.rating_by_user || 0}
+                        count={10}
+                      />
+                    </Td>
+                    <Td>
+                      <Image
+                        src={
+                          movie.poster_path !== "/callback_gray.png"
+                            ? "https://image.tmdb.org/t/p/original" +
+                              movie.poster_path
+                            : "/callback_gray.png"
+                        }
+                        alt="poster"
+                        width={60}
+                        height={90}
+                        style={{
+                          objectFit: "contain",
+                          maxHeight: "100%",
+                          maxWidth: "100%",
+                        }}
+                      />
+                    </Td>
+
+                    <Td>
+                      <Checkbox
+                        onChange={() => setSelectedMovie(movie.movie_id)} // Update the selectedMovie state with the movie_id
+                        isChecked={selectedMovie === movie.movie_id} // Check if the movie is selected
+                      />
+                    </Td>
+                  </Tr>
+                ))}
               </Tbody>
-              {/* <Tfoot>
-                <Tr>
-                  <Th>To convert</Th>
-                  <Th>into</Th>
-                  <Th isNumeric>multiply by</Th>
-                </Tr>
-              </Tfoot> */}
             </Table>
           </TableContainer>
-        </div>
-      </ChakraProvider>
-    </>
-  );  
+        )}
+      </div>
+    </ChakraProvider>
+  );
 };
 
 export default MoviePage;
