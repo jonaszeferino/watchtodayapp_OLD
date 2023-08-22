@@ -22,11 +22,11 @@ const MoviePage = () => {
   const [selectedMovie, setSelectedMovie] = useState(null); // Adicione o estado para armazenar o filme selecionado
   const [valueStartDelete, setValueStartDelete] = useState(false);
   const [valueEndDelete, setValueEndDelete] = useState(false);
+  const [isConfirmationMode, setIsConfirmationMode] = useState(false);
 
   console.log("selecionado:", selectedMovie);
 
   const user_id = 9999999999;
-
   const apiGetRates = async () => {
     setIsLoading(true);
 
@@ -69,6 +69,7 @@ const MoviePage = () => {
       });
       setValueStartDelete(false), apiGetRates();
       setValueEndDelete(true);
+      setIsConfirmationMode(false); // Adicione esta linha
     } catch (error) {
       console.error(error);
     }
@@ -78,7 +79,7 @@ const MoviePage = () => {
     <ChakraProvider>
       <div
         style={{
-          maxWidth: "1200px",
+          maxWidth: "1500px",
           margin: "0 auto",
           wordBreak: "break-word",
         }}
@@ -105,13 +106,28 @@ const MoviePage = () => {
                   <Th>Nota</Th>
                   <Th>Poster</Th>
                   <Th>
-                    <Button
-                      onClick={() => apiDeleteRates()}
-                      disabled={selectedMovie === null}
-                      colorScheme={selectedMovie !== null ? "red" : "gray"} // Set color scheme based on selectedMovie
-                    >
-                      Excluir
-                    </Button>
+                    {isConfirmationMode ? (
+                      <>
+                        <Button
+                          onClick={apiDeleteRates}
+                          colorScheme="red"
+                          marginRight={2}
+                        >
+                          Confirmar
+                        </Button>
+                        <Button onClick={() => setIsConfirmationMode(false)}>
+                          Cancelar
+                        </Button>
+                      </>
+                    ) : (
+                      <Button
+                        onClick={() => setIsConfirmationMode(true)}
+                        disabled={selectedMovie === null}
+                        colorScheme={selectedMovie !== null ? "red" : "gray"}
+                      >
+                        Excluir
+                      </Button>
+                    )}
                   </Th>
                 </Tr>
               </Thead>
@@ -152,8 +168,9 @@ const MoviePage = () => {
 
                     <Td>
                       <Checkbox
-                        onChange={() => setSelectedMovie(movie.movie_id)} // Update the selectedMovie state with the movie_id
-                        isChecked={selectedMovie === movie.movie_id} // Check if the movie is selected
+                        onChange={() => setSelectedMovie(movie.movie_id)}
+                        isChecked={selectedMovie === movie.movie_id}
+                        isDisabled={isConfirmationMode} // Adicione esta linha
                       />
                     </Td>
                   </Tr>
