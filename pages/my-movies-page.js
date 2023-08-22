@@ -17,14 +17,13 @@ import {
 import { Rate } from "antd";
 
 const MoviePage = () => {
-  const [data, setData] = useState([]); // Inicialize o estado com um array vazio
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedMovie, setSelectedMovie] = useState(null); // Adicione o estado para armazenar o filme selecionado
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [selectedAlterMovie, setSelectedAlterMovie] = useState(null);
   const [valueStartDelete, setValueStartDelete] = useState(false);
   const [valueEndDelete, setValueEndDelete] = useState(false);
   const [isConfirmationMode, setIsConfirmationMode] = useState(false);
-
-  console.log("selecionado:", selectedMovie);
 
   const user_id = 9999999999;
   const apiGetRates = async () => {
@@ -69,7 +68,46 @@ const MoviePage = () => {
       });
       setValueStartDelete(false), apiGetRates();
       setValueEndDelete(true);
-      setIsConfirmationMode(false); // Adicione esta linha
+      setIsConfirmationMode(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const apiPutRates = async (movieId, rating) => {
+    try {
+      console.log("Request payload:", {
+        movie_id: movieId,
+        user_id: user_id,
+        rating_by_user: rating,
+      });
+
+      const response = await fetch("/api/v1/putRateRandomMovie", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          movie_id: movieId,
+          user_id: user_id,
+          rating_by_user: rating,
+        }),
+      });
+
+      const responseData = await response.json();
+      const statusCode = response.status;
+
+      if (statusCode === 200) {
+        apiGetRates();
+        console.log("Update successful");
+        console.log("Response data:", responseData);
+      } else if (statusCode === 404) {
+        console.log("No matching document found");
+      } else if (statusCode === 500) {
+        console.log("Internal server error");
+      }
+
+      // Check other status codes as needed
     } catch (error) {
       console.error(error);
     }
@@ -141,11 +179,18 @@ const MoviePage = () => {
                     </Td>
                     <Td>{new Date(movie.like_date).toLocaleDateString()}</Td>
                     <Td>
-                      <Rate
-                        onChange={(rating) => {}}
-                        value={movie.rating_by_user || 0}
-                        count={10}
-                      />
+                      <Td>
+                        <Td>
+                          <Rate
+                            onChange={(rating) => {
+                              setSelectedAlterMovie(movie.movie_id); // Update the selectedAlterMovie state
+                              apiPutRates(movie.movie_id, rating); // Use movie.movie_id for movie_id
+                            }}
+                            value={movie.rating_by_user || 0}
+                            count={10}
+                          />
+                        </Td>
+                      </Td>
                     </Td>
                     <Td>
                       <Image
