@@ -125,11 +125,11 @@ const MoviePage = () => {
         <h1>Meus Likes</h1>
         {valueStartDelete ? (
           <h1>
-            "Excluindo Registro selecionado" <Spinner size="xl" />
+            Excluindo Registro selecionado <Spinner size="xl" />
           </h1>
         ) : null}
 
-        {valueEndDelete ? <h1>"Registro Deletado"</h1> : null}
+        {valueEndDelete ? <h1>Registro Deletado</h1> : null}
 
         {isLoading ? (
           <Spinner size="xl" />
