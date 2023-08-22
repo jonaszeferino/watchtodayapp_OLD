@@ -168,9 +168,15 @@ const MoviePage = () => {
 
                     <Td>
                       <Checkbox
-                        onChange={() => setSelectedMovie(movie.movie_id)}
+                        onChange={() =>
+                          setSelectedMovie((prevSelectedMovie) =>
+                            prevSelectedMovie === movie.movie_id
+                              ? null
+                              : movie.movie_id
+                          )
+                        }
                         isChecked={selectedMovie === movie.movie_id}
-                        isDisabled={isConfirmationMode} // Adicione esta linha
+                        isDisabled={isConfirmationMode}
                       />
                     </Td>
                   </Tr>
